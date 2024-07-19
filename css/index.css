@@ -3725,3 +3725,19 @@ pre .coffeescript .title {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
+:root {
+  --primary: #ff8934;
+  --primary-70: rgba(255, 137, 52, 0.7);
+  --primary-50: rgba(255, 137, 52, 0.5);
+  --primary-30: rgba(255, 137, 52, 0.3);
+  --primary-weak: #fac70f;
+  --primary-weak-50: rgba(250, 199, 15, 0.5);
+}
+:root.dark {
+  --primary: #b32af3;
+  --primary-70: rgba(179, 42, 243, 0.7);
+  --primary-50: rgba(179, 42, 243, 0.5);
+  --primary-30: rgba(179, 42, 243, 0.3);
+  --primary-weak: #00eeff;
+  --primary-weak-50: rgba(0, 238, 255, 0.5);
+}
