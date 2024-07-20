@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="《终南别业》Hexo + Github 搭建个人博客今年七月份的时候，在github搭建了一个人博客，初衷就是想拿来作为自己的在线笔记本，做做学习记录，分享一些学到的东西，使用第三方提供的博客服务其实也挺方便，当今网络上提供服务的博客网站也很多。自己曾经也尝试过用云服务器搭建网站，但是自己购买域名和服务器，搭建博客的成本有点高了，还要定期的维护它，自己也是没有这样的精力和时间。然后在网上无意间看到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《终南别业》">
+<meta property="og:url" content="http://example.com/2024/07/18/Hexo%20+%20github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="《终南别业》Hexo + Github 搭建个人博客今年七月份的时候，在github搭建了一个人博客，初衷就是想拿来作为自己的在线笔记本，做做学习记录，分享一些学到的东西，使用第三方提供的博客服务其实也挺方便，当今网络上提供服务的博客网站也很多。自己曾经也尝试过用云服务器搭建网站，但是自己购买域名和服务器，搭建博客的成本有点高了，还要定期的维护它，自己也是没有这样的精力和时间。然后在网上无意间看到">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="article:published_time" content="2024-07-18T01:19:04.976Z">
+<meta property="article:modified_time" content="2024-07-20T08:03:29.543Z">
+<meta property="article:author" content="Yi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/404.jpg">
+
+
+<title >《终南别业》</title>
+
+<!-- Favicon -->
+
+    <link href='/log.svg?v=2.2.2' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/log.svg?v=2.2.2' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+    <link href='/log.svg?v=2.2.2' rel='apple-touch-icon' sizes='180x180' ></link>
+
+
+    <link href='/site.webmanifest' rel='manifest' ></link>
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://npm.elemecdn.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+
+    
+<script src="//at.alicdn.com/t/font_383361_cfn4m13f4v.js"></script>
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"Yi","root":"/","typed_text":["《终南别业》","中岁颇好道，晚家南山陲。","兴来每独往，胜事空自知。","行到水穷处，坐看云起时。","偶然值林叟，谈笑无还期。"],"theme_version":"2.2.2","theme":{"switch":true,"default":"auto"},"favicon":{"logo":"log.svg","icon16":"log.svg","icon32":"log.svg","apple_touch_icon":"log.svg","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","show_text":"(/≧▽≦/）哈哈！骗你的！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://npm.elemecdn.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"symbol","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"07/13/2024 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner","avatar":true,"delayRange":5000,"speed":80},"covers":["https://img-baofun.zhhainiao.com/pcwallpaper_ugc_mobile/static/7f6aa4b8986ba69cc0d0486c2da6d801.jpg?x-oss-process=image%2Fresize%2Cm_lfit%2Cw_640%2Ch_1138","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyM_PfSkwkLgNQ8DcOkNBuaRirRcKI8T-W-g&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9yCLCVOoFekhlt6iUb2gq6p_TNokGs8gaeg&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-ZJjq735eM3X7yvpOByR8pmS2EE7xogcJVA&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiTkJUZ_D0aZxYVY0klTqvxngsPm3wVc-DsQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjOt3sntka5D9ltqMDkaVi8BjkgUdfunP4ZQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeaHCwaBAEVmQ0IMkWHOjOmcnEGzflTo-6bA&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDSKhGx5GYbzXKSM6MD4n8kpJBRVEzz4fjmg&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5qMAURRUyUSYu7nvr-kLVWAxl6RZatDhDMw&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmfllYwr3JD2xMEE2nOzBtKHyOmyornSf1nw&s","https://www.google.com.hk/imgres?q=%E5%A3%81%E7%BA%B8&imgurl=https%3A%2F%2Fimg3.huamaocdn.com%2Fupload%2Fbizhi%2Fimages%2F1000w680h%2F2022%2F06%2F202206050210363016.jpg&imgrefurl=https%3A%2F%2Fhuamaobizhi.com%2Fdetails%2F30106%3Flang%3Den&docid=MpVKvckJaNnY-M&tbnid=ZGQvxfSx5JRahM&vet=12ahUKEwjOwdb8jbKHAxUV0jQHHRHPBD04HhAzegQIMRAA..i&w=1000&h=550&hcb=2&ved=2ahUKEwjOwdb8jbKHAxUV0jQHHRHPBD04HhAzegQIMRAA","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL8uw5P8mqgcq7fnSe24GNTywxagUJgmpeIw&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaLeJKlo6G46WDUQqmxomiB6L-KntpQfAn_A&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu0GSmL7Lu2vau8FqyWuBm2yIimkW7eU7ECQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyvB4cfooI1LUm5an5xUPgY2amd4D7X5YohQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOpZ7GfU8tDaSuuxZskindB7fFD3DuFc_HsA&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSGzLLWB8yb6mKwV0ur-_m_Y71HJUY79feAg&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStABLZOzd6ywsfcxALknN1VMxf_HRcTs9PEw&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYRCRTq8jzbIrU2Iu159t1xgapUUamfzSxoQ&s"]};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-07-20 16:03:29"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><svg class="symbol-icon " aria-hidden="true">
+    <use xlink:href="#far fa-sun"></use>
+</svg></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><svg class="symbol-icon " aria-hidden="true">
+    <use xlink:href="#far fa-moon"></use>
+</svg></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/log.svg">
+    
+    
+        <div class="trm-logo-text">
+            Async<span>Theme</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    首页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a data-no-swup href="/archives/" target="">
+                    归档
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a data-no-swup href="/categories/" target="">
+                    分类
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <svg class="symbol-icon " aria-hidden="true">
+    <use xlink:href="#far fa-sun"></use>
+</svg>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <svg class="symbol-icon " aria-hidden="true">
+    <use xlink:href="#far fa-moon"></use>
+</svg>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTy_axSqyyq11x5JqZ_rKbzYcbXLORVp-1nAw&s">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-12">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text trm-text-center ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            《终南别业》
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2024
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+            <div class="trm-page-content col-lg-12">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <svg class="symbol-icon trm-icon" aria-hidden="true">
+    <use xlink:href="#far fa-calendar-alt"></use>
+</svg><br>
+            07/18
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <svg class="symbol-icon trm-icon" aria-hidden="true">
+    <use xlink:href="#far fa-clock"></use>
+</svg><br>
+            09:19
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <svg class="symbol-icon trm-icon" aria-hidden="true">
+    <use xlink:href="#far fa-user"></use>
+</svg><br>
+            Yi
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h1 id="《终南别业》"><a href="#《终南别业》" class="headerlink" title="《终南别业》"></a>《终南别业》</h1><h1 id="Hexo-Github-搭建个人博客"><a href="#Hexo-Github-搭建个人博客" class="headerlink" title="Hexo + Github 搭建个人博客"></a>Hexo + Github 搭建个人博客</h1><p>今年七月份的时候，在github搭建了一个人博客，初衷就是想拿来作为自己的在线笔记本，做做学习记录，分享一些学到的东西，使用第三方提供的博客服务其实也挺方便，当今网络上提供服务的博客网站也很多。自己曾经也尝试过用云服务器搭建网站，但是自己购买域名和服务器，搭建博客的成本有点高了，还要定期的维护它，自己也是没有这样的精力和时间。然后在网上无意间看到了可以用github pages 托管网站，也是查阅了一些资料，最后搭建好了，达到差不多的效果。（guithub在国外，托管的网站访问时，会很慢，但是总归算是有一个博客了。:blush:）稍微分享一下自己的搭建过程。</p>
+<p>这里我是参考了CSDN上的一个博主的文章搭建的，可以去CSDN上看一下博主的原文：<a href="%E5%8E%9F%E6%96%87">https://blog.csdn.net/qq_58608526&#x2F;article&#x2F;details&#x2F;124652412?ops_request_misc&#x3D;%257B%2522request%255Fid%2522%253A%2522172145607016800222864956%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id&#x3D;172145607016800222864956&amp;biz_id&#x3D;0&amp;utm_medium&#x3D;distribute.pc_search_result.none-task-blog-2<del>all</del>top_positive~default-1-124652412-null-null.142^v100^pc_search_result_base3&amp;utm_term&#x3D;hexo%20github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2&amp;spm&#x3D;1018.2226.3001.4187</a></p>
+<p>搭建步骤：</p>
+<ul>
+<li>1.安装Git、nodejs、hexo</li>
+<li>2.<code>GitHub</code>创建个人仓库</li>
+<li>3.生成<code>SSH</code>添加到<code>GitHub</code></li>
+<li>4.将<code>hexo</code>部署到<code>GitHub</code></li>
+<li>5.设置个人域名</li>
+<li>6.发布文章</li>
+</ul>
+<h2 id="一、安装Git、nodejs、hexo"><a href="#一、安装Git、nodejs、hexo" class="headerlink" title="一、安装Git、nodejs、hexo"></a>一、安装Git、nodejs、hexo</h2><h5 id="（1）安装Git"><a href="#（1）安装Git" class="headerlink" title="（1）安装Git"></a>（1）安装Git</h5><p>​	为了把本地的网页文件上传到github上面去，需要用到工具———Git[<a href="%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80">https://git-scm.com/download</a>]</p>
+<p>Git是目前世界上最先进的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。<code>Git</code>非常强大，建议大家去了解一下。</p>
+<p>跳转到git官网后选择自己对应的系统去下载.exe文件、然后安装即可。安装完成后在命令提示符中输入<code>git --version</code>来查看一下版本验证是否安装成功。</p>
+<h5 id="（2）安装nodejs"><a href="#（2）安装nodejs" class="headerlink" title="（2）安装nodejs"></a>（2）安装nodejs</h5><p>​	Hexo是基于node.js编写的，所以需要安装一下node.js。</p>
+<p>windows版本下载稳定版或者最新版都可以Node.js，安装选项全部默认，一路点击Next。<br>最后安装好之后，按Win+R打开命令提示符，输入node -v和npm -v，如果出现版本号，那么就安装成功了。</p>
+<p>![幕截图 2024-07-20 14361](C:\Users\86184\Pictures\Screenshots\屏幕截图 2024-07-20 143611.png)</p>
+<p>安装完后，打开命令行终端，输入:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+
+<p>检查一下有没有安装成功</p>
+<p><strong>提示</strong></p>
+<p>国内访问外网会比较慢，没有梯子的话，可以使用阿里的国内镜像进行加速。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="（3）安装Hexo"><a href="#（3）安装Hexo" class="headerlink" title="（3）安装Hexo"></a>（3）安装Hexo</h5><p>​	git和nodejs安装好后，就可以安装hexo了，可以先创建一个文件夹blog，用来存放自己的博客文件，然后在这个文件夹里，鼠标右键，找到git bash，打开。</p>
+<p><img src="C:\Users\86184\AppData\Local\Temp\1721457798030.png" alt="72145779803"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>安装可以参考Hexo官网提供的安装步骤：<a href="Hexo%E5%AE%98%E7%BD%91">https://hexo.io/zh-cn/</a></p>
+<p>定位到自己的博客目录下，</p>
+<p>输入以下代码进行安装：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+
+<p>安装完后输入hexo -v验证是否安装成功。</p>
+<p>至此hexo就安装完了。</p>
+<p>初始化自己的博客文件夹：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init </span><br></pre></td></tr></table></figure>
+
+<p>初始化过程中可能会出现权限问题，可以右键这个文件夹，在上方属性栏选择安全，编辑用户权限。</p>
+<p><img src="C:\Users\86184\Desktop\1.jpg" alt="1"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>在用户权限这一栏勾选全部就行。然后再次尝试hexo init 初始化。</p>
+<p>初始化之后，接着输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p> 安装必备的组件。</p>
+<p>新建完成后，指定文件夹Hexo目录下有：</p>
+<p>node_modules: 依赖包<br>public：存放生成的页面<br>scaffolds：生成文章的一些模板<br>source：用来存放你的文章<br>themes：主题**<br>_config.yml: 博客的配置文件**</p>
+<p>这样本地的网站配置也弄好啦，输入hexo g生成静网页，然后输入hexo s打开本地服务器，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo server (或者简写:hexo s）</span><br></pre></td></tr></table></figure>
+
+
+
+<p>启动服务后在浏览器可查看到下图即为初步搭建成功：</p>
+<p><img src="C:\Users\86184\AppData\Local\Temp\1721458624782.png" alt="72145862478"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>如果想要让自己的博客看起来高级一点，可以找一个模板来用。</p>
+<p>博客模板，可以自己创造一个。也可以直接用官网提供的模板主题：<a href="%E6%A8%A1%E6%9D%BF%E4%B8%BB%E9%A2%98">https://hexo.io/themes/https://hexo.io/themes/</a></p>
+<p>![幕截图 2024-07-20 14502](C:\Users\86184\Pictures\Screenshots\屏幕截图 2024-07-20 145026.png)<br>依照模板的github网站上，依照下面的readme，一步步安装主题就行。</p>
+<p>![幕截图 2024-07-20 15225](C:\Users\86184\Pictures\Screenshots\屏幕截图 2024-07-20 152252.png)</p>
+<p>![幕截图 2024-07-20 15230](C:\Users\86184\Pictures\Screenshots\屏幕截图 2024-07-20 152300.png)</p>
+<h2 id="二、去Github上创建一个账号、创建个人仓库"><a href="#二、去Github上创建一个账号、创建个人仓库" class="headerlink" title="二、去Github上创建一个账号、创建个人仓库"></a>二、去Github上创建一个账号、创建个人仓库</h2><p>​	接下来就去注册一个<code>github</code>账号，用来存放我们的网站。</p>
+<p>打开<a href="github">https://github.com/</a>，新建一个项目仓库<code>New repository</code>，如下所示：</p>
+<p>![幕截图 2024-07-20 14122](C:\Users\86184\Pictures\Screenshots\屏幕截图 2024-07-20 141223.png)</p>
+<p>这里需要注意的是，仓库的名称需要是:：自己Github的名字 .github.io</p>
+<p>以我自己的仓库为例子，我的Github名称是：Yi-22514，所以我的仓库名需要是：Yi-22514.github.io</p>
+<h1 id="三、生成SSH"><a href="#三、生成SSH" class="headerlink" title="三、生成SSH"></a>三、生成SSH</h1><p>生成SSH添加到GitHub<br>生成SSH添加到GitHub，连接Github与本地。<br>右键打开git bash，然后输入下面命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;yourname&quot;</span><br><span class="line">git config --global user.email &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
+
+
+<p>注意：第一次使用git后需要将用户名和邮箱进行初始化</p>
+<p>这里的yourname输入你的GitHub用户名，youremail输入你GitHub的邮箱。这样GitHub才能知道你是不是对应它的账户。例如我的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;Yi-222514&quot;</span><br><span class="line">git config --global user.email &quot;xxx@xxx.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>可以用以下两条，检查一下你有没有输对</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure>
+
+<p>然后创建SSH,一路回车</p>
+<p>ssh，简单来讲，就是一个秘钥，其中，id_rsa是你这台电脑的私人秘钥，不能给别人看的，id_rsa.pub是公共秘钥，可以随便给别人看。把这个公钥放在GitHub上，这样当你链接GitHub自己的账户时，它就会根据公钥匹配你的私钥，当能够相互匹配时，才能够顺利的通过git上传你的文件到GitHub上。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
+
+<p>这个时候它会告诉你已经生成了.ssh的文件夹。在你的电脑中找到这个文件夹。或者git bash中输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+
+<p>将输出的内容复制到框中，点击确定保存。</p>
+<p>打开github，在头像下面点击settings，再点击SSH and GPG keys，新建一个SSH，名字随便取一个都可以，把你的id_rsa.pub里面的信息复制进去。如图：</p>
+<p>在git bash输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<p>如果如下图所示，出现你的用户名，那就成功了。</p>
+<p><img src="C:\Users\86184\AppData\Local\Temp\1721460744095.png" alt="72146074409"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h1 id="四、将hexo部署到Github上"><a href="#四、将hexo部署到Github上" class="headerlink" title="四、将hexo部署到Github上"></a>四、将hexo部署到Github上</h1><p>这一步，我们就可以将hexo和GitHub关联起来，也就是将hexo生成的文章部署到GitHub上，打开博客根目录下的_config.yml文件，这是博客的配置文件，在这里你可以修改与博客配置相关的各种信息。</p>
+<p>修改最后一行的配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/gaoziman/gaoziman.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+
+<p>repository修改为你自己的github项目地址即可就是部署时，告诉工具，将生成网页通过git方式上传到你对应的链接仓库中。</p>
+<p>这个时候需要先安装deploy-git ，也就是部署的命令,这样你才能用命令部署到GitHub。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p>然后</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p> hexo clean 清除了你之前生成的东西，也可以不加。 </p>
+<p>hexo generate 生成静态文章，可以用 hexo g 缩写 。</p>
+<p>hexo deploy部署文章，可以用hexo d 缩写。</p>
+<p><strong>deploy时可能要你输入username和password。</strong></p>
+<p>浏览器出现下图就说明部署成功了，然后就可以在<a target="_blank" rel="noopener" href="http://yourname.github.io/">http://yourname.github.io</a> 这个网站看到博客了！！<br><img src="C:\Users\86184\AppData\Local\Temp\1721461333955.png" alt="72146133395"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h1 id="五、Github绑定个人域名"><a href="#五、Github绑定个人域名" class="headerlink" title="五、Github绑定个人域名"></a>五、Github绑定个人域名</h1><p>​	绑定个人域名，首先我们需要有一个域名，可以选择去各大云服务器厂商购买域名。我是在腾讯云上购买的域名，也不用太贵，找几个五六块钱一年的域名购买就行。</p>
+<p>​	购买域名后，找到控制台，点进去查看自己的域名</p>
+<p><img src="C:\Users\86184\AppData\Local\Temp\1721461710080.png" alt="72146171008"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>然后解析，添加记录，按钮下图设置后确定即可：</p>
+<p><img src="C:\Users\86184\AppData\Local\Temp\1721461735210.png" alt="72146173521"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>然后打开你的<code>github</code>博客项目，点击<code>settings</code>，左侧栏目找到pages，拉到下面<code>Custom domain</code>处，填上你自己购买的域名，保存：</p>
+<p>![幕截图 2024-07-20 15505](C:\Users\86184\Pictures\Screenshots\屏幕截图 2024-07-20 155058.png)</p>
+<p>Save后，会显示Check in Progress，github上绑定的域名需要一段时间在全球范围内传递更新，需要耐心等待，可能需要等半天到一天。</p>
+<p>过段时间后，就可以通过购买的域名访问自己的github博客啦！！</p>
+<h1 id="六、发布文章"><a href="#六、发布文章" class="headerlink" title="六、发布文章"></a>六、发布文章</h1><p>首先在博客根目录下右键打开git bash，安装一个扩展</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-deployer-git</span><br></pre></td></tr></table></figure>
+
+<p>然后输入hexo new post “我的第一篇博客”，新建一篇文章。</p>
+<p>然后打开你的博客文件夹，在source目录下有一个_post文件夹，比如说我的是：</p>
+<p><img src="C:\Users\86184\AppData\Local\Temp\1721462416789.png" alt="72146241678"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>里面有.md文件，是你的博客文章。你可以会直接在Typora里面编写markdown文件.</p>
+<p>编写完markdown文件后，根目录下输入hexo g生成静态网页，然后输入hexo s可以本地预览效果，最后输入hexo d上传到github上。这时打开你的github.io主页就能看到发布的文章啦。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate </span><br><span class="line">hexo deploy </span><br></pre></td></tr></table></figure>
+
+<p>也可以简写为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<p>到此，已经完整搭建起一个比较简陋的个人博客了。</p>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2024/07/17/hello-world/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E6%B5%8B%E8%AF%95%E5%88%86%E7%B1%BB/">
+                    测试分类
+                </a>
+            </div>
+            <h5>
+                <a href="/2024/07/17/hello-world/" class="trm-anima-link">
+                    Hello World
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/07/17</li>
+                <li>22:36</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+      
+
+    
+        <div class="trm-footer-item blog-run-long"></div>
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+            
+<div class="trm-fixed-container">
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <svg class="symbol-icon " aria-hidden="true">
+    <use xlink:href="#fas fa-book-reader"></use>
+</svg>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <svg class="symbol-icon " aria-hidden="true">
+    <use xlink:href="#fas fa-arrow-up"></use>
+</svg>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://npm.elemecdn.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+        <script src="/js/plugins/typing.js?v=2.2.2"></script>
+    
+
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+			<script src="/js/plugins/danmu.js?v=2.2.2"></script>
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.2"></script>
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>
