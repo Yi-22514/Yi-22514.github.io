@@ -7,16 +7,25 @@
 <meta name="full-screen" content="yes">
 <meta name="theme-color" content="#317EFB" />
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/categories/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/index.html">
+<meta name="description" content="​	Docker 是一种开源的容器化平台，旨在简化应用程序的开发、部署和运行过程。它提供了一种轻量级、可移植和自包含的容器化环境，使开发人员能够在不同的计算机上以一致的方式构建、打包和分发应用程序。 一、Docker介绍以下是 Docker 的几个核心概念： （1）容器（Container）：容器是 Docker 的基本部署单元。它是一个轻量级的、独立的运行时环境，包含应用程序及其相关依赖。容器利">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安装Docker">
+<meta property="og:url" content="http://example.com/2024/07/22/windows%E5%AE%89%E8%A3%85docker/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​	Docker 是一种开源的容器化平台，旨在简化应用程序的开发、部署和运行过程。它提供了一种轻量级、可移植和自包含的容器化环境，使开发人员能够在不同的计算机上以一致的方式构建、打包和分发应用程序。 一、Docker介绍以下是 Docker 的几个核心概念： （1）容器（Container）：容器是 Docker 的基本部署单元。它是一个轻量级的、独立的运行时环境，包含应用程序及其相关依赖。容器利">
 <meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="article:published_time" content="2024-07-22T08:19:34.502Z">
+<meta property="article:modified_time" content="2024-07-22T10:22:57.312Z">
 <meta property="article:author" content="Yi">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/404.jpg">
 
 
-<title >Hexo</title>
+<title >安装Docker</title>
 
 <!-- Favicon -->
 
@@ -59,7 +68,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"Yi","root":"/","typed_text":["《终南别业》","中岁颇好道，晚家南山陲。","兴来每独往，胜事空自知。","行到水穷处，坐看云起时。","偶然值林叟，谈笑无还期。"],"theme_version":"2.2.2","theme":{"switch":true,"default":"auto"},"favicon":{"logo":"log.svg","icon16":"log.svg","icon32":"log.svg","apple_touch_icon":"log.svg","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","show_text":"(/≧▽≦/）哈哈！骗你的！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://npm.elemecdn.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"symbol","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"07/13/2024 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner","avatar":true,"delayRange":5000,"speed":80},"covers":["https://img-baofun.zhhainiao.com/pcwallpaper_ugc_mobile/static/7f6aa4b8986ba69cc0d0486c2da6d801.jpg?x-oss-process=image%2Fresize%2Cm_lfit%2Cw_640%2Ch_1138","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyM_PfSkwkLgNQ8DcOkNBuaRirRcKI8T-W-g&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9yCLCVOoFekhlt6iUb2gq6p_TNokGs8gaeg&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-ZJjq735eM3X7yvpOByR8pmS2EE7xogcJVA&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiTkJUZ_D0aZxYVY0klTqvxngsPm3wVc-DsQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjOt3sntka5D9ltqMDkaVi8BjkgUdfunP4ZQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeaHCwaBAEVmQ0IMkWHOjOmcnEGzflTo-6bA&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDSKhGx5GYbzXKSM6MD4n8kpJBRVEzz4fjmg&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5qMAURRUyUSYu7nvr-kLVWAxl6RZatDhDMw&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmfllYwr3JD2xMEE2nOzBtKHyOmyornSf1nw&s","https://www.google.com.hk/imgres?q=%E5%A3%81%E7%BA%B8&imgurl=https%3A%2F%2Fimg3.huamaocdn.com%2Fupload%2Fbizhi%2Fimages%2F1000w680h%2F2022%2F06%2F202206050210363016.jpg&imgrefurl=https%3A%2F%2Fhuamaobizhi.com%2Fdetails%2F30106%3Flang%3Den&docid=MpVKvckJaNnY-M&tbnid=ZGQvxfSx5JRahM&vet=12ahUKEwjOwdb8jbKHAxUV0jQHHRHPBD04HhAzegQIMRAA..i&w=1000&h=550&hcb=2&ved=2ahUKEwjOwdb8jbKHAxUV0jQHHRHPBD04HhAzegQIMRAA","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL8uw5P8mqgcq7fnSe24GNTywxagUJgmpeIw&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaLeJKlo6G46WDUQqmxomiB6L-KntpQfAn_A&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu0GSmL7Lu2vau8FqyWuBm2yIimkW7eU7ECQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyvB4cfooI1LUm5an5xUPgY2amd4D7X5YohQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOpZ7GfU8tDaSuuxZskindB7fFD3DuFc_HsA&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSGzLLWB8yb6mKwV0ur-_m_Y71HJUY79feAg&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStABLZOzd6ywsfcxALknN1VMxf_HRcTs9PEw&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYRCRTq8jzbIrU2Iu159t1xgapUUamfzSxoQ&s"]};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":false,"isHome":false,"postUpdate":"2024-07-22 19:07:42"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-07-22 18:22:57"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
@@ -204,7 +213,7 @@
     <div class="trm-banner">
     
     <!-- banner cover -->
-    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="https://paooo.com/media/2023/09/1695020208-1695020208-image-jpg-webp.webp">
     <!-- banner cover end -->
     
 
@@ -213,17 +222,15 @@
         <div class="container">
             <div class="row">
                 
-                <div class="col-lg-4"></div>
-                
-                <div class="col-lg-8">
+                <div class="col-lg-12">
 
                     <!-- banner title -->
-                    <div class="trm-banner-text ">
+                    <div class="trm-banner-text trm-text-center ">
                         <div class="trm-label trm-mb-20">
-                            The article archive
+                            NEWS LETTER
                         </div>
                         <h1 class="trm-mb-30 trm-hsmb-font">
-                            云间连下榻，<br>天上接行杯。
+                            安装Docker
                         </h1>
 
                         
@@ -233,7 +240,7 @@
                                 </li>
                                 <li>
                                     <span>
-                                        categories
+                                        2024
                                     </span>
                                 </li>
                             </ul>
@@ -258,172 +265,143 @@
     <div class="container">
         <div class="row">
             
-                <div class="trm-page-sidebar col-lg-4 hidden-sm">
-                    <!-- main card -->
-                    <div class="trm-main-card-frame trm-sidebar">
-    <div class="trm-main-card"> 
-        <!-- card header -->
-<div class="trm-mc-header">
-    <div class="trm-avatar-frame trm-mb-20">
-        <img alt="Avatar" class="trm-avatar" src="https://img1.baidu.com/it/u=3120145939,348652557&fm=253&fmt=auto&app=120&f=JPEG?w=864&h=486">
-    </div>
-    <h5 class="trm-name trm-mb-15">
-        Yi
-    </h5>
-    
-        <div class="trm-label">
-            
-            <span class="trm-typed-text">
-                <!-- Words for theme.user.typedText -->
-            </span>
-        </div>
-    
-</div>
-<!-- card header end -->
-        <!-- sidebar social -->
-
-<div class="trm-divider trm-mb-40 trm-mt-40"></div>
-<div class="trm-social">
-    
-        <a href="https://github.com" title="github" rel="nofollow" target="_blank">
-            <svg class="symbol-icon " aria-hidden="true">
-    <use xlink:href="#fab fa-github"></use>
-</svg>
-        </a>
-    
-</div>
-
-<!-- sidebar social end -->
-        <!-- info -->
-<div class="trm-divider trm-mb-40 trm-mt-40"></div>
-<ul class="trm-table trm-mb-20">
-    
-        <li>
-            <div class="trm-label">
-                名称:
-            </div>
-            <div class="trm-label trm-label-light">
-                Yi
-            </div>
-        </li>
-    
-        <li>
-            <div class="trm-label">
-                地址:
-            </div>
-            <div class="trm-label trm-label-light">
-                中国
-            </div>
-        </li>
-    
-        <li>
-            <div class="trm-label">
-                年龄:
-            </div>
-            <div class="trm-label trm-label-light">
-                20
-            </div>
-        </li>
-    
-        <li>
-            <div class="trm-label">
-                QQ:
-            </div>
-            <div class="trm-label trm-label-light">
-                1536519760
-            </div>
-        </li>
-    
-</ul>
-<!-- info end -->
-
-        
-    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
-    <!-- action button -->
-    <div class="text-center">
-        <a href="mailto:1536519760@qq.com" class="trm-btn">
-            联系我
-            <svg class="symbol-icon " aria-hidden="true">
-    <use xlink:href="#far fa-envelope"></use>
-</svg>
-        </a>
-    </div>
-    <!-- action button end -->
-
-    </div>
-</div>
-                    <!-- main card end -->
-                </div>
-            
-            <div class="trm-page-content col-lg-8">
+            <div class="trm-page-content col-lg-12">
                 <div id="trm-content" class="trm-content">
-                    <div class="row">
-    <div class="col-lg-12">
-        <div class="trm-card">
-            <div style="padding: 0 20px;">
-                
-                    <ul class="trm-tag-list"><li class="trm-tag-list-item "><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">（1）</span></li><li class="trm-tag-list-item "><a class="category-list-link" href="/categories/Llama/">Llama</a><span class="category-list-count">（1）</span></li><li class="trm-tag-list-item "><a class="category-list-link" href="/categories/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">搭建博客</a><span class="category-list-count">（1）</span></li><li class="trm-tag-list-item "><a class="category-list-link" href="/categories/%E6%B5%8B%E8%AF%95%E5%88%86%E7%B1%BB/">测试分类</a><span class="category-list-count">（1）</span></li></ul>
-                
-            </div>
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <svg class="symbol-icon trm-icon" aria-hidden="true">
+    <use xlink:href="#far fa-calendar-alt"></use>
+</svg><br>
+            07/22
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <svg class="symbol-icon trm-icon" aria-hidden="true">
+    <use xlink:href="#far fa-clock"></use>
+</svg><br>
+            16:19
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <svg class="symbol-icon trm-icon" aria-hidden="true">
+    <use xlink:href="#far fa-user"></use>
+</svg><br>
+            Yi
         </div>
     </div>
 </div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <p>​	Docker 是一种开源的容器化平台，旨在简化应用程序的开发、部署和运行过程。它提供了一种轻量级、可移植和自包含的容器化环境，使开发人员能够在不同的计算机上以一致的方式构建、打包和分发应用程序。</p>
+<h1 id="一、Docker介绍"><a href="#一、Docker介绍" class="headerlink" title="一、Docker介绍"></a>一、Docker介绍</h1><p>以下是 Docker 的几个核心概念：</p>
+<p><strong>（1）容器（Container）：</strong>容器是 Docker 的基本部署单元。它是一个轻量级的、独立的运行时环境，包含应用程序及其相关依赖。容器利用 Linux 内核的命名空间和控制组技术，实现了隔离性和资源管理，使得应用程序在不同的容器中运行不会相互影响。<br><strong>（2）镜像（Image）：</strong>镜像是用于创建容器的模板。它包含了一个完整的文件系统，其中包括应用程序运行所需的所有文件、依赖和配置信息。镜像是不可变的，通过 Docker 镜像可以创建多个相同的容器实例。<br>镜像仓库（Image Registry）：镜像仓库是用于存储和分发 Docker 镜像的地方。最常用的公共镜像仓库是 <strong>（3）</strong></p>
+<p><strong>（3）Docker Hub：</strong>上面有大量的官方和社区共享的镜像。此外，还可以搭建私有的镜像仓库，用于存放自己的镜像。<br><strong>（4）Dockerfile：</strong>Dockerfile 是一种文本文件，用于定义 Docker 镜像的构建过程。它包含了一系列的指令，用于指定基础镜像、安装软件、拷贝文件、配置环境等。通过 Dockerfile，可以自动化地构建镜像，确保镜像的一致性和可重复性。<br>    Docker 的优势在于它的轻量性、可移植性和灵活性。通过使用 Docker，开发人员可以更轻松地创建一个可靠的开发环境、快速部署应用程序、实现弹性扩展和服务编排等。同时，它也提供了生态系统丰富的工具和服务，例如容器编排工具 Docker Compose 和容器编排平台 Kubernetes，使得容器化应用的管理更加便捷和高效。</p>
+<h1 id="二、任务栏搜索：启用或关闭Windows功能"><a href="#二、任务栏搜索：启用或关闭Windows功能" class="headerlink" title="二、任务栏搜索：启用或关闭Windows功能"></a>二、任务栏搜索：启用或关闭Windows功能</h1><p>​	需要勾选图中倒数2、3个</p>
+<p><img src="/img/installDocker/1.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h1 id="三、下载WSL"><a href="#三、下载WSL" class="headerlink" title="三、下载WSL"></a>三、下载WSL</h1><p>设置默认版本是2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --set-default-version 2</span><br></pre></td></tr></table></figure>
 
-<!-- history -->
+<p><img src="/img/installDocker/2.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>安装wsl：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --update --web-download</span><br></pre></td></tr></table></figure>
 
-<div class="row">
+<p>国内网络建议在最后加上：–web-download，避免网络问题。如果能够科学上网，就可不加了。</p>
+<h1 id="四、安装Docker"><a href="#四、安装Docker" class="headerlink" title="四、安装Docker"></a>四、安装Docker</h1><p>可以去官网上下载：<a target="_blank" rel="noopener" href="https://www.docker.com/get-started/">Docker官网</a></p>
+<p><img src="/img/installDocker/6.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>下载后会有一个.exe安装文件。Docker默认是安装在C盘的，如果需要指定安装位置，就在命令行输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start /w &quot;&quot; &quot;Docker Desktop Installer.exe&quot; install --installation-dir=D:\Docker</span><br></pre></td></tr></table></figure>
+
+<p>把最后的安装路径换成自己想安装的位置即可。</p>
+<h1 id="五、配置镜像源加速"><a href="#五、配置镜像源加速" class="headerlink" title="五、配置镜像源加速"></a>五、配置镜像源加速</h1><p>打开Docker Desktop，点击上方工具栏的设置，选择左侧的 Doocker Engine选项，将内容替换。</p>
+<p><img src="/img/installDocker/4.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>全部替换为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;builder&quot;: &#123;</span><br><span class="line">    &quot;gc&quot;: &#123;</span><br><span class="line">      &quot;defaultKeepStorage&quot;: &quot;20GB&quot;,</span><br><span class="line">      &quot;enabled&quot;: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;experimental&quot;: false,</span><br><span class="line">  &quot;registry-mirrors&quot;: [</span><br><span class="line">    &quot;https://docker.m.daocloud.io&quot;,</span><br><span class="line">    &quot;https://docker.1panel.live&quot;,</span><br><span class="line">    &quot;https://hub.rat.dev&quot;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后右下角完成部署即可！</p>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
     <div class="col-lg-12">
         <!-- title -->
         <h5 class="trm-title-with-divider">
-            
-                搭建博客
-            
-            <span data-number="01"></span>
+            其他文章
+            <span data-number="02"></span>
         </h5>
     </div>
-    <div class="col-lg-12">
-        <!-- timeline -->
-        <div class="trm-timeline">
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2024/07/22/Llama%E6%9C%AC%E5%9C%B0%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2/" class="trm-cover-frame trm-anima-link">
             
-            <div class="trm-timeline-item trm-scroll-animation">
-                <div class="trm-timeline-mark-light"></div>
-                <div class="trm-timeline-mark"></div>
-                <div class="trm-timeline-content more">
-                    
-                        <div class="trm-card-header">
-                            <div class="trm-left-side">
-                                <h6>
-                                    <a href="/2024/07/18/Hexo%20+%20github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/" class="trm-anima-link">
-                                        Hexo + Github 搭建个人博客
-                                    </a>
-                                </h6>
-                                <div class="trm-text-sm trm-accent-color trm-mt-15">
-                                    <ul class="trm-card-data trm-label ">
-                                        <li class="trm-accent-color">07/18</li>
-                                        <li class="trm-accent-color">09:19</li>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    
-                </div>
+            
+                <img alt="cover" class="no-fancybox" src="https://img3.huamaocdn.com/upload/bizhi/images/1000w680h/2022/09/202209050234022367.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/Llama/">
+                    Llama
+                </a>
             </div>
-            
+            <h5>
+                <a href="/2024/07/22/Llama%E6%9C%AC%E5%9C%B0%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2/" class="trm-anima-link">
+                    Llama3本地简易部署
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/07/22</li>
+                <li>18:25</li>
+                
+                
+            </ul>
         </div>
-        <!-- timeline end -->
     </div>
 </div>
-
-<!-- history end -->
-
-
-    <div class="trm-pagination">
-        <span class="page-number current">1</span>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2024/07/18/Hexo%20+%20github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtQo__Wv9kJypBSRUrPIGZu-3GP4JOAJvZCA&s">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
+                    搭建博客
+                </a>
+            </div>
+            <h5>
+                <a href="/2024/07/18/Hexo%20+%20github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/" class="trm-anima-link">
+                    Hexo + Github 搭建个人博客
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/07/18</li>
+                <li>09:19</li>
+                
+                
+            </ul>
+        </div>
     </div>
+</div>
+    
+</div>
 
-
+    
 
 
 
@@ -458,6 +436,12 @@
             
 <div class="trm-fixed-container">
     
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <svg class="symbol-icon " aria-hidden="true">
+    <use xlink:href="#fas fa-book-reader"></use>
+</svg>
+        </div>
     
     
     <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
@@ -494,6 +478,10 @@
     
 
     <!-- 评论插件 -->
+    
+        
+
+        
     
 
 		

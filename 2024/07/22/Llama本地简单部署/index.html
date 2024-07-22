@@ -7,16 +7,29 @@
 <meta name="full-screen" content="yes">
 <meta name="theme-color" content="#317EFB" />
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+<meta name="description" content="截至目前为止，史上最强开源AI大模型——Meta的LLaMa3一经发布，各项指标全面逼近GPT-4。它提供了8B和70B两个版本，8B版本最低仅需4G显存即可运行，可以说是迄今为止能在本地运行的最强LLM。 虽然LLaMa3对中文支持不算好，但HuggingFace上很快出现了各种针对中文的微调模型，本文将介绍如何在本地简单运行发布在HuggingFace上的各种LLaMa3大模型。 需要准备：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Llama3本地简易部署">
+<meta property="og:url" content="http://example.com/2024/07/22/Llama%E6%9C%AC%E5%9C%B0%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="截至目前为止，史上最强开源AI大模型——Meta的LLaMa3一经发布，各项指标全面逼近GPT-4。它提供了8B和70B两个版本，8B版本最低仅需4G显存即可运行，可以说是迄今为止能在本地运行的最强LLM。 虽然LLaMa3对中文支持不算好，但HuggingFace上很快出现了各种针对中文的微调模型，本文将介绍如何在本地简单运行发布在HuggingFace上的各种LLaMa3大模型。 需要准备：">
 <meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="article:published_time" content="2024-07-22T10:25:06.010Z">
+<meta property="article:modified_time" content="2024-07-22T11:06:19.659Z">
 <meta property="article:author" content="Yi">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/404.jpg">
 
 
-<title >Hexo</title>
+<title >Llama3本地简易部署</title>
 
 <!-- Favicon -->
 
@@ -59,7 +72,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"Yi","root":"/","typed_text":["《终南别业》","中岁颇好道，晚家南山陲。","兴来每独往，胜事空自知。","行到水穷处，坐看云起时。","偶然值林叟，谈笑无还期。"],"theme_version":"2.2.2","theme":{"switch":true,"default":"auto"},"favicon":{"logo":"log.svg","icon16":"log.svg","icon32":"log.svg","apple_touch_icon":"log.svg","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","show_text":"(/≧▽≦/）哈哈！骗你的！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://npm.elemecdn.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"symbol","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"07/13/2024 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner","avatar":true,"delayRange":5000,"speed":80},"covers":["https://img-baofun.zhhainiao.com/pcwallpaper_ugc_mobile/static/7f6aa4b8986ba69cc0d0486c2da6d801.jpg?x-oss-process=image%2Fresize%2Cm_lfit%2Cw_640%2Ch_1138","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyM_PfSkwkLgNQ8DcOkNBuaRirRcKI8T-W-g&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9yCLCVOoFekhlt6iUb2gq6p_TNokGs8gaeg&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-ZJjq735eM3X7yvpOByR8pmS2EE7xogcJVA&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiTkJUZ_D0aZxYVY0klTqvxngsPm3wVc-DsQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjOt3sntka5D9ltqMDkaVi8BjkgUdfunP4ZQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeaHCwaBAEVmQ0IMkWHOjOmcnEGzflTo-6bA&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDSKhGx5GYbzXKSM6MD4n8kpJBRVEzz4fjmg&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5qMAURRUyUSYu7nvr-kLVWAxl6RZatDhDMw&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmfllYwr3JD2xMEE2nOzBtKHyOmyornSf1nw&s","https://www.google.com.hk/imgres?q=%E5%A3%81%E7%BA%B8&imgurl=https%3A%2F%2Fimg3.huamaocdn.com%2Fupload%2Fbizhi%2Fimages%2F1000w680h%2F2022%2F06%2F202206050210363016.jpg&imgrefurl=https%3A%2F%2Fhuamaobizhi.com%2Fdetails%2F30106%3Flang%3Den&docid=MpVKvckJaNnY-M&tbnid=ZGQvxfSx5JRahM&vet=12ahUKEwjOwdb8jbKHAxUV0jQHHRHPBD04HhAzegQIMRAA..i&w=1000&h=550&hcb=2&ved=2ahUKEwjOwdb8jbKHAxUV0jQHHRHPBD04HhAzegQIMRAA","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL8uw5P8mqgcq7fnSe24GNTywxagUJgmpeIw&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaLeJKlo6G46WDUQqmxomiB6L-KntpQfAn_A&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu0GSmL7Lu2vau8FqyWuBm2yIimkW7eU7ECQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyvB4cfooI1LUm5an5xUPgY2amd4D7X5YohQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOpZ7GfU8tDaSuuxZskindB7fFD3DuFc_HsA&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSGzLLWB8yb6mKwV0ur-_m_Y71HJUY79feAg&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStABLZOzd6ywsfcxALknN1VMxf_HRcTs9PEw&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYRCRTq8jzbIrU2Iu159t1xgapUUamfzSxoQ&s"]};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":false,"isHome":true,"postUpdate":"2024-07-22 19:07:42"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-07-22 19:06:19"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
@@ -147,7 +160,7 @@
     <nav>
         <ul>
             
-            <li class="menu-item-has-children current-menu-item">
+            <li class="menu-item-has-children ">
                 <a  href="/" target="">
                     首页
                 </a>
@@ -198,16 +211,14 @@
             <!-- top bar end -->
 
             <!-- body -->
-            <div class="trm-content-start">
+            
+<div class="trm-content-start">
     <!-- banner -->
     <div class="trm-banner">
     
-    <!-- banner video cover -->
-    <video autoplay="autoplay" loop muted playsinline webkit-playinginline class="trm-banner-cover">
-        <source src="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/preview/f37cc1d5f101596a13af18696cb9e6ee_preview.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
-        Your browser does not support HTML5 video.
-    </video>
-    <!-- banner video cover end -->
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="https://haowallpaper.com/link/common/file/getCroppingImg/15098960865889600">
+    <!-- banner cover end -->
     
 
     <!-- banner content -->
@@ -215,17 +226,15 @@
         <div class="container">
             <div class="row">
                 
-                <div class="col-lg-4"></div>
-                
-                <div class="col-lg-8">
+                <div class="col-lg-12">
 
                     <!-- banner title -->
-                    <div class="trm-banner-text ">
+                    <div class="trm-banner-text trm-text-center ">
                         <div class="trm-label trm-mb-20">
-                            Hi my new friend!
+                            NEWS LETTER
                         </div>
                         <h1 class="trm-mb-30 trm-hsmb-font">
-                            行到水穷处，坐看云起时。
+                            Llama3本地简易部署
                         </h1>
 
                         
@@ -235,7 +244,7 @@
                                 </li>
                                 <li>
                                     <span>
-                                        index.html
+                                        2024
                                     </span>
                                 </li>
                             </ul>
@@ -260,196 +269,103 @@
     <div class="container">
         <div class="row">
             
-                <div class="trm-page-sidebar col-lg-4 hidden-sm">
-                    <!-- main card -->
-                    <div class="trm-main-card-frame trm-sidebar">
-    <div class="trm-main-card"> 
-        <!-- card header -->
-<div class="trm-mc-header">
-    <div class="trm-avatar-frame trm-mb-20">
-        <img alt="Avatar" class="trm-avatar" src="https://img1.baidu.com/it/u=3120145939,348652557&fm=253&fmt=auto&app=120&f=JPEG?w=864&h=486">
-    </div>
-    <h5 class="trm-name trm-mb-15">
-        Yi
-    </h5>
-    
-        <div class="trm-label">
-            
-            <span class="trm-typed-text">
-                <!-- Words for theme.user.typedText -->
-            </span>
-        </div>
-    
-</div>
-<!-- card header end -->
-        <!-- sidebar social -->
-
-<div class="trm-divider trm-mb-40 trm-mt-40"></div>
-<div class="trm-social">
-    
-        <a href="https://github.com" title="github" rel="nofollow" target="_blank">
-            <svg class="symbol-icon " aria-hidden="true">
-    <use xlink:href="#fab fa-github"></use>
-</svg>
-        </a>
-    
-</div>
-
-<!-- sidebar social end -->
-        <!-- info -->
-<div class="trm-divider trm-mb-40 trm-mt-40"></div>
-<ul class="trm-table trm-mb-20">
-    
-        <li>
-            <div class="trm-label">
-                名称:
-            </div>
-            <div class="trm-label trm-label-light">
-                Yi
-            </div>
-        </li>
-    
-        <li>
-            <div class="trm-label">
-                地址:
-            </div>
-            <div class="trm-label trm-label-light">
-                中国
-            </div>
-        </li>
-    
-        <li>
-            <div class="trm-label">
-                年龄:
-            </div>
-            <div class="trm-label trm-label-light">
-                20
-            </div>
-        </li>
-    
-        <li>
-            <div class="trm-label">
-                QQ:
-            </div>
-            <div class="trm-label trm-label-light">
-                1536519760
-            </div>
-        </li>
-    
-</ul>
-<!-- info end -->
-
-        
-    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
-    <!-- action button -->
-    <div class="text-center">
-        <a href="mailto:1536519760@qq.com" class="trm-btn">
-            联系我
-            <svg class="symbol-icon " aria-hidden="true">
-    <use xlink:href="#far fa-envelope"></use>
-</svg>
-        </a>
-    </div>
-    <!-- action button end -->
-
-    </div>
-</div>
-                    <!-- main card end -->
-                </div>
-            
-            <div class="trm-page-content col-lg-8">
+            <div class="trm-page-content col-lg-12">
                 <div id="trm-content" class="trm-content">
-                    <!-- categories -->
-
-    <div class="row hidden-sm">
-        
-        
-        <div class="col-lg-6">
-            <!-- categories card -->
-<div class="trm-blog-categories trm-scroll-animation">
-    <h6>
-        搭建博客
-        <span class="trm-number">
-            1
-        </span>
-    </h6>
-    <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-    <a href="/categories/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/." class="trm-label">
-        查看分类 
-        <svg class="symbol-icon arrow-right" aria-hidden="true">
-    <use xlink:href="#fas fa-arrow-right"></use>
-</svg>
-    </a>
-</div>
-<!-- categories card end -->
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <svg class="symbol-icon trm-icon" aria-hidden="true">
+    <use xlink:href="#far fa-calendar-alt"></use>
+</svg><br>
+            07/22
         </div>
-        
-        <div class="col-lg-6">
-            <!-- categories card -->
-<div class="trm-blog-categories trm-scroll-animation">
-    <h6>
-        测试分类
-        <span class="trm-number">
-            1
-        </span>
-    </h6>
-    <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-    <a href="/categories/%E6%B5%8B%E8%AF%95%E5%88%86%E7%B1%BB/." class="trm-label">
-        查看分类 
-        <svg class="symbol-icon arrow-right" aria-hidden="true">
-    <use xlink:href="#fas fa-arrow-right"></use>
-</svg>
-    </a>
-</div>
-<!-- categories card end -->
-        </div>
-        
     </div>
-
-<!-- categories end -->
-
-<!-- newest publications -->
-<div class="row">
-    
-        <div class="col-lg-12">
-            <!-- title -->
-            <h5 class="trm-title-with-divider">
-                最近发布 
-                <span data-number="01"></span>
-            </h5>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <svg class="symbol-icon trm-icon" aria-hidden="true">
+    <use xlink:href="#far fa-clock"></use>
+</svg><br>
+            18:25
         </div>
-    
-    
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/07/22/Llama%E6%9C%AC%E5%9C%B0%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="https://img3.huamaocdn.com/upload/bizhi/images/1000w680h/2022/09/202209050234022367.jpg">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/Llama/">
-                    Llama
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/07/22/Llama%E6%9C%AC%E5%9C%B0%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2/" class="trm-anima-link">
-                    Llama3本地简易部署
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>24/07/22</li>
-                <li>18:25</li>
-                
-                
-            </ul>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <svg class="symbol-icon trm-icon" aria-hidden="true">
+    <use xlink:href="#far fa-user"></use>
+</svg><br>
+            Yi
         </div>
     </div>
 </div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <p>截至目前为止，史上最强开源AI大模型——Meta的LLaMa3一经发布，各项指标全面逼近GPT-4。它提供了8B和70B两个版本，8B版本最低仅需4G显存即可运行，可以说是迄今为止能在本地运行的最强LLM。</p>
+<p>虽然LLaMa3对中文支持不算好，但HuggingFace上很快出现了各种针对中文的微调模型，本文将介绍如何在本地简单运行发布在HuggingFace上的各种LLaMa3大模型。</p>
+<p>需要准备：</p>
+<ul>
+<li>安装Ollama</li>
+<li>下载内置模型</li>
+<li>导入模型</li>
+<li>运行模型</li>
+<li>搭建web环境</li>
+</ul>
+<p><strong>本文需要用到科学上网工具，需要自行准备！</strong></p>
+<h1 id="一、安装Ollama"><a href="#一、安装Ollama" class="headerlink" title="一、安装Ollama"></a>一、安装Ollama</h1><p>​	首先安装Ollama，它可以让我们非常方便地运行各种LLM。从<a target="_blank" rel="noopener" href="https://ollama.com/">Ollama官网</a>下载，运行，点击安装Ollama命令行，然后在命令行测试Ollama是否已正常运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama -v</span><br></pre></td></tr></table></figure>
+
+<p>如果能看到版本信息，即安装成功。</p>
+<h1 id="二、下载模型"><a href="#二、下载模型" class="headerlink" title="二、下载模型"></a>二、下载模型</h1><p>​	Ollama可以直接下载内置的几种模型，但选择有限。我们可以从<a target="_blank" rel="noopener" href="https://huggingface.co/">HuggingFace</a>下载以评估各种模型，从HuggingFace下载，会更方便一点。</p>
+<p>在上方工具栏找到设置，设置<code>Languages</code>为<code>Chinese</code>，可以看到若干基于LLaMa3的中文模型：</p>
+<p><img src="/img/Llama/1.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>HuggingFace搜索<code>llama3</code>，选择一个GGUF格式的模型，GGUF格式是llama.cpp团队搞的一种模型存储格式，一个模型就是一个文件，方便下载：</p>
+<p><img src="/img/Llama/2.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>然后选择<strong>Files and versions</strong>（红框中的内容），列出多项模型，可以看到若干GGUF文件，其中，q越大说明模型质量越高，同时文件也更大，我们选择q6，直接点击下载按钮，把这个模型文件下载到本地。</p>
+<p><img src="/img/Llama/3.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>等待下载完毕即可。</p>
+<h1 id="三、导入模型"><a href="#三、导入模型" class="headerlink" title="三、导入模型"></a>三、导入模型</h1><p>​	下载到本地的模型文件不能直接导入到Ollama，需要编写一个配置文件，随便起个名字，如<code>config.txt</code>，配置文件内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">FROM &quot;D:/llama3/llama3-8b-cn-q6/Llama3-8B-Chinese-Chat.q6_k.GGUF&quot;</span><br><span class="line"></span><br><span class="line">TEMPLATE &quot;&quot;&quot;&#123;&#123;- if .System &#125;&#125;</span><br><span class="line">&lt;|im_start|&gt;system &#123;&#123; .System &#125;&#125;&lt;|im_end|&gt;</span><br><span class="line">&#123;&#123;- end &#125;&#125;</span><br><span class="line">&lt;|im_start|&gt;user</span><br><span class="line">&#123;&#123; .Prompt &#125;&#125;&lt;|im_end|&gt;</span><br><span class="line">&lt;|im_start|&gt;assistant</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">SYSTEM &quot;&quot;&quot;&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">PARAMETER stop &lt;|im_start|&gt;</span><br><span class="line">PARAMETER stop &lt;|im_end|&gt;</span><br></pre></td></tr></table></figure>
+
+<p>第一行<code>FROM &quot;...&quot;</code>指定了模型文件路径，需要修改为实际路径，后面的模板内容是网上复制的，无需改动。</p>
+<p>然后，使用以下命令导入模型：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama create llama3-cn -f ./config.txt</span><br></pre></td></tr></table></figure>
+
+<p><code>llama3-cn</code>是给模型起的名字，成功导入后可以用<code>ollama list</code>命令查看：</p>
+<p><img src="/img/Llama/4.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>可以下载多个模型，给每个模型写一个配置文件（仅需修改路径），导入时起不同的名字，我们就可以用Ollama方便地运行各种模型。</p>
+<h1 id="四、运行模型"><a href="#四、运行模型" class="headerlink" title="四、运行模型"></a>四、运行模型</h1><p>使用Ollama的<code>run</code>命令可以直接运行模型。我们输入命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama run llama3-cn</span><br></pre></td></tr></table></figure>
+
+<p>出现以下界面即为导入成功：</p>
+<p><img src="/img/Llama/5.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>这之后我们可以随便输入一些问题，可以看到结果：</p>
+<p><img src="/img/Llama/6.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>出现<code>&gt;&gt;&gt;</code>提示符时就可以输入问题与模型交互。输入<code>/exit</code>退出。</p>
+<h1 id="五、搭建Web环境"><a href="#五、搭建Web环境" class="headerlink" title="五、搭建Web环境"></a>五、搭建Web环境</h1><p>使用命令行交互不是很方便，所以我们需要另一个开源的<a target="_blank" rel="noopener" href="https://github.com/open-webui/open-webui">Open WebUI</a>，搭建一个能通过浏览器访问的界面。</p>
+<p>运行Open WebUI最简单的方式是直接以Docker运行。我们安装<a target="_blank" rel="noopener" href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a>，输入以下命令启动Open WebUI：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 8080:8080 -e OLLAMA_BASE_URL=http://host.docker.internal:11434 --name open-webui --restart always -v open-webui-data:/app/backend/data ghcr.io/open-webui/open-webui:main</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/Llama/7.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>等待运行结束即可。</p>
+<p>参数<code>-p 8080:8080</code>将Open WebUI的端口映射到本机。参数<code>-e OLLAMA_BASE_URL=http://host.docker.internal:11434</code>告诉Open WebUI通过本机的11434访问Ollama。</p>
+<p>注意地址必须写<code>host.docker.internal</code>，不能写<code>127.0.0.1</code>。</p>
+<p>打开浏览器我们就可以访问<a target="_blank" rel="noopener" href="http://127.0.0.1:8080/">http://127.0.0.1:8080</a>，第一次访问需要注册，注册和登录是完全基于本地环境的，登录后就可以看到类似GPT的UI。</p>
+<p>我们在聊天界面点击右上角配置按钮，点击<code>Connections</code>，点击刷新按钮，如果一切无误，会显示<code>Server connection verified</code>：</p>
+<p><img src="/img/Llama/8.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
     
         <div class="col-lg-6">
     <div class="trm-blog-card trm-scroll-animation">
@@ -482,75 +398,10 @@
     </div>
 </div>
     
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/07/18/Hexo%20+%20github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtQo__Wv9kJypBSRUrPIGZu-3GP4JOAJvZCA&s">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
-                    搭建博客
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/07/18/Hexo%20+%20github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/" class="trm-anima-link">
-                    Hexo + Github 搭建个人博客
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>24/07/18</li>
-                <li>09:19</li>
-                
-                
-            </ul>
-        </div>
-    </div>
 </div>
-    
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/07/17/hello-world/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <div class="trm-cover-img" data-random-img></div>
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/%E6%B5%8B%E8%AF%95%E5%88%86%E7%B1%BB/">
-                    测试分类
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/07/17/hello-world/" class="trm-anima-link">
-                    Hello World
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>24/07/17</li>
-                <li>22:36</li>
-                
-                
-            </ul>
-        </div>
-    </div>
-</div>
-    
-</div>
-<!-- newest publications end -->
 
+    
 
-    <div class="trm-pagination">
-        <span class="page-number current">1</span>
-    </div>
 
 
                     <div class="trm-divider footer-divider"></div>
@@ -584,6 +435,12 @@
             
 <div class="trm-fixed-container">
     
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <svg class="symbol-icon " aria-hidden="true">
+    <use xlink:href="#fas fa-book-reader"></use>
+</svg>
+        </div>
     
     
     <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
@@ -620,6 +477,10 @@
     
 
     <!-- 评论插件 -->
+    
+        
+
+        
     
 
 		
