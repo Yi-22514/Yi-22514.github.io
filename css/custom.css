@@ -1,0 +1,21 @@
+/* Custom CSS for logo text */
+.trm-logo-text {
+    white-space: nowrap !important;
+    background: linear-gradient(45deg, #FF512F, #DD2476);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.trm-logo-text span {
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+html.dark .trm-logo-text {
+    background: linear-gradient(45deg, #00c6ff, #0072ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
