@@ -325,7 +325,7 @@
                 年龄:
             </div>
             <div class="trm-label trm-label-light">
-                20
+                <span id='dynamic-age'>20</span><script>document.getElementById('dynamic-age').innerText = new Date().getFullYear() - 2004;</script>
             </div>
         </li>
     
