@@ -470,6 +470,98 @@
 
 
 
-</body>
+<!-- hexo injector body_end start -->
+  <style>
+    .pets-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 60px; /* Height of the top bar */
+      z-index: 999999;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .pet-mover {
+      position: absolute;
+      top: 15px; /* Vertical alignment in the top bar */
+      left: 0;
+      width: 30px;
+      height: 30px;
+    }
+    .pet-emoji {
+      font-size: 24px;
+      animation: bounceWalk 0.35s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+    }
+    @keyframes bounceWalk {
+      0% { transform: translateY(0) rotate(-5deg); }
+      100% { transform: translateY(-4px) rotate(5deg); }
+    }
+  </style>
+  <script>
+    (function() {
+      // Create pet container
+      const container = document.createElement('div');
+      container.className = 'pets-container';
+      document.body.appendChild(container);
+
+      const pets = ['🐕', '🐈', '🐈‍⬛', '🐩', '🐾'];
+      
+      function spawnPet() {
+        const mover = document.createElement('div');
+        mover.className = 'pet-mover';
+        
+        const wrapper = document.createElement('div');
+        wrapper.className = 'pet-emoji';
+        
+        const inner = document.createElement('div');
+        inner.innerText = pets[Math.floor(Math.random() * pets.length)];
+        
+        // Decide direction
+        const isRightToLeft = Math.random() > 0.5;
+        const duration = 12000 + Math.random() * 10000; // 12-22 seconds to cross screen
+        
+        const startX = isRightToLeft ? window.innerWidth + 50 : -50;
+        const endX = isRightToLeft ? -50 : window.innerWidth + 50;
+        
+        // Flip the emoji so it faces the direction it's walking
+        if (!isRightToLeft) {
+            inner.style.transform = 'scaleX(-1)';
+            inner.style.display = 'inline-block';
+        }
+        
+        wrapper.appendChild(inner);
+        mover.appendChild(wrapper);
+        mover.style.transform = `translateX(${startX}px)`;
+        container.appendChild(mover);
+
+        let startTime = null;
+
+        function animate(time) {
+          if (!startTime) startTime = time;
+          const progress = (time - startTime) / duration;
+          if (progress < 1) {
+            const currentX = startX + (endX - startX) * progress;
+            mover.style.transform = `translateX(${currentX}px)`;
+            requestAnimationFrame(animate);
+          } else {
+            mover.remove();
+          }
+        }
+        
+        requestAnimationFrame(animate);
+
+        // Schedule next pet
+        setTimeout(spawnPet, 4000 + Math.random() * 6000);
+      }
+
+      // Initial pets
+      setTimeout(spawnPet, 500);
+      setTimeout(spawnPet, 3000);
+      setTimeout(spawnPet, 8000);
+    })();
+  </script>
+<!-- hexo injector body_end end --></body>
 
 </html>
