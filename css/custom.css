@@ -19,3 +19,29 @@ html.dark .trm-logo-text {
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+/* Sidebar customization to make it less monotonous */
+.trm-sidebar .trm-main-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(245, 247, 250, 0.8)) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.trm-sidebar .trm-main-card:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+/* Dark mode adjustments for sidebar */
+html.dark .trm-sidebar .trm-main-card {
+    background: linear-gradient(135deg, rgba(30, 30, 35, 0.9), rgba(20, 20, 25, 0.8)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+html.dark .trm-sidebar .trm-main-card:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
