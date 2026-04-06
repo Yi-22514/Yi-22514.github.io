@@ -692,9 +692,13 @@
       container.className = 'pets-container';
       document.body.appendChild(container);
 
-      // 可爱的小动物列表
-      const pets = ['🐕', '🐈', '🐈‍⬛', '🐩', '🐾'];
-      
+      // 更多的可爱动物大集合
+      const pets = [
+        '🐕', '🐈', '🐈‍⬛', '🐩', '🐾', // 经典的猫狗
+        '🐇', '🦊', '🐢', '🦆', '🦢', // 兔子、狐狸、乌龟、鸭子、天鹅
+        '🐑', '🐎', '🦖', '🦔', '🦡', // 小羊、马、霸王龙、小刺猬、蜜獾
+        '🐅', '🐆', '🐁', '🐿️', '🐓'  // 老虎、豹子、老鼠、松鼠、公鸡
+      ];      
       function spawnPet() {
         const mover = document.createElement('div');
         mover.className = 'pet-mover';
