@@ -45,3 +45,19 @@ html.dark .trm-sidebar .trm-main-card {
 html.dark .trm-sidebar .trm-main-card:hover {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
+
+/* Theme-aware image in the sidebar profile card */
+.trm-sidebar .trm-social::after {
+    content: "";
+    display: block;
+    width: 100%;
+    max-width: 240px;
+    aspect-ratio: 4 / 3;
+    margin: 28px auto -8px;
+    border-radius: 8px;
+    background: url("/img/sidebar/bright.jpg") center / contain no-repeat;
+}
+
+html.dark .trm-sidebar .trm-social::after {
+    background-image: url("/img/sidebar/dark.gif");
+}
