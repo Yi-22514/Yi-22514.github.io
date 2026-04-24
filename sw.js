@@ -4,14 +4,13 @@ workbox.setConfig({
     modulePathPrefix: 'https://cdn.jsdelivr.net/npm/workbox-cdn@5.1.3/workbox/'
 });
 
-//关闭日志
 self.__WB_DISABLE_DEV_LOGS = true;
 
-const { core, precaching, routing, strategies, expiration } = workbox;
-const { CacheFirst, NetworkFirst, NetworkOnly, StaleWhileRevalidate } = strategies;
+const { core, routing, strategies, expiration } = workbox;
+const { CacheFirst, NetworkFirst, NetworkOnly } = strategies;
 const { ExpirationPlugin } = expiration;
 
-const cacheSuffixVersion = '_20200610';
+const cacheSuffixVersion = '_20260424';
 
 core.setCacheNameDetails({
     prefix: 'bycg',
@@ -28,13 +27,9 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-
 core.skipWaiting();
 core.clientsClaim();
 
-/**
- * 缓存第三方引用
- */
 routing.registerRoute(
     /.*(cdn.jsdelivr.net|at.alicdn.com)/,
     new CacheFirst({
@@ -52,14 +47,11 @@ routing.registerRoute(
     })
 );
 
-//不作缓存
 routing.registerRoute(
     /\/sw.js/,
     new NetworkOnly()
 );
 
-
-//缓存图片
 routing.registerRoute(
     /.*\.(?:png|jpg|jpeg|svg|gif|webp)/,
     new CacheFirst({
@@ -67,7 +59,6 @@ routing.registerRoute(
     })
 );
 
-//缓存js css
 routing.registerRoute(
     /.*\.(css|js)$/,
     new CacheFirst({
@@ -75,10 +66,9 @@ routing.registerRoute(
     })
 );
 
-//本站其他文件 
 routing.registerRoute(
     ({ url }) => {
-        return url.hostname === location.hostname
+        return url.hostname === location.hostname;
     },
     new NetworkFirst({
         cacheName: 'static-other' + cacheSuffixVersion,

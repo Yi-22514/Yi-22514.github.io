@@ -51,13 +51,23 @@ html.dark .trm-sidebar .trm-main-card:hover {
     content: "";
     display: block;
     width: 100%;
-    max-width: 240px;
-    aspect-ratio: 4 / 3;
-    margin: 28px auto -8px;
+    max-width: 156px;
+    height: 116px;
+    margin: 16px auto -14px;
     border-radius: 8px;
-    background: url("/img/sidebar/bright.jpg") center / contain no-repeat;
+    background: url("/img/sidebar/bright.jpg") center / cover no-repeat;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
 }
 
 html.dark .trm-sidebar .trm-social::after {
     background-image: url("/img/sidebar/dark.gif");
+}
+
+.trm-sidebar .trm-divider {
+    margin-top: 24px !important;
+    margin-bottom: 24px !important;
+}
+
+.trm-sidebar .trm-table {
+    margin-bottom: 12px !important;
 }
