@@ -47,27 +47,91 @@ html.dark .trm-sidebar .trm-main-card:hover {
 }
 
 /* Theme-aware image in the sidebar profile card */
-.trm-sidebar .trm-social::after {
+.trm-sidebar .trm-main-card {
+    position: relative;
+    overflow: hidden;
+    padding: 30px 36px 28px !important;
+}
+
+.trm-sidebar .trm-main-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.trm-sidebar .trm-main-card::after {
     content: "";
     display: block;
-    width: 100%;
-    max-width: 156px;
-    height: 116px;
-    margin: 16px auto -14px;
+    position: absolute;
+    z-index: 0;
+    left: 50%;
+    top: 285px;
+    width: 132px;
+    height: 98px;
     border-radius: 8px;
     background: url("/img/sidebar/bright.jpg") center / cover no-repeat;
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+    pointer-events: none;
+    transform: translateX(-50%);
 }
 
-html.dark .trm-sidebar .trm-social::after {
+html.dark .trm-sidebar .trm-main-card::after {
     background-image: url("/img/sidebar/dark.gif");
 }
 
+.trm-sidebar .trm-mc-header .trm-avatar-frame.trm-mb-20 {
+    margin-bottom: 12px !important;
+}
+
+.trm-sidebar .trm-mc-header .trm-avatar {
+    width: 96px !important;
+    height: 96px !important;
+}
+
+.trm-sidebar .trm-mc-header .trm-name.trm-mb-15 {
+    margin-bottom: 8px !important;
+}
+
 .trm-sidebar .trm-divider {
-    margin-top: 24px !important;
-    margin-bottom: 24px !important;
+    margin-top: 18px !important;
+    margin-bottom: 18px !important;
+}
+
+.trm-sidebar .trm-social {
+    min-height: 108px;
+    align-items: flex-start;
 }
 
 .trm-sidebar .trm-table {
     margin-bottom: 12px !important;
+}
+
+.trm-sidebar .trm-table li {
+    margin-bottom: 8px !important;
+}
+
+@media (max-height: 760px) and (min-width: 992px) {
+    .trm-sidebar .trm-main-card {
+        padding-top: 24px !important;
+        padding-bottom: 22px !important;
+    }
+
+    .trm-sidebar .trm-main-card::after {
+        top: 260px;
+        width: 112px;
+        height: 84px;
+    }
+
+    .trm-sidebar .trm-mc-header .trm-avatar {
+        width: 86px !important;
+        height: 86px !important;
+    }
+
+    .trm-sidebar .trm-divider {
+        margin-top: 14px !important;
+        margin-bottom: 14px !important;
+    }
+
+    .trm-sidebar .trm-social {
+        min-height: 90px;
+    }
 }
