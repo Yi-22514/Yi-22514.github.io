@@ -15,7 +15,7 @@
 <meta property="og:description" content="Transformer架构个人学习总结最近学习了 Datawhale 的 Happy-LLM 第二章《Transformer 架构》，这篇文章算是我对 Transformer 的一次阶段性整理。以前看到 Transformer，总觉得它和“大模型”几乎是绑定出现的词，但真正顺着 Attention、Encoder-Decoder、位置编码这些组件往下看，才发现它并不是一个神秘黑盒，而是一套围绕“如">
 <meta property="og:locale">
 <meta property="article:published_time" content="2026-06-15T16:00:05.000Z">
-<meta property="article:modified_time" content="2026-06-15T16:01:15.351Z">
+<meta property="article:modified_time" content="2026-06-15T16:06:45.659Z">
 <meta property="article:author" content="Yi">
 <meta property="article:tag" content="Transformer">
 <meta property="article:tag" content="Attention">
@@ -52,6 +52,8 @@
 
     
     
+<link rel="stylesheet" href="https://npm.elemecdn.com/katex@latest/dist/katex.min.css">
+
 
 
 
@@ -66,7 +68,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"Yi","root":"/","typed_text":["《终南别业》","中岁颇好道，晚家南山陲。","兴来每独往，胜事空自知。","行到水穷处，坐看云起时。","偶然值林叟，谈笑无还期。"],"theme_version":"2.2.2","theme":{"switch":true,"default":"auto"},"favicon":{"logo":"log.svg","icon16":"log.svg","icon32":"log.svg","apple_touch_icon":"log.svg","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","show_text":"(/≧▽≦/）哈哈！骗你的！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://npm.elemecdn.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"symbol","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"07/13/2024 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner","avatar":true,"delayRange":5000,"speed":80},"covers":["/img/covers/mountains.png","/img/covers/abstract_blue.png","/img/covers/autumn_lake.png","/img/covers/sakura.png","/img/covers/starry_night.png","/img/covers/ocean_sunset.png","/img/covers/bamboo_forest.png","/img/covers/snow_village.png"]};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2026-06-16 00:01:15"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2026-06-16 00:06:45"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
@@ -316,7 +318,7 @@
 </ul>
 <p>我比较喜欢把它理解成一次“带权重的信息检索”：Query 先和所有 Key 做相似度计算，得到每个位置的重要程度；再用这些重要程度去加权 Value，得到当前位置真正吸收的信息。</p>
 <p>标准的缩放点积注意力公式是：</p>
-<p>$$<br>\mathrm{Attention}(Q,K,V)&#x3D;\mathrm{softmax}(\frac{QK^T}{\sqrt{d_k}})V<br>$$</p>
+<p>$$\mathrm{Attention}(Q,K,V)&#x3D;\mathrm{softmax}(\frac{QK^T}{\sqrt{d_k}})V$$</p>
 <p>这个公式可以拆成三步理解：</p>
 <ol>
 <li>用 $QK^T$ 计算 Query 和 Key 的相似度。</li>
@@ -336,9 +338,9 @@
 <h2 id="五、多头注意力：从多个角度看同一句话"><a href="#五、多头注意力：从多个角度看同一句话" class="headerlink" title="五、多头注意力：从多个角度看同一句话"></a>五、多头注意力：从多个角度看同一句话</h2><p>单个注意力头只能学习一种关系，但语言里的关系往往不止一种。有些头可能更关注语法结构，有些头可能更关注指代关系，有些头可能更关注局部搭配。</p>
 <p>Multi-Head Attention 的做法是：把输入映射成多组 Q、K、V，每组独立做注意力计算，然后把结果拼接起来，再经过一个线性层融合。</p>
 <p>公式可以写成：</p>
-<p>$$<br>\mathrm{MultiHead}(Q,K,V)&#x3D;\mathrm{Concat}(head_1,\dots,head_h)W^O<br>$$</p>
+<p>$$\mathrm{MultiHead}(Q,K,V)&#x3D;\mathrm{Concat}(head_1,\dots,head_h)W^O$$</p>
 <p>其中：</p>
-<p>$$<br>head_i&#x3D;\mathrm{Attention}(QW_i^Q,KW_i^K,VW_i^V)<br>$$</p>
+<p>$$head_i&#x3D;\mathrm{Attention}(QW_i^Q,KW_i^K,VW_i^V)$$</p>
 <p>我的理解是，多头注意力让模型拥有了“多视角阅读能力”。同一句话不再只有一种理解路径，而是可以同时从不同子空间提取关系。</p>
 <h2 id="六、Encoder-和-Decoder-的分工"><a href="#六、Encoder-和-Decoder-的分工" class="headerlink" title="六、Encoder 和 Decoder 的分工"></a>六、Encoder 和 Decoder 的分工</h2><p>原始 Transformer 是 Encoder-Decoder 架构，最早主要用于机器翻译这类 Seq2Seq 任务。输入是一段序列，输出是另一段序列。</p>
 <p>Encoder 的作用是<strong>理解输入</strong>。每个 Encoder Layer 通常包含：</p>
@@ -361,13 +363,13 @@
 <p><strong>前馈神经网络</strong>负责对每个位置的表示做非线性变换。Attention 更像是在不同 token 之间交换信息，而 FFN 更像是在每个 token 内部进一步加工特征。</p>
 <p><strong>LayerNorm</strong>用于稳定训练。它会在每个样本内部做归一化，让不同层之间的数据分布更平稳。相比 BatchNorm，LayerNorm 更适合变长序列和 NLP 场景。</p>
 <p><strong>残差连接</strong>则负责保留原始信息并改善梯度传播。它的形式很简单：</p>
-<p>$$<br>x &#x3D; x + Sublayer(LayerNorm(x))<br>$$</p>
+<p>$$x &#x3D; x + Sublayer(LayerNorm(x))$$</p>
 <p>但作用很关键：模型不用每一层都重新学习完整表示，而是学习“在原来的基础上该补充什么”。这对深层网络非常重要。</p>
 <p>我以前容易把这些组件当成结构图里的“小零件”，但现在感觉它们其实共同解决了一个问题：<strong>让 Attention 这个强大的模块可以稳定地堆很多层。</strong></p>
 <h2 id="八、位置编码：给并行计算补上顺序感"><a href="#八、位置编码：给并行计算补上顺序感" class="headerlink" title="八、位置编码：给并行计算补上顺序感"></a>八、位置编码：给并行计算补上顺序感</h2><p>Attention 本身并不知道顺序。对于它来说，如果没有额外信息，“我喜欢你”和“你喜欢我”包含的是同一组 token，它很难区分词序带来的语义差异。</p>
 <p>所以 Transformer 需要位置编码。原始 Transformer 使用正余弦位置编码：</p>
-<p>$$<br>PE(pos,2i)&#x3D;\sin(pos&#x2F;10000^{2i&#x2F;d_{model}})<br>$$</p>
-<p>$$<br>PE(pos,2i+1)&#x3D;\cos(pos&#x2F;10000^{2i&#x2F;d_{model}})<br>$$</p>
+<p>$$PE(pos,2i)&#x3D;\sin(pos&#x2F;10000^{2i&#x2F;d_{model}})$$</p>
+<p>$$PE(pos,2i+1)&#x3D;\cos(pos&#x2F;10000^{2i&#x2F;d_{model}})$$</p>
 <p>位置编码会加到词向量上，让每个 token 的表示同时包含“它是什么”和“它在哪里”。正余弦函数的好处是可以推广到训练时没见过的更长序列，并且相对位置关系可以通过三角函数性质表达出来。</p>
 <p>这部分给我的启发是：Transformer 不是天然懂顺序，而是通过额外设计把顺序信息注入进去。也正因为如此，后来才会出现各种位置编码改进，比如可学习位置编码、RoPE 等。</p>
 <h2 id="九、完整-Transformer-的流程"><a href="#九、完整-Transformer-的流程" class="headerlink" title="九、完整 Transformer 的流程"></a>九、完整 Transformer 的流程</h2><p>把所有组件串起来，一个完整 Transformer 大致可以理解为：</p>
@@ -518,6 +520,29 @@
     
 
     <!-- 数学公式 -->
+    
+        
+<script src="https://npm.elemecdn.com/katex@latest/dist/katex.min.js" data-swup-reload-script></script>
+
+        
+            
+<script src="https://npm.elemecdn.com/katex@latest/dist/contrib/copy-tex.min.js" data-swup-reload-script></script>
+
+        
+        
+<script src="https://npm.elemecdn.com/katex@latest/dist/contrib/auto-render.min.js" data-swup-reload-script></script>
+
+        <script data-swup-reload-script>
+              window.renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },
+                    { left: '\\[', right: '\\]', display: true },
+                ],
+                ...{},
+            })
+        </script>
     
 
     <!-- 评论插件 -->
