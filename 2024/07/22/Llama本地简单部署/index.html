@@ -737,8 +737,8 @@
   </script>
 
   <canvas id="yi-sky-canvas" aria-hidden="true"></canvas>
-  <div class="yi-cursor-dot" aria-hidden="true"></div>
-  <div class="yi-cursor-ring" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-jelly" aria-hidden="true"></div>
 
   <script>
     (function() {
@@ -877,46 +877,175 @@
       function initCursor() {
         if (prefersReducedMotion || !window.matchMedia('(pointer: fine)').matches) return;
 
-        const dot = document.querySelector('.yi-cursor-dot');
-        const ring = document.querySelector('.yi-cursor-ring');
-        if (!dot || !ring) return;
+        const dot = document.querySelector('.cursor-dot');
+        const jelly = document.querySelector('.cursor-jelly');
+        if (!dot || !jelly) return;
 
-        document.body.classList.add('yi-custom-cursor');
+        document.body.classList.add('reactive-cursor');
 
-        let dotX = window.innerWidth / 2;
-        let dotY = window.innerHeight / 2;
-        let ringX = dotX;
-        let ringY = dotY;
+        const clickableSelector = [
+          'a',
+          'button',
+          'input',
+          'textarea',
+          'select',
+          '[role="button"]',
+          '.article-card',
+          '.trm-blog-card',
+          '.trm-btn',
+          '.animal-pick-btn',
+          '.zoo-btn'
+        ].join(',');
 
-        function move() {
-          ringX += (dotX - ringX) * 0.18;
-          ringY += (dotY - ringY) * 0.18;
-          dot.style.transform = 'translate3d(' + dotX + 'px,' + dotY + 'px,0) translate(-50%, -50%)';
-          ring.style.transform = 'translate3d(' + ringX + 'px,' + ringY + 'px,0) translate(-50%, -50%)';
-          requestAnimationFrame(move);
+        const pointer = {
+          x: window.innerWidth / 2,
+          y: window.innerHeight / 2,
+          lastX: window.innerWidth / 2,
+          lastY: window.innerHeight / 2,
+          vx: 0,
+          vy: 0
+        };
+
+        const jellyState = {
+          x: pointer.x,
+          y: pointer.y,
+          w: 42,
+          h: 42,
+          radius: 999,
+          angle: 0,
+          stretch: 0
+        };
+
+        let magneticTarget = null;
+        let previousTarget = null;
+        let clickPulse = 0;
+        let lastFrame = performance.now();
+
+        function clamp(value, min, max) {
+          return Math.max(min, Math.min(max, value));
+        }
+
+        function lerp(current, target, amount) {
+          return current + (target - current) * amount;
+        }
+
+        function getTargetRadius(target) {
+          const radius = parseFloat(window.getComputedStyle(target).borderRadius);
+          return Number.isFinite(radius) ? Math.min(radius + 12, 30) : 24;
+        }
+
+        function setMagneticTarget(target) {
+          if (target === previousTarget) return;
+
+          if (previousTarget) previousTarget.classList.remove('cursor-magnetic-target');
+          previousTarget = target;
+          magneticTarget = target;
+
+          document.body.classList.toggle('cursor-magnetic', Boolean(target));
+
+          if (target) {
+            target.classList.remove('cursor-magnetic-target');
+            void target.offsetWidth;
+            target.classList.add('cursor-magnetic-target');
+          }
+        }
+
+        function clearDetachedTarget() {
+          if (magneticTarget && !document.documentElement.contains(magneticTarget)) {
+            setMagneticTarget(null);
+          }
+        }
+
+        function animateCursor(now) {
+          const dt = Math.max(16, Math.min(48, now - lastFrame));
+          lastFrame = now;
+
+          pointer.vx = (pointer.x - pointer.lastX) / dt * 16.67;
+          pointer.vy = (pointer.y - pointer.lastY) / dt * 16.67;
+          pointer.lastX = pointer.x;
+          pointer.lastY = pointer.y;
+
+          const speed = Math.hypot(pointer.vx, pointer.vy);
+          const angle = Math.atan2(pointer.vy, pointer.vx || 0.001);
+          const pulseScale = 1 + clickPulse;
+
+          clearDetachedTarget();
+
+          let targetX = pointer.x;
+          let targetY = pointer.y;
+          let targetW = 42;
+          let targetH = 42;
+          let targetRadius = 999;
+          let targetAngle = angle;
+          let stretchX = 1 + clamp(speed / 42, 0, 1.1);
+          let stretchY = 1 - clamp(speed / 160, 0, 0.34);
+          let followEase = 0.18;
+
+          if (magneticTarget) {
+            const rect = magneticTarget.getBoundingClientRect();
+            targetX = rect.left + rect.width / 2;
+            targetY = rect.top + rect.height / 2;
+            targetW = rect.width + 20;
+            targetH = rect.height + 20;
+            targetRadius = getTargetRadius(magneticTarget);
+            targetAngle = 0;
+            stretchX = 1;
+            stretchY = 1;
+            followEase = 0.34;
+          }
+
+          jellyState.x = lerp(jellyState.x, targetX, followEase);
+          jellyState.y = lerp(jellyState.y, targetY, followEase);
+          jellyState.w = lerp(jellyState.w, targetW, magneticTarget ? 0.38 : 0.24);
+          jellyState.h = lerp(jellyState.h, targetH, magneticTarget ? 0.38 : 0.24);
+          jellyState.radius = lerp(jellyState.radius, targetRadius, 0.28);
+          jellyState.angle = lerp(jellyState.angle, targetAngle, 0.24);
+          jellyState.stretch = lerp(jellyState.stretch, speed, 0.16);
+
+          dot.style.transform =
+            'translate3d(' + pointer.x + 'px,' + pointer.y + 'px,0) translate(-50%, -50%) scale(' + (1 + clickPulse * 1.65).toFixed(3) + ')';
+
+          jelly.style.width = jellyState.w + 'px';
+          jelly.style.height = jellyState.h + 'px';
+          jelly.style.borderRadius = jellyState.radius + 'px';
+          jelly.style.transform =
+            'translate3d(' + jellyState.x + 'px,' + jellyState.y + 'px,0) translate(-50%, -50%) rotate(' + jellyState.angle + 'rad) scale(' +
+            (stretchX * (1 + clickPulse * 0.32)).toFixed(3) + ',' +
+            (stretchY * (1 + clickPulse * 0.32)).toFixed(3) + ')';
+
+          clickPulse *= 0.82;
+          if (clickPulse < 0.01) {
+            clickPulse = 0;
+            document.body.classList.remove('cursor-clicking');
+          }
+
+          requestAnimationFrame(animateCursor);
         }
 
         window.addEventListener('mousemove', function(event) {
-          dotX = event.clientX;
-          dotY = event.clientY;
-          document.body.classList.add('yi-cursor-ready');
+          pointer.x = event.clientX;
+          pointer.y = event.clientY;
+          document.body.classList.add('cursor-ready');
         }, { passive: true });
 
         document.addEventListener('mouseover', function(event) {
-          const interactive = event.target.closest('a, button, input, textarea, select, [role="button"], .trm-btn');
-          document.body.classList.toggle('yi-cursor-link', Boolean(interactive));
+          setMagneticTarget(event.target.closest(clickableSelector));
         });
 
-        document.addEventListener('click', function(event) {
-          const ripple = document.createElement('span');
-          ripple.className = 'yi-click-ripple';
-          ripple.style.left = event.clientX + 'px';
-          ripple.style.top = event.clientY + 'px';
-          document.body.appendChild(ripple);
-          window.setTimeout(function() { ripple.remove(); }, 760);
+        document.addEventListener('mouseout', function(event) {
+          if (!magneticTarget) return;
+          const next = event.relatedTarget;
+          if (!next || !magneticTarget.contains(next)) {
+            setMagneticTarget(null);
+          }
         });
 
-        requestAnimationFrame(move);
+        document.addEventListener('pointerdown', function() {
+          clickPulse = 1;
+          document.body.classList.add('cursor-clicking');
+        }, { passive: true });
+
+        requestAnimationFrame(animateCursor);
       }
 
       function initEffects() {

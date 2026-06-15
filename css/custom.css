@@ -456,20 +456,22 @@ html.dark .trm-blog-card .trm-card-descr {
     transform: translateY(0);
 }
 
-/* Playful cursor and click ripple */
+/* Physically reactive custom cursor */
 @media (pointer: fine) {
-    body.yi-custom-cursor,
-    body.yi-custom-cursor a,
-    body.yi-custom-cursor button,
-    body.yi-custom-cursor input,
-    body.yi-custom-cursor textarea,
-    body.yi-custom-cursor select,
-    body.yi-custom-cursor [role="button"] {
+    body.reactive-cursor,
+    body.reactive-cursor a,
+    body.reactive-cursor button,
+    body.reactive-cursor input,
+    body.reactive-cursor textarea,
+    body.reactive-cursor select,
+    body.reactive-cursor [role="button"],
+    body.reactive-cursor .article-card,
+    body.reactive-cursor .trm-blog-card {
         cursor: none !important;
     }
 
-    .yi-cursor-dot,
-    .yi-cursor-ring {
+    .cursor-dot,
+    .cursor-jelly {
         position: fixed;
         top: 0;
         left: 0;
@@ -478,79 +480,109 @@ html.dark .trm-blog-card .trm-card-descr {
         border-radius: 50%;
         transform: translate3d(-50%, -50%, 0);
         opacity: 0;
-        transition: opacity 0.2s ease, width 0.25s ease, height 0.25s ease, border-color 0.25s ease;
-        mix-blend-mode: multiply;
+        will-change: transform, width, height, border-radius;
     }
 
-    .yi-cursor-dot {
+    .cursor-dot {
         width: 8px;
         height: 8px;
-        background: linear-gradient(135deg, #ff8934, #fac70f);
-        box-shadow: 0 0 16px rgba(255, 137, 52, 0.45);
+        background: linear-gradient(135deg, #ff8934, #fac70f 70%);
+        box-shadow: 0 0 18px rgba(255, 137, 52, 0.42);
+        transition: opacity 0.18s ease, background 0.24s ease, box-shadow 0.24s ease;
     }
 
-    .yi-cursor-ring {
-        width: 34px;
-        height: 34px;
-        border: 2px solid rgba(0, 114, 255, 0.44);
-        box-shadow: 0 0 22px rgba(161, 196, 253, 0.22);
+    .cursor-jelly {
+        width: 42px;
+        height: 42px;
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        background: rgba(255, 255, 255, 0.22);
+        box-shadow:
+            inset 0 0 0 1px rgba(255, 255, 255, 0.22),
+            0 12px 32px rgba(70, 115, 170, 0.16);
+        backdrop-filter: blur(4px) saturate(1.35);
+        -webkit-backdrop-filter: blur(4px) saturate(1.35);
+        transition:
+            opacity 0.18s ease,
+            width 0.55s cubic-bezier(0.18, 1.65, 0.28, 1),
+            height 0.55s cubic-bezier(0.18, 1.65, 0.28, 1),
+            border-radius 0.55s cubic-bezier(0.18, 1.65, 0.28, 1),
+            border-color 0.2s ease,
+            background 0.2s ease,
+            box-shadow 0.2s ease;
     }
 
-    body.yi-cursor-ready .yi-cursor-dot,
-    body.yi-cursor-ready .yi-cursor-ring {
+    body.cursor-ready .cursor-dot,
+    body.cursor-ready .cursor-jelly {
         opacity: 1;
     }
 
-    body.yi-cursor-link .yi-cursor-ring {
-        width: 48px;
-        height: 48px;
-        border-color: rgba(255, 137, 52, 0.7);
+    body.cursor-magnetic .cursor-jelly {
+        border-color: rgba(161, 196, 253, 0.92);
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow:
+            inset 0 0 0 1px rgba(255, 255, 255, 0.22),
+            0 16px 38px rgba(161, 196, 253, 0.24),
+            0 5px 18px rgba(255, 137, 52, 0.1);
+        backdrop-filter: blur(0px) saturate(1.1);
+        -webkit-backdrop-filter: blur(0px) saturate(1.1);
     }
 
-    html.dark .yi-cursor-dot,
-    html.dark .yi-cursor-ring {
+    body.cursor-clicking .cursor-dot {
+        background: linear-gradient(135deg, #ff6b8b, #fac70f);
+        box-shadow: 0 0 24px rgba(255, 137, 52, 0.62);
+    }
+
+    body.cursor-clicking .cursor-jelly {
+        border-color: rgba(251, 194, 235, 0.9);
+        box-shadow:
+            inset 0 0 0 1px rgba(255, 255, 255, 0.38),
+            0 0 0 8px rgba(161, 196, 253, 0.08),
+            0 18px 44px rgba(251, 194, 235, 0.22);
+    }
+
+    .cursor-magnetic-target {
+        animation: cursorTargetBounce 0.58s cubic-bezier(0.18, 1.9, 0.28, 1);
+        transform-origin: center;
+    }
+
+    @keyframes cursorTargetBounce {
+        0% { transform: scale(1); }
+        38% { transform: scale(0.985); }
+        72% { transform: scale(1.018); }
+        100% { transform: scale(1); }
+    }
+
+    html.dark .cursor-dot,
+    html.dark .cursor-jelly {
         mix-blend-mode: screen;
     }
 
-    html.dark .yi-cursor-dot {
+    html.dark .cursor-dot {
         background: linear-gradient(135deg, #b32af3, #00eeff);
         box-shadow: 0 0 16px rgba(0, 238, 255, 0.35);
     }
 
-    html.dark .yi-cursor-ring {
-        border-color: rgba(0, 238, 255, 0.44);
+    html.dark .cursor-jelly {
+        border-color: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.12);
+        box-shadow:
+            inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+            0 12px 32px rgba(0, 0, 0, 0.28);
     }
-}
 
-.yi-click-ripple {
-    position: fixed;
-    z-index: 1000000;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%) scale(0);
-    background:
-        radial-gradient(circle, rgba(255, 255, 255, 0.95) 0 18%, rgba(255, 137, 52, 0.62) 20% 36%, rgba(161, 196, 253, 0.46) 38% 58%, transparent 62%);
-    animation: yiRipple 0.72s ease-out forwards;
-}
-
-@keyframes yiRipple {
-    0% {
-        opacity: 0.95;
-        transform: translate(-50%, -50%) scale(0.4);
-    }
-    100% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(5.8);
+    html.dark body.cursor-magnetic .cursor-jelly {
+        border-color: rgba(0, 238, 255, 0.76);
+        background: rgba(0, 238, 255, 0.045);
+        box-shadow:
+            inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+            0 16px 40px rgba(0, 238, 255, 0.16);
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     #yi-sky-canvas,
-    .yi-cursor-dot,
-    .yi-cursor-ring,
-    .yi-click-ripple {
+    .cursor-dot,
+    .cursor-jelly {
         display: none !important;
     }
 
