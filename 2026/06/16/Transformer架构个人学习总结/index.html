@@ -7,33 +7,23 @@
 <meta name="full-screen" content="yes">
 <meta name="theme-color" content="#317EFB" />
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
-<meta name="description" content="截至目前为止，史上最强开源AI大模型——Meta的LLaMa3一经发布，各项指标全面逼近GPT-4。它提供了8B和70B两个版本，8B版本最低仅需4G显存即可运行，可以说是迄今为止能在本地运行的最强LLM。 虽然LLaMa3对中文支持不算好，但HuggingFace上很快出现了各种针对中文的微调模型，本文将介绍如何在本地简单运行发布在HuggingFace上的各种LLaMa3大模型。 需要准备：">
+<meta name="description" content="Transformer架构个人学习总结最近学习了 Datawhale 的 Happy-LLM 第二章《Transformer 架构》，这篇文章算是我对 Transformer 的一次阶段性整理。以前看到 Transformer，总觉得它和“大模型”几乎是绑定出现的词，但真正顺着 Attention、Encoder-Decoder、位置编码这些组件往下看，才发现它并不是一个神秘黑盒，而是一套围绕“如">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Llama3本地简易部署">
-<meta property="og:url" content="http://example.com/2024/07/22/Llama%E6%9C%AC%E5%9C%B0%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2/index.html">
+<meta property="og:title" content="Transformer架构个人学习总结">
+<meta property="og:url" content="http://example.com/2026/06/16/Transformer%E6%9E%B6%E6%9E%84%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="截至目前为止，史上最强开源AI大模型——Meta的LLaMa3一经发布，各项指标全面逼近GPT-4。它提供了8B和70B两个版本，8B版本最低仅需4G显存即可运行，可以说是迄今为止能在本地运行的最强LLM。 虽然LLaMa3对中文支持不算好，但HuggingFace上很快出现了各种针对中文的微调模型，本文将介绍如何在本地简单运行发布在HuggingFace上的各种LLaMa3大模型。 需要准备：">
+<meta property="og:description" content="Transformer架构个人学习总结最近学习了 Datawhale 的 Happy-LLM 第二章《Transformer 架构》，这篇文章算是我对 Transformer 的一次阶段性整理。以前看到 Transformer，总觉得它和“大模型”几乎是绑定出现的词，但真正顺着 Attention、Encoder-Decoder、位置编码这些组件往下看，才发现它并不是一个神秘黑盒，而是一套围绕“如">
 <meta property="og:locale">
-<meta property="og:image" content="http://example.com/img/404.jpg">
-<meta property="og:image" content="http://example.com/img/404.jpg">
-<meta property="og:image" content="http://example.com/img/404.jpg">
-<meta property="og:image" content="http://example.com/img/404.jpg">
-<meta property="og:image" content="http://example.com/img/404.jpg">
-<meta property="og:image" content="http://example.com/img/404.jpg">
-<meta property="og:image" content="http://example.com/img/404.jpg">
-<meta property="og:image" content="http://example.com/img/404.jpg">
-<meta property="og:image" content="http://example.com/img/404.jpg">
-<meta property="og:image" content="http://example.com/img/404.jpg">
-<meta property="og:image" content="http://example.com/img/404.jpg">
-<meta property="og:image" content="http://example.com/img/404.jpg">
-<meta property="article:published_time" content="2024-07-22T10:25:06.010Z">
-<meta property="article:modified_time" content="2024-08-19T08:05:39.115Z">
+<meta property="article:published_time" content="2026-06-15T16:00:05.000Z">
+<meta property="article:modified_time" content="2026-06-15T16:01:15.351Z">
 <meta property="article:author" content="Yi">
+<meta property="article:tag" content="Transformer">
+<meta property="article:tag" content="Attention">
+<meta property="article:tag" content="LLM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/img/404.jpg">
 
 
-<title >Llama3本地简易部署</title>
+<title >Transformer架构个人学习总结</title>
 
 <!-- Favicon -->
 
@@ -76,7 +66,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"Yi","root":"/","typed_text":["《终南别业》","中岁颇好道，晚家南山陲。","兴来每独往，胜事空自知。","行到水穷处，坐看云起时。","偶然值林叟，谈笑无还期。"],"theme_version":"2.2.2","theme":{"switch":true,"default":"auto"},"favicon":{"logo":"log.svg","icon16":"log.svg","icon32":"log.svg","apple_touch_icon":"log.svg","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","show_text":"(/≧▽≦/）哈哈！骗你的！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://npm.elemecdn.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"symbol","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"07/13/2024 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner","avatar":true,"delayRange":5000,"speed":80},"covers":["/img/covers/mountains.png","/img/covers/abstract_blue.png","/img/covers/autumn_lake.png","/img/covers/sakura.png","/img/covers/starry_night.png","/img/covers/ocean_sunset.png","/img/covers/bamboo_forest.png","/img/covers/snow_village.png"]};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-08-19 16:05:39"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2026-06-16 00:01:15"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
@@ -230,7 +220,7 @@
     <div class="trm-banner">
     
     <!-- banner cover -->
-    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="https://haowallpaper.com/link/common/file/getCroppingImg/15098960865889600">
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/covers/starry_night.png">
     <!-- banner cover end -->
     
 
@@ -247,7 +237,7 @@
                             NEWS LETTER
                         </div>
                         <h1 class="trm-mb-30 trm-hsmb-font">
-                            Llama3本地简易部署
+                            Transformer架构个人学习总结
                         </h1>
 
                         
@@ -257,7 +247,7 @@
                                 </li>
                                 <li>
                                     <span>
-                                        2024
+                                        2026
                                     </span>
                                 </li>
                             </ul>
@@ -290,7 +280,7 @@
             <svg class="symbol-icon trm-icon" aria-hidden="true">
     <use xlink:href="#far fa-calendar-alt"></use>
 </svg><br>
-            07/22
+            06/16
         </div>
     </div>
     <div class="col-sm-4">
@@ -298,7 +288,7 @@
             <svg class="symbol-icon trm-icon" aria-hidden="true">
     <use xlink:href="#far fa-clock"></use>
 </svg><br>
-            18:25
+            00:00
         </div>
     </div>
     <div class="col-sm-4">
@@ -312,63 +302,99 @@
 </div>
 <div class="trm-card ">
     <article id="article-container" class="trm-publication">
-    <p>截至目前为止，史上最强开源AI大模型——Meta的LLaMa3一经发布，各项指标全面逼近GPT-4。它提供了8B和70B两个版本，8B版本最低仅需4G显存即可运行，可以说是迄今为止能在本地运行的最强LLM。</p>
-<p>虽然LLaMa3对中文支持不算好，但HuggingFace上很快出现了各种针对中文的微调模型，本文将介绍如何在本地简单运行发布在HuggingFace上的各种LLaMa3大模型。</p>
-<p>需要准备：</p>
+    <h1 id="Transformer架构个人学习总结"><a href="#Transformer架构个人学习总结" class="headerlink" title="Transformer架构个人学习总结"></a>Transformer架构个人学习总结</h1><p>最近学习了 Datawhale 的 Happy-LLM 第二章《Transformer 架构》，这篇文章算是我对 Transformer 的一次阶段性整理。以前看到 Transformer，总觉得它和“大模型”几乎是绑定出现的词，但真正顺着 Attention、Encoder-Decoder、位置编码这些组件往下看，才发现它并不是一个神秘黑盒，而是一套围绕“如何让序列中的 token 更高效地互相建模”展开的结构设计。</p>
+<p>如果只用一句话概括我现在的理解：<strong>Transformer 把序列建模的核心，从 RNN 那种“按顺序一步步读”，变成了“让所有 token 同时互相观察，再用位置编码补上顺序信息”。</strong></p>
+<h2 id="一、为什么需要-Transformer"><a href="#一、为什么需要-Transformer" class="headerlink" title="一、为什么需要 Transformer"></a>一、为什么需要 Transformer</h2><p>在 Transformer 出现之前，NLP 中常见的序列建模方法是 RNN、LSTM 这类循环神经网络。它们的思路很自然：一句话从左到右读，每一步都带着前面的状态继续往后处理。这种方式很符合人读句子的直觉，但放到大规模训练里会遇到两个明显问题。</p>
+<p>第一个问题是<strong>难并行</strong>。RNN 的第 t 个位置依赖第 t-1 个位置的计算结果，所以它很难像 CNN 或矩阵乘法那样一次性铺开计算。数据量和模型规模上来以后，这会直接拖慢训练效率。</p>
+<p>第二个问题是<strong>长距离依赖难捕捉</strong>。如果一句话很长，前面某个词和后面某个词存在关系，RNN 需要通过很多步状态传递才能把信息带过去。LSTM 用门机制缓解了这个问题，但并没有从根上改变“顺序传递”的限制。</p>
+<p>Transformer 的想法非常直接：既然序列里的每个词都可能和其他词相关，那就干脆让它们两两计算关系。这个关系计算的核心，就是注意力机制。</p>
+<h2 id="二、Attention-的核心：Q、K、V"><a href="#二、Attention-的核心：Q、K、V" class="headerlink" title="二、Attention 的核心：Q、K、V"></a>二、Attention 的核心：Q、K、V</h2><p>注意力机制里有三个重要变量：</p>
 <ul>
-<li>安装Ollama</li>
-<li>下载内置模型</li>
-<li>导入模型</li>
-<li>运行模型</li>
-<li>搭建web环境</li>
+<li>Query：当前我想查什么</li>
+<li>Key：每个 token 可以被匹配的特征</li>
+<li>Value：每个 token 真正提供的信息</li>
 </ul>
-<p><strong>本文需要从国外下载资源，需要科学上网，需要自行准备工具！</strong></p>
-<h1 id="一、安装Ollama"><a href="#一、安装Ollama" class="headerlink" title="一、安装Ollama"></a>一、安装Ollama</h1><p>​	首先安装Ollama，它可以让我们非常方便地运行各种LLM。从<a target="_blank" rel="noopener" href="https://ollama.com/">Ollama官网</a>下载，运行，点击安装Ollama命令行，然后在命令行测试Ollama是否已正常运行：</p>
-<p><img src="/img/Llama/10.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama -v</span><br></pre></td></tr></table></figure>
+<p>我比较喜欢把它理解成一次“带权重的信息检索”：Query 先和所有 Key 做相似度计算，得到每个位置的重要程度；再用这些重要程度去加权 Value，得到当前位置真正吸收的信息。</p>
+<p>标准的缩放点积注意力公式是：</p>
+<p>$$<br>\mathrm{Attention}(Q,K,V)&#x3D;\mathrm{softmax}(\frac{QK^T}{\sqrt{d_k}})V<br>$$</p>
+<p>这个公式可以拆成三步理解：</p>
+<ol>
+<li>用 $QK^T$ 计算 Query 和 Key 的相似度。</li>
+<li>除以 $\sqrt{d_k}$，避免维度太大时点积值过大，导致 softmax 后分布过尖、训练不稳定。</li>
+<li>用 softmax 得到注意力权重，再乘以 $V$，得到加权后的信息表示。</li>
+</ol>
+<p>从这个角度看，Attention 的本质不是“记住所有内容”，而是<strong>根据当前问题动态选择重要信息</strong>。这也是它比固定窗口或单一路径传播更灵活的地方。</p>
+<h2 id="三、自注意力：一句话内部的互相理解"><a href="#三、自注意力：一句话内部的互相理解" class="headerlink" title="三、自注意力：一句话内部的互相理解"></a>三、自注意力：一句话内部的互相理解</h2><p>Self-Attention 是 Transformer 最关键的部分。它的特点是 Q、K、V 都来自同一个输入序列，只是经过不同的参数矩阵映射。</p>
+<p>也就是说，句子里的每个 token 都会问一遍：“我应该关注句子里的哪些位置？”比如在“我喜欢机器学习，因为它很有趣”这句话中，“它”需要和前面的“机器学习”建立联系。Self-Attention 就是在学习这种 token 之间的相关关系。</p>
+<p>这让我意识到，Transformer 处理文本时并不是简单地从左到右读，而是更像在建立一张关系图：每个 token 是图里的点，注意力权重是点与点之间边的强弱。</p>
+<h2 id="四、Mask-Self-Attention：不能偷看答案"><a href="#四、Mask-Self-Attention：不能偷看答案" class="headerlink" title="四、Mask Self-Attention：不能偷看答案"></a>四、Mask Self-Attention：不能偷看答案</h2><p>在语言模型中，模型通常要根据前面的 token 预测下一个 token。比如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：我 喜欢</span><br><span class="line">预测：机器</span><br></pre></td></tr></table></figure>
 
-<p>如果能看到版本信息，即安装成功。</p>
-<h1 id="二、下载模型"><a href="#二、下载模型" class="headerlink" title="二、下载模型"></a>二、下载模型</h1><p>​	Ollama可以直接下载内置的几种模型，但选择有限。我们可以从<a target="_blank" rel="noopener" href="https://huggingface.co/">HuggingFace</a>下载以评估各种模型，从HuggingFace下载，会更方便一点。</p>
-<p>在上方工具栏找到设置，设置<code>Languages</code>为<code>Chinese</code>，可以看到若干基于LLaMa3的中文模型：</p>
-<p><img src="/img/Llama/1.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>HuggingFace搜索<code>llama3</code>，选择一个GGUF格式的模型，GGUF格式是llama.cpp团队搞的一种模型存储格式，一个模型就是一个文件，方便下载：</p>
-<p><img src="/img/Llama/2.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>然后选择<strong>Files and versions</strong>（红框中的内容），列出多项模型，可以看到若干GGUF文件，其中，q越大说明模型质量越高，同时文件也更大，我们选择q6，直接点击下载按钮，把这个模型文件下载到本地。</p>
-<p><img src="/img/Llama/3.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>等待下载完毕即可。</p>
-<h1 id="三、导入模型"><a href="#三、导入模型" class="headerlink" title="三、导入模型"></a>三、导入模型</h1><p>​	下载到本地的模型文件不能直接导入到Ollama，需要编写一个配置文件，随便起个名字，如<code>config.txt</code>，配置文件内容如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">FROM &quot;D:/llama3/llama3-8b-cn-q6/Llama3-8B-Chinese-Chat.q6_k.GGUF&quot;</span><br><span class="line"></span><br><span class="line">TEMPLATE &quot;&quot;&quot;&#123;&#123;- if .System &#125;&#125;</span><br><span class="line">&lt;|im_start|&gt;system &#123;&#123; .System &#125;&#125;&lt;|im_end|&gt;</span><br><span class="line">&#123;&#123;- end &#125;&#125;</span><br><span class="line">&lt;|im_start|&gt;user</span><br><span class="line">&#123;&#123; .Prompt &#125;&#125;&lt;|im_end|&gt;</span><br><span class="line">&lt;|im_start|&gt;assistant</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">SYSTEM &quot;&quot;&quot;&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">PARAMETER stop &lt;|im_start|&gt;</span><br><span class="line">PARAMETER stop &lt;|im_end|&gt;</span><br></pre></td></tr></table></figure>
-
-<p>第一行<code>FROM &quot;...&quot;</code>指定了模型文件路径，需要修改为实际路径，后面的模板内容是网上复制的，无需改动。</p>
-<p>然后，使用以下命令导入模型：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama create llama3-cn -f ./config.txt</span><br></pre></td></tr></table></figure>
-
-<p><code>llama3-cn</code>是给模型起的名字，成功导入后可以用<code>ollama list</code>命令查看：</p>
-<p><img src="/img/Llama/4.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>可以下载多个模型，给每个模型写一个配置文件（仅需修改路径），导入时起不同的名字，我们就可以用Ollama方便地运行各种模型。</p>
-<h1 id="四、运行模型"><a href="#四、运行模型" class="headerlink" title="四、运行模型"></a>四、运行模型</h1><p>使用Ollama的<code>run</code>命令可以直接运行模型。我们输入命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama run llama3-cn</span><br></pre></td></tr></table></figure>
-
-<p>出现以下界面即为导入成功：</p>
-<p><img src="/img/Llama/5.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>这之后我们可以随便输入一些问题，可以看到结果：</p>
-<p><img src="/img/Llama/6.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>出现<code>&gt;&gt;&gt;</code>提示符时就可以输入问题与模型交互。输入<code>/exit</code>退出。</p>
-<h1 id="五、搭建Web环境"><a href="#五、搭建Web环境" class="headerlink" title="五、搭建Web环境"></a>五、搭建Web环境</h1><p>​	使用命令行交互不是很方便，所以我们需要另一个开源的<a target="_blank" rel="noopener" href="https://github.com/open-webui/open-webui">Open WebUI</a>，搭建一个能通过浏览器访问的界面。</p>
-<p>运行Open WebUI最简单的方式是直接以Docker运行。我们安装<a target="_blank" rel="noopener" href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a>，在命令行输入以下命令启动Open WebUI（需要注意的是，输入以下命令可能会下载很慢，需要提前运行科学上网工具，方便从外网拉取资源）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main</span><br></pre></td></tr></table></figure>
-
-<p><img src="/img/Llama/7.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>等待运行结束即可。</p>
-<p><img src="/img/Llama/9.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>参数<code>-p 3000:8080</code>将Open WebUI的端口映射到本机。参数<code>-e OLLAMA_BASE_URL=http://host.docker.internal:11434</code>告诉Open WebUI通过本机的11434访问Ollama。</p>
-<p>注意地址必须写<code>host.docker.internal</code>，不能写<code>127.0.0.1</code>。</p>
-<p>打开浏览器我们就可以访问<a target="_blank" rel="noopener" href="http://127.0.0.1:8080/">http://127.0.0.1:3000</a>，第一次访问需要注册，注册和登录是完全基于本地环境的，登录后就可以看到类似GPT的UI。</p>
-<p>之后我们就能看到UI界面了：</p>
-<p><img src="/img/Llama/12.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p><img src="/img/Llama/13.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>同时，在Docker Desktop里面，也能看到我们刚建立的容器：<img src="/img/Llama/11.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>在Docker Desktop里面，可以随时启动、关闭、删除这个服务。</p>
+<p>如果训练时让模型看到未来 token，那它就相当于提前看到了答案，学习任务就失去了意义。因此 Decoder 中会使用 Mask Self-Attention，把当前位置之后的信息遮住。</p>
+<p>具体做法可以理解为给注意力分数加一个上三角 mask。未来位置被加上 $-\infty$，经过 softmax 后权重会变成 0。这样模型在训练时虽然可以并行处理整句话，但每个位置仍然只能看到它前面的历史信息。</p>
+<p>这点是我觉得 Transformer 很巧妙的地方：<strong>它保留了语言模型“只能看过去”的约束，同时又尽量利用矩阵计算实现并行训练。</strong></p>
+<h2 id="五、多头注意力：从多个角度看同一句话"><a href="#五、多头注意力：从多个角度看同一句话" class="headerlink" title="五、多头注意力：从多个角度看同一句话"></a>五、多头注意力：从多个角度看同一句话</h2><p>单个注意力头只能学习一种关系，但语言里的关系往往不止一种。有些头可能更关注语法结构，有些头可能更关注指代关系，有些头可能更关注局部搭配。</p>
+<p>Multi-Head Attention 的做法是：把输入映射成多组 Q、K、V，每组独立做注意力计算，然后把结果拼接起来，再经过一个线性层融合。</p>
+<p>公式可以写成：</p>
+<p>$$<br>\mathrm{MultiHead}(Q,K,V)&#x3D;\mathrm{Concat}(head_1,\dots,head_h)W^O<br>$$</p>
+<p>其中：</p>
+<p>$$<br>head_i&#x3D;\mathrm{Attention}(QW_i^Q,KW_i^K,VW_i^V)<br>$$</p>
+<p>我的理解是，多头注意力让模型拥有了“多视角阅读能力”。同一句话不再只有一种理解路径，而是可以同时从不同子空间提取关系。</p>
+<h2 id="六、Encoder-和-Decoder-的分工"><a href="#六、Encoder-和-Decoder-的分工" class="headerlink" title="六、Encoder 和 Decoder 的分工"></a>六、Encoder 和 Decoder 的分工</h2><p>原始 Transformer 是 Encoder-Decoder 架构，最早主要用于机器翻译这类 Seq2Seq 任务。输入是一段序列，输出是另一段序列。</p>
+<p>Encoder 的作用是<strong>理解输入</strong>。每个 Encoder Layer 通常包含：</p>
+<ol>
+<li>多头自注意力</li>
+<li>前馈神经网络</li>
+<li>LayerNorm</li>
+<li>残差连接</li>
+</ol>
+<p>Decoder 的作用是<strong>生成输出</strong>。它比 Encoder 多一个注意力模块，整体包括：</p>
+<ol>
+<li>Masked Multi-Head Self-Attention：看已经生成的目标序列，不能看未来。</li>
+<li>Cross-Attention：用 Decoder 当前状态作为 Query，用 Encoder 输出作为 Key 和 Value，从输入序列中取信息。</li>
+<li>前馈神经网络。</li>
+<li>LayerNorm 和残差连接。</li>
+</ol>
+<p>这样一看，Encoder 和 Decoder 的关系就比较清楚了：Encoder 把源序列压成带上下文的信息表示，Decoder 一边看自己已经生成的内容，一边从 Encoder 输出中提取需要的信息，然后逐步生成目标序列。</p>
+<p>后来的很多模型，其实都是在这个基础上做取舍。比如 BERT 主要使用 Encoder，适合理解类任务；GPT 主要使用 Decoder，适合生成类任务。</p>
+<h2 id="七、前馈神经网络、LayerNorm-和残差连接"><a href="#七、前馈神经网络、LayerNorm-和残差连接" class="headerlink" title="七、前馈神经网络、LayerNorm 和残差连接"></a>七、前馈神经网络、LayerNorm 和残差连接</h2><p>Transformer 里除了 Attention，还有三个很重要但容易被忽略的组件。</p>
+<p><strong>前馈神经网络</strong>负责对每个位置的表示做非线性变换。Attention 更像是在不同 token 之间交换信息，而 FFN 更像是在每个 token 内部进一步加工特征。</p>
+<p><strong>LayerNorm</strong>用于稳定训练。它会在每个样本内部做归一化，让不同层之间的数据分布更平稳。相比 BatchNorm，LayerNorm 更适合变长序列和 NLP 场景。</p>
+<p><strong>残差连接</strong>则负责保留原始信息并改善梯度传播。它的形式很简单：</p>
+<p>$$<br>x &#x3D; x + Sublayer(LayerNorm(x))<br>$$</p>
+<p>但作用很关键：模型不用每一层都重新学习完整表示，而是学习“在原来的基础上该补充什么”。这对深层网络非常重要。</p>
+<p>我以前容易把这些组件当成结构图里的“小零件”，但现在感觉它们其实共同解决了一个问题：<strong>让 Attention 这个强大的模块可以稳定地堆很多层。</strong></p>
+<h2 id="八、位置编码：给并行计算补上顺序感"><a href="#八、位置编码：给并行计算补上顺序感" class="headerlink" title="八、位置编码：给并行计算补上顺序感"></a>八、位置编码：给并行计算补上顺序感</h2><p>Attention 本身并不知道顺序。对于它来说，如果没有额外信息，“我喜欢你”和“你喜欢我”包含的是同一组 token，它很难区分词序带来的语义差异。</p>
+<p>所以 Transformer 需要位置编码。原始 Transformer 使用正余弦位置编码：</p>
+<p>$$<br>PE(pos,2i)&#x3D;\sin(pos&#x2F;10000^{2i&#x2F;d_{model}})<br>$$</p>
+<p>$$<br>PE(pos,2i+1)&#x3D;\cos(pos&#x2F;10000^{2i&#x2F;d_{model}})<br>$$</p>
+<p>位置编码会加到词向量上，让每个 token 的表示同时包含“它是什么”和“它在哪里”。正余弦函数的好处是可以推广到训练时没见过的更长序列，并且相对位置关系可以通过三角函数性质表达出来。</p>
+<p>这部分给我的启发是：Transformer 不是天然懂顺序，而是通过额外设计把顺序信息注入进去。也正因为如此，后来才会出现各种位置编码改进，比如可学习位置编码、RoPE 等。</p>
+<h2 id="九、完整-Transformer-的流程"><a href="#九、完整-Transformer-的流程" class="headerlink" title="九、完整 Transformer 的流程"></a>九、完整 Transformer 的流程</h2><p>把所有组件串起来，一个完整 Transformer 大致可以理解为：</p>
+<ol>
+<li>文本经过 tokenizer 转成 token id。</li>
+<li>token id 进入 Embedding 层，变成向量。</li>
+<li>加上位置编码，注入顺序信息。</li>
+<li>输入 Encoder 或 Decoder 的多层堆叠结构。</li>
+<li>每层通过 Attention 交换 token 间信息，通过 FFN 加工特征，通过 LayerNorm 和残差连接稳定训练。</li>
+<li>最后经过线性层和 softmax，输出每个 token 的概率分布。</li>
+</ol>
+<p>如果是机器翻译这样的 Encoder-Decoder 模型，就会先用 Encoder 编码源语言，再用 Decoder 逐步生成目标语言。如果是 GPT 这样的 Decoder-only 模型，则主要依靠 Mask Self-Attention 做自回归生成。</p>
+<h2 id="十、我的阶段性理解"><a href="#十、我的阶段性理解" class="headerlink" title="十、我的阶段性理解"></a>十、我的阶段性理解</h2><p>学完这一章后，我对 Transformer 最大的感受是：它并不是单靠某一个公式取胜，而是一整套结构协同的结果。</p>
+<p>Attention 解决了序列内部动态关联的问题；Multi-Head 让模型可以从多个角度看关系；Mask 保证生成任务不偷看未来；位置编码补上了顺序信息；LayerNorm 和残差连接让深层堆叠变得可训练；FFN 则继续增强每个位置的特征表达。</p>
+<p>所以，Transformer 的强大不是“注意力机制很强”这么简单，而是它把<strong>并行计算、长距离依赖建模、稳定深层训练、序列生成约束</strong>这些问题放在同一个框架里一起解决了。</p>
+<p>当然，我现在的理解还只是第一层。后面还需要继续看：</p>
+<ul>
+<li>GPT 为什么选择 Decoder-only 架构</li>
+<li>BERT 的 Encoder-only 和 GPT 的 Decoder-only 在训练目标上有什么区别</li>
+<li>RoPE、KV Cache、Grouped Query Attention 这些现代 LLM 结构是怎么从原始 Transformer 演化来的</li>
+<li>如何用 PyTorch 从零实现一个小型 Transformer</li>
+</ul>
+<p>这篇总结先作为一个起点。之后再回头看大模型训练、推理优化和 LLaMA 结构时，Transformer 这块应该会越来越清楚。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://datawhalechina.github.io/happy-llm/#/./chapter2/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20Transformer%E6%9E%B6%E6%9E%84">Datawhale Happy-LLM：第二章 Transformer 架构</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03762">Vaswani et al. Attention Is All You Need</a></li>
+</ul>
 
 </article>
     
@@ -384,9 +410,10 @@
         </h5>
     </div>
     
+    
         <div class="col-lg-6">
     <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2026/06/16/Transformer%E6%9E%B6%E6%9E%84%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="trm-cover-frame trm-anima-link">
+        <a href="/2024/07/22/Llama%E6%9C%AC%E5%9C%B0%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2/" class="trm-cover-frame trm-anima-link">
             
             
                 <div class="trm-cover-img" data-random-img></div>
@@ -395,51 +422,19 @@
         
         <div class="trm-card-descr">
             <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/LLM/">
-                    LLM
+                <a href=" /categories/Llama/">
+                    Llama
                 </a>
             </div>
             <h5>
-                <a href="/2026/06/16/Transformer%E6%9E%B6%E6%9E%84%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="trm-anima-link">
-                    Transformer架构个人学习总结
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>26/06/16</li>
-                <li>00:00</li>
-                
-                
-            </ul>
-        </div>
-    </div>
-</div>
-    
-    
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/07/22/windows%E5%AE%89%E8%A3%85docker/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <div class="trm-cover-img" data-random-img></div>
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/Docker/">
-                    Docker
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/07/22/windows%E5%AE%89%E8%A3%85docker/" class="trm-anima-link">
-                    安装Docker
+                <a href="/2024/07/22/Llama%E6%9C%AC%E5%9C%B0%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2/" class="trm-anima-link">
+                    Llama3本地简易部署
                 </a>
             </h5>
             <div class="trm-divider trm-mb-20 trm-mt-20"></div>
             <ul class="trm-card-data trm-label">
                 <li>24/07/22</li>
-                <li>16:19</li>
+                <li>18:25</li>
                 
                 
             </ul>
