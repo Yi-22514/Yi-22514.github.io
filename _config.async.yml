@@ -1,0 +1,100 @@
+theme:
+  switch: true
+  default: auto
+
+favicon:
+  logo: log.svg
+  icon16: log.svg
+  icon32: log.svg
+  apple_touch_icon: log.svg
+  webmanifest: /site.webmanifest
+  visibilitychange: true
+  hidden: failure.ico
+  show_text: (/≧▽≦/）哈哈！骗你的！
+  hide_text: (●—●)喔哟，崩溃啦！
+cdn:
+  css: /css/custom.css
+
+assets:
+  third_party_provider: https://npm.elemecdn.com
+  icons:
+    type: symbol
+    css:
+    js: //at.alicdn.com/t/font_383361_cfn4m13f4v.js
+sidebar:
+  typed_text_prefix: 
+  typed_text:
+    - "《终南别业》"
+    - "中岁颇好道，晚家南山陲。"
+    - "兴来每独往，胜事空自知。"
+    - "行到水穷处，坐看云起时。"
+    - "偶然值林叟，谈笑无还期。"
+  social: # 社交地址
+    - name: github
+      icon: fab fa-github
+      url: https://github.com
+  info: # 个人信息
+    - key: 名称
+      val: Yi
+    - key: 地址
+      val: 中国
+    - key: 年龄
+      val: "<span id='dynamic-age'>20</span><script>document.getElementById('dynamic-age').innerText = new Date().getFullYear() - 2004;</script>"
+    - key: QQ
+      val: 1536519760
+
+user:
+  name: Yi
+  first_name: 'sky'
+  last_name: 'we are all look up to same '
+  email: 1536519760@qq.com
+  avatar: https://img1.baidu.com/it/u=3120145939,348652557&fm=253&fmt=auto&app=120&f=JPEG?w=864&h=486
+  describe: 再坚强的心，也需要阳光的温暖。
+
+footer:
+  powered:
+    enable: false
+
+  live_time:
+    enable: true
+    prefix: footer.tips
+    start_time: 07/13/2024 17:00:00
+
+top_bars:
+  - title: 首页
+    url: /
+  - title: 归档
+    url: /archives/
+    noswup: true
+  - title: 分类
+    url: /categories/
+    noswup: true
+  - title: 🦁 动物园
+    url: /living-zoo/
+    noswup: true
+
+banner:
+  index:
+    type: video
+    bgurl: https://img-baofun.zhhainiao.com/pcwallpaper_ugc/preview/f37cc1d5f101596a13af18696cb9e6ee_preview.mp4
+    banner_title: 行到水穷处，坐看云起时。
+	danmu: 
+		enable: true
+		avatar: true
+		delayRange: 5000
+		speed: 80
+
+
+cover:
+  default: 
+    - /img/covers/mountains.png
+    - /img/covers/abstract_blue.png
+    - /img/covers/autumn_lake.png
+    - /img/covers/sakura.png
+    - /img/covers/starry_night.png
+    - /img/covers/ocean_sunset.png
+    - /img/covers/bamboo_forest.png
+    - /img/covers/snow_village.png
+  type: random
+
+

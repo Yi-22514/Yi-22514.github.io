@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Living Zoo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main id="zoo-container" class="zoo-container" data-weather="clear">
+      <canvas id="world-canvas" aria-label="Living Zoo interactive world"></canvas>
+      <div id="atmosphere-overlay" aria-hidden="true"></div>
+
+      <section class="world-title" aria-label="Living Zoo title">
+        <p class="eyebrow">Interactive Canvas</p>
+        <h1>Living Zoo</h1>
+        <p id="world-status" class="world-status">Tap the world to invite more friends.</p>
+      </section>
+
+      <aside id="ui-panel" class="ui-panel" aria-label="Living Zoo controls">
+        <div class="panel-meta">
+          <span class="panel-orb" aria-hidden="true"></span>
+          <div>
+            <p class="panel-kicker">World Controls</p>
+            <p class="panel-state" id="panel-state">Sunny Day</p>
+          </div>
+        </div>
+
+        <div class="panel-actions">
+          <button class="control-button weather-button" type="button" data-action="weather" aria-pressed="false">
+            <i data-lucide="cloud-rain" aria-hidden="true"></i>
+            <span>Weather</span>
+          </button>
+          <button class="control-button day-button" type="button" data-action="day-night" aria-pressed="false">
+            <i data-lucide="moon-star" aria-hidden="true"></i>
+            <span>Day/Night</span>
+          </button>
+          <button class="control-button clear-button" type="button" data-action="clear">
+            <i data-lucide="sparkles" aria-hidden="true"></i>
+            <span>Clear</span>
+          </button>
+        </div>
+      </aside>
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
