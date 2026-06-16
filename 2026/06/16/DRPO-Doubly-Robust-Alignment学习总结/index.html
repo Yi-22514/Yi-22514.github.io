@@ -15,7 +15,7 @@
 <meta property="og:description" content="DRPO：Doubly Robust Alignment for Large Language Models 学习总结最近读了论文《Doubly Robust Alignment for Large Language Models》。这篇文章讨论的是大语言模型对齐中的一个很现实的问题：我们在 RLHF 或偏好优化中依赖的模型，往往并没有想象中那么可靠。奖励模型可能错，偏好模型可能错，参考策略也可能">
 <meta property="og:locale">
 <meta property="article:published_time" content="2026-06-16T01:30:00.000Z">
-<meta property="article:modified_time" content="2026-06-16T06:12:48.989Z">
+<meta property="article:modified_time" content="2026-06-16T06:25:16.826Z">
 <meta property="article:author" content="Yi">
 <meta property="article:tag" content="RLHF">
 <meta property="article:tag" content="DPO">
@@ -70,7 +70,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"Yi","root":"/","typed_text":["《终南别业》","中岁颇好道，晚家南山陲。","兴来每独往，胜事空自知。","行到水穷处，坐看云起时。","偶然值林叟，谈笑无还期。"],"theme_version":"2.2.2","theme":{"switch":true,"default":"auto"},"favicon":{"logo":"log.svg","icon16":"log.svg","icon32":"log.svg","apple_touch_icon":"log.svg","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","show_text":"(/≧▽≦/）哈哈！骗你的！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://npm.elemecdn.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"symbol","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"07/13/2024 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner","avatar":true,"delayRange":5000,"speed":80},"covers":["/img/covers/mountains.png","/img/covers/abstract_blue.png","/img/covers/autumn_lake.png","/img/covers/sakura.png","/img/covers/starry_night.png","/img/covers/ocean_sunset.png","/img/covers/bamboo_forest.png","/img/covers/snow_village.png"]};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2026-06-16 14:12:48"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2026-06-16 14:25:16"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
@@ -331,21 +331,18 @@
 <li>训练奖励模型，再用 PPO 等强化学习算法优化语言模型。</li>
 </ol>
 <p>如果把 prompt 记为 $X$，两个回答记为 $Y^{(1)}$ 和 $Y^{(2)}$，偏好标签记为：</p>
-<p>$$<br>Z &#x3D; I(Y^{(1)} \succ Y^{(2)})<br>$$</p>
+<p>$$Z &#x3D; I(Y^{(1)} \succ Y^{(2)})$$</p>
 <p>那么 RLHF 的训练数据可以写成：</p>
-<p>$$<br>D &#x3D; {(X_i, Y_i^{(1)}, Y_i^{(2)}, Z_i)}_{i&#x3D;1}^{n}<br>$$</p>
+<p>$$D &#x3D; {(X_i, Y_i^{(1)}, Y_i^{(2)}, Z_i)}_{i&#x3D;1}^{n}$$</p>
 <p>其中 $Z&#x3D;1$ 表示第一个回答更受偏好，$Z&#x3D;0$ 表示第二个回答更受偏好。</p>
 <p>偏好学习的核心就是：如何从这些 pairwise preference 数据中学出一个更符合人类偏好的策略。</p>
 <h2 id="2-当前问题：RLHF-和-DPO-为什么还不够稳"><a href="#2-当前问题：RLHF-和-DPO-为什么还不够稳" class="headerlink" title="2. 当前问题：RLHF 和 DPO 为什么还不够稳"></a>2. 当前问题：RLHF 和 DPO 为什么还不够稳</h2><p>论文认为，现有对齐算法有一个共同软肋：它们对某些模型假设非常敏感。只要假设错了，训练就可能出问题。</p>
 <h3 id="2-1-奖励模型错设"><a href="#2-1-奖励模型错设" class="headerlink" title="2.1 奖励模型错设"></a>2.1 奖励模型错设</h3><p>PPO-based RLHF 通常先训练 reward model，再优化：</p>
-<p>$$<br>\mathbb{E}_{X \sim D, y \sim \pi(\cdot|X)}[\hat r(y, X)]</p>
-<ul>
-<li>\beta D_{KL}[\pi(\cdot|X) | \pi_{ref}(\cdot|X)]<br>$$</li>
-</ul>
+<p>$$\mathbb{E}_{X \sim D, y \sim \pi(\cdot|X)}[\hat r(y, X)] - \beta D_{KL}[\pi(\cdot|X) | \pi_{ref}(\cdot|X)]$$</p>
 <p>这里 $\hat r$ 是估计出来的奖励模型，$\pi_{ref}$ 是参考策略，$\beta$ 控制当前策略不要偏离参考策略太远。</p>
 <p>问题在于，PPO 的优化目标非常依赖 $\hat r$。如果奖励模型学偏了，策略优化会放大这个偏差。模型可能学会钻奖励模型的空子，也就是 reward hacking。例如奖励模型喜欢某些表面特征，策略就反复生成这些特征，而不是真正提升回答质量。</p>
 <h3 id="2-2-Bradley-Terry-偏好模型错设"><a href="#2-2-Bradley-Terry-偏好模型错设" class="headerlink" title="2.2 Bradley-Terry 偏好模型错设"></a>2.2 Bradley-Terry 偏好模型错设</h3><p>很多 RLHF 和 DPO 方法默认使用 Bradley-Terry 模型。它假设存在一个潜在奖励函数 $r^*$，并且回答 $Y^{(1)}$ 优于 $Y^{(2)}$ 的概率为：</p>
-<p>$$<br>g^*(X, Y^{(1)}, Y^{(2)})<br>&#x3D; \sigma(r^*(Y^{(1)}, X) - r^*(Y^{(2)}, X))<br>$$</p>
+<p>$$g^*(X, Y^{(1)}, Y^{(2)}) &#x3D; \sigma(r^*(Y^{(1)}, X) - r^*(Y^{(2)}, X))$$</p>
 <p>直觉上，BT 模型认为每个回答都有一个标量分数，两个回答的偏好概率只由分数差决定。</p>
 <p>这个假设很优雅，也很方便，但真实人类偏好不一定这么简单。人类偏好可能存在：</p>
 <ul>
@@ -356,10 +353,7 @@
 </ul>
 <p>如果真实偏好不满足 BT 模型，那么基于 BT 假设训练出来的 reward model 或 DPO loss 就会有系统偏差。</p>
 <h3 id="2-3-参考策略错设"><a href="#2-3-参考策略错设" class="headerlink" title="2.3 参考策略错设"></a>2.3 参考策略错设</h3><p>DPO 的关键思想是利用 KL 正则下最优策略的闭式形式，把奖励写成：</p>
-<p>$$<br>\hat r(y, x)<br>&#x3D; \beta \log \frac{\hat \pi(y|x)}{\pi_{ref}(y|x)}</p>
-<ul>
-<li>C(x)<br>$$</li>
-</ul>
+<p>$$\hat r(y, x) &#x3D; \beta \log \frac{\hat \pi(y|x)}{\pi_{ref}(y|x)} - C(x)$$</p>
 <p>这样就可以绕开显式 reward model，直接用偏好数据优化策略。DPO 的优点是简单、稳定、成本低，所以近年来非常流行。</p>
 <p>但 DPO 把压力转移到了 $\pi_{ref}$ 上。它要求 reference policy 的概率估计比较可靠。如果偏好数据不是由这个参考策略生成的，或者数据来自多个模型混合，或者真实行为策略不可知，那么 reference policy 就可能被错设。</p>
 <p>一旦 $\pi_{ref}$ 错了，DPO 中的 log-ratio 就会偏，策略优化也会偏。</p>
@@ -400,50 +394,38 @@
 <li>Doubly Robust Preference Optimization：再把这个估计器作为目标函数的一部分，用来训练语言模型。</li>
 </ol>
 <h3 id="4-1-总偏好目标"><a href="#4-1-总偏好目标" class="headerlink" title="4.1 总偏好目标"></a>4.1 总偏好目标</h3><p>给定一个目标策略 $\pi$，作者定义它相对于参考策略 $\pi_{ref}$ 的总偏好为：</p>
-<p>$$<br>p^*(\pi)<br>&#x3D; P(\pi \succ \pi_{ref})<br>&#x3D; \mathbb{E}<em>{y \sim \pi(\cdot|X), y’ \sim \pi</em>{ref}(\cdot|X)}<br>g^*(X, y, y’)<br>$$</p>
+<p>$$p^*(\pi) &#x3D; P(\pi \succ \pi_{ref}) &#x3D; \mathbb{E}_{y \sim \pi(\cdot|X), y^{\prime} \sim \pi_{ref}(\cdot|X)} g^*(X, y, y^{\prime})$$</p>
 <p>这表示：从目标策略采样一个回答，从参考策略采样一个回答，目标策略回答被偏好的概率。</p>
 <p>如果 $p^*(\pi)$ 越大，说明策略 $\pi$ 相对参考策略越符合偏好。</p>
 <p>因此，偏好优化可以理解为：</p>
-<p>$$<br>\max_{\pi \in \Pi} p^*(\pi)<br>$$</p>
+<p>$$\max_{\pi \in \Pi} p^*(\pi)$$</p>
 <p>当然，为了避免策略跑得太远，实际训练还会加 KL 正则：</p>
-<p>$$<br>\max_{\pi \in \Pi}<br>\left{<br>\hat p_{DR}(\pi)</p>
-<ul>
-<li>\beta \mathbb{E}<em>{X \sim D}<br>D</em>{KL}[\pi(\cdot|X) | \hat \pi_{ref}(\cdot|X)]<br>\right}<br>$$</li>
-</ul>
+<p>$$\max_{\pi \in \Pi} \Bigl[ \hat p_{DR}(\pi) - \beta \mathbb{E}_{X \sim D} D_{KL}[\pi(\cdot|X) | \hat \pi_{ref}(\cdot|X)] \Bigr]$$</p>
 <p>这就是 DRPO 的总体优化形式。</p>
 <h2 id="5-核心算法：从-DM、IS-到-DR"><a href="#5-核心算法：从-DM、IS-到-DR" class="headerlink" title="5. 核心算法：从 DM、IS 到 DR"></a>5. 核心算法：从 DM、IS 到 DR</h2><p>要理解 DRPO，必须先理解作者如何估计 $p^*(\pi)$。</p>
 <h3 id="5-1-Direct-Method"><a href="#5-1-Direct-Method" class="headerlink" title="5.1 Direct Method"></a>5.1 Direct Method</h3><p>Direct Method 的思路最简单：我先训练一个偏好模型 $\hat g$，让它预测：</p>
-<p>$$<br>\hat g(X, y, y’) \approx P(y \succ y’|X)<br>$$</p>
+<p>$$\hat g(X, y, y^{\prime}) \approx P(y \succ y^{\prime}|X)$$</p>
 <p>然后直接用它估计目标策略回答相对参考回答的胜率：</p>
-<p>$$<br>\hat p_{DM}(\pi)<br>&#x3D; \frac{1}{2}<br>\mathbb{E}_{X \sim D, y \sim \pi(\cdot|X)}<br>[<br>\hat g(X, y, Y^{(1)})</p>
-<ul>
-<li>\hat g(X, y, Y^{(2)})<br>]<br>$$</li>
-</ul>
+<p>$$\hat p_{DM}(\pi) &#x3D; \frac{1}{2} \mathbb{E}_{X \sim D, y \sim \pi(\cdot|X)} [ \hat g(X, y, Y^{(1)}) + \hat g(X, y, Y^{(2)}) ]$$</p>
 <p>这个方法的优点是方差相对低，缺点也明显：如果 $\hat g$ 错了，估计就偏。</p>
 <h3 id="5-2-Importance-Sampling"><a href="#5-2-Importance-Sampling" class="headerlink" title="5.2 Importance Sampling"></a>5.2 Importance Sampling</h3><p>Importance Sampling 不依赖偏好模型，而是利用离线数据中真实观察到的偏好标签 $Z$。</p>
 <p>因为离线数据中的回答来自参考策略 $\pi_{ref}$，但我们想评估目标策略 $\pi$，所以要用概率比修正分布差异：</p>
-<p>$$<br>w(y, x) &#x3D; \frac{\pi(y|x)}{\pi_{ref}(y|x)}<br>$$</p>
+<p>$$w(y, x) &#x3D; \frac{\pi(y|x)}{\pi_{ref}(y|x)}$$</p>
 <p>作者证明：</p>
-<p>$$<br>p^*(\pi)<br>&#x3D; \frac{1}{2}<br>\mathbb{E}<br>[<br>w(Y^{(1)}, X)Z</p>
-<ul>
-<li>w(Y^{(2)}, X)(1-Z)<br>]<br>$$</li>
-</ul>
+<p>$$p^*(\pi) &#x3D; \frac{1}{2} \mathbb{E} [ w(Y^{(1)}, X)Z + w(Y^{(2)}, X)(1-Z) ]$$</p>
 <p>对应的估计器为：</p>
-<p>$$<br>\hat p_{IS}(\pi)<br>&#x3D; \frac{1}{2}<br>\mathbb{E}<em>{D}<br>\left[<br>\frac{\pi(Y^{(1)}|X)}{\hat \pi</em>{ref}(Y^{(1)}|X)}Z<br>+<br>\frac{\pi(Y^{(2)}|X)}{\hat \pi_{ref}(Y^{(2)}|X)}(1-Z)<br>\right]<br>$$</p>
+<p>$$\hat p_{IS}(\pi) &#x3D; \frac{1}{2} \mathbb{E}_{D} \left[ \frac{\pi(Y^{(1)}|X)}{\hat \pi_{ref}(Y^{(1)}|X)}Z + \frac{\pi(Y^{(2)}|X)}{\hat \pi_{ref}(Y^{(2)}|X)}(1-Z) \right]$$</p>
 <p>这个方法的优点是只要 reference policy 准，就可以修正离线分布。缺点是概率比可能非常大，导致高方差；如果 $\hat \pi_{ref}$ 错了，估计也会偏。</p>
 <h3 id="5-3-Doubly-Robust-Estimator"><a href="#5-3-Doubly-Robust-Estimator" class="headerlink" title="5.3 Doubly Robust Estimator"></a>5.3 Doubly Robust Estimator</h3><p>DR 的关键是把 DM 和 IS 组合起来。</p>
 <p>论文构造的估计函数可以理解为：</p>
-<p>$$<br>\psi<br>&#x3D; \text{DM 预测项}</p>
-<ul>
-<li>\text{IS ratio} \times \text{偏好残差项}<br>$$</li>
-</ul>
+<p>$$\psi &#x3D; \text{DM 预测项} + \text{IS ratio} \times \text{偏好残差项}$$</p>
 <p>更具体地说，它包含两部分。</p>
 <p>第一部分是 DM：</p>
-<p>$$<br>\frac{1}{2}<br>\sum_{a&#x3D;1}^{2}<br>\mathbb{E}_{y \sim \pi(\cdot|X)}<br>[<br>\hat g(X, y, Y^{(a)})<br>]<br>$$</p>
+<p>$$\frac{1}{2} \sum_{a&#x3D;1}^{2} \mathbb{E}_{y \sim \pi(\cdot|X)} [ \hat g(X, y, Y^{(a)}) ]$$</p>
 <p>第二部分是 augmentation term：</p>
-<p>$$<br>\frac{1}{2}<br>\sum_{a&#x3D;1}^{2}<br>(-1)^{a-1}<br>\frac{\pi(Y^{(a)}|X)}{\hat \pi_{ref}(Y^{(a)}|X)}<br>[<br>Z - \hat g(X, Y^{(1)}, Y^{(2)})<br>]<br>$$</p>
+<p>$$\frac{1}{2} \sum_{a&#x3D;1}^{2} (-1)^{a-1} \frac{\pi(Y^{(a)}|X)}{\hat \pi_{ref}(Y^{(a)}|X)} [ Z - \hat g(X, Y^{(1)}, Y^{(2)}) ]$$</p>
 <p>最终：</p>
-<p>$$<br>\hat p_{DR}(\pi)<br>&#x3D; \mathbb{E}<em>{D}<br>[<br>\psi(X, Y^{(1)}, Y^{(2)}, Z; \pi, \hat \pi</em>{ref}, \hat g)<br>]<br>$$</p>
+<p>$$\hat p_{DR}(\pi) &#x3D; \mathbb{E}_{D} [ \psi(X, Y^{(1)}, Y^{(2)}, Z; \pi, \hat \pi_{ref}, \hat g) ]$$</p>
 <p>这个公式看起来复杂，但直觉很清楚：</p>
 <ul>
 <li>$\hat g$ 给出一个偏好预测；</li>
@@ -455,12 +437,7 @@
 <p>这就是 doubly robust 的核心：偏好模型和参考策略不必同时正确，只要有一个正确，估计就能收敛到真实目标。</p>
 <h2 id="6-为什么这样做可以解决问题"><a href="#6-为什么这样做可以解决问题" class="headerlink" title="6. 为什么这样做可以解决问题"></a>6. 为什么这样做可以解决问题</h2><p>作者这样做能解决问题，本质上是因为 DR 估计器把误差结构从“一阶依赖”变成了“乘积依赖”。</p>
 <p>论文中的 MSE 结论可以概括为：</p>
-<p>$$<br>MSE(\hat p_{DR})<br>&#x3D; SEB</p>
-<ul>
-<li>O\left(\frac{1}{n}|\hat g - g^*|\right)</li>
-<li>O\left(\frac{1}{n}|\frac{\hat \pi_{ref}}{\pi_{ref}} - 1|\right)</li>
-<li>O\left(<br>|\frac{\hat \pi_{ref}}{\pi_{ref}} - 1|^2<br>\cdot<br>|\hat g - g^*|^2<br>\right)<br>$$</li>
-</ul>
+<p>$$MSE(\hat p_{DR}) &#x3D; SEB + O\left(\frac{1}{n}|\hat g - g^*|\right) + O\left(\frac{1}{n}|\frac{\hat \pi_{ref}}{\pi_{ref}} - 1|\right) + O\left( |\frac{\hat \pi_{ref}}{\pi_{ref}} - 1|^2 \cdot |\hat g - g^*|^2 \right)$$</p>
 <p>最重要的是最后一项：偏差项依赖的是两个误差的乘积。</p>
 <p>这意味着：</p>
 <ul>
@@ -470,52 +447,32 @@
 </ul>
 <p>相比之下，PPO 的误差更直接依赖 reward model 的误差，DPO 的误差更直接依赖 reference policy 的误差。DRPO 把这种依赖变成了两者的乘积，所以理论上更稳。</p>
 <p>作者进一步证明，在 BT 模型成立时，DRPO 的 suboptimality gap 形式为：</p>
-<p>$$<br>O\left(<br>\beta</p>
-<ul>
-<li>\sqrt{\frac{v}{n}}</li>
-<li>\frac{v}{n}</li>
-<li>|\frac{\hat \pi_{ref}}{\pi_{ref}} - 1|<br>|\hat r - r^*|<br>\right)<br>$$</li>
-</ul>
+<p>$$O\left( \beta + \sqrt{\frac{v}{n}} + \frac{v}{n} + |\frac{\hat \pi_{ref}}{\pi_{ref}} - 1| |\hat r - r^*| \right)$$</p>
 <p>而 PPO 更像：</p>
-<p>$$<br>O\left(<br>\beta</p>
-<ul>
-<li>\sqrt{\frac{v}{n}}</li>
-<li>\frac{v}{n}</li>
-<li>|\hat r - r^*|<br>\right)<br>$$</li>
-</ul>
+<p>$$O\left( \beta + \sqrt{\frac{v}{n}} + \frac{v}{n} + |\hat r - r^*| \right)$$</p>
 <p>DPO 更像：</p>
-<p>$$<br>O\left(<br>n^{-1&#x2F;2}\log n</p>
-<ul>
-<li>|\frac{\hat \pi_{ref}}{\pi_{ref}} - 1|<br>\right)<br>$$</li>
-</ul>
+<p>$$O\left( n^{-1&#x2F;2}\log n + |\frac{\hat \pi_{ref}}{\pi_{ref}} - 1| \right)$$</p>
 <p>也就是说，PPO 主要怕 reward model 错，DPO 主要怕 reference policy 错，而 DRPO 同时利用两者，单边错设时仍然可以稳住。</p>
 <h2 id="7-训练实现细节"><a href="#7-训练实现细节" class="headerlink" title="7. 训练实现细节"></a>7. 训练实现细节</h2><p>理论上的 DRPO 目标是：</p>
-<p>$$<br>J(\pi_\theta; \hat \pi_{ref}, \hat g, D)<br>&#x3D; \hat p_{DR}(\pi)</p>
-<ul>
-<li>\beta<br>\mathbb{E}<em>{X \sim D}<br>D</em>{KL}[\pi(\cdot|X) | \hat \pi_{ref}(\cdot|X)]<br>$$</li>
-</ul>
+<p>$$J(\pi_\theta; \hat \pi_{ref}, \hat g, D) &#x3D; \hat p_{DR}(\pi) - \beta \mathbb{E}_{X \sim D} D_{KL}[\pi(\cdot|X) | \hat \pi_{ref}(\cdot|X)]$$</p>
 <p>实际实现中有几个重要技巧。</p>
 <h3 id="7-1-离线数据扩增"><a href="#7-1-离线数据扩增" class="headerlink" title="7.1 离线数据扩增"></a>7.1 离线数据扩增</h3><p>原始偏好数据是：</p>
-<p>$$<br>(X, Y^{(1)}, Y^{(2)}, Z)<br>$$</p>
+<p>$$(X, Y^{(1)}, Y^{(2)}, Z)$$</p>
 <p>作者会加入交换后的样本：</p>
-<p>$$<br>(X, Y^{(2)}, Y^{(1)}, 1-Z)<br>$$</p>
+<p>$$(X, Y^{(2)}, Y^{(1)}, 1-Z)$$</p>
 <p>这样可以利用 pairwise comparison 的对称性，让每个样本同时贡献正反两个方向的信息，也能简化 loss 的写法。</p>
 <h3 id="7-2-当前策略采样"><a href="#7-2-当前策略采样" class="headerlink" title="7.2 当前策略采样"></a>7.2 当前策略采样</h3><p>DM 项里需要：</p>
-<p>$$<br>y \sim \pi_\theta(\cdot|X)<br>$$</p>
+<p>$$y \sim \pi_\theta(\cdot|X)$$</p>
 <p>所以训练时会从当前策略为每个 prompt 采样若干回答 $Y^*$，再用偏好模型 $\hat g$ 比较 $Y^*$ 和离线数据中的回答。</p>
 <p>这一步的作用是让策略直接学习“生成能赢过参考回答的回答”，而不只是提高离线 chosen response 的概率。</p>
 <h3 id="7-3-IS-ratio-clipping"><a href="#7-3-IS-ratio-clipping" class="headerlink" title="7.3 IS ratio clipping"></a>7.3 IS ratio clipping</h3><p>重要性采样比率：</p>
-<p>$$<br>\frac{\pi_\theta(Y|X)}{\hat \pi_{ref}(Y|X)}<br>$$</p>
+<p>$$\frac{\pi_\theta(Y|X)}{\hat \pi_{ref}(Y|X)}$$</p>
 <p>可能非常大，尤其当目标策略和参考策略差异很大时。为了控制方差，作者对 ratio 做 clipping：</p>
-<p>$$<br>clip\left(<br>\frac{\pi_\theta(Y|X)}{\hat \pi_{ref}(Y|X)},<br>1-\epsilon_1,<br>1+\epsilon_2<br>\right)<br>$$</p>
+<p>$$clip\left( \frac{\pi_\theta(Y|X)}{\hat \pi_{ref}(Y|X)}, 1-\epsilon_1, 1+\epsilon_2 \right)$$</p>
 <p>这和 PPO 中 clipping 的动机有点像，都是为了避免单个样本的梯度影响过大。</p>
 <h3 id="7-4-Stop-gradient"><a href="#7-4-Stop-gradient" class="headerlink" title="7.4 Stop-gradient"></a>7.4 Stop-gradient</h3><p>作者还会对 IS ratio 相关项使用 stop-gradient。直觉上，这样可以避免模型通过操纵 ratio 本身产生不稳定梯度，同时保留近似的数值修正作用。</p>
 <p>最终的 loss 可以概括成：</p>
-<p>$$<br>L_{DRPO}<br>&#x3D; -\frac{1}{2}<br>\left[<br>\text{偏好模型引导项}</p>
-<ul>
-<li>\text{stop-gradient 的残差纠偏项}<br>\right]</li>
-<li>\beta \text{KL项}<br>$$</li>
-</ul>
+<p>$$L_{DRPO} &#x3D; -\frac{1}{2} \left[ \text{偏好模型引导项} + \text{stop-gradient 的残差纠偏项} \right] + \beta \text{KL项}$$</p>
 <p>优化时最小化这个 loss，就等价于最大化 DRPO 目标。</p>
 <h2 id="8-实验结果怎么理解"><a href="#8-实验结果怎么理解" class="headerlink" title="8. 实验结果怎么理解"></a>8. 实验结果怎么理解</h2><p>论文做了两类实验：偏好评估和偏好优化。</p>
 <h3 id="8-1-IMDb：验证-doubly-robust-性质"><a href="#8-1-IMDb：验证-doubly-robust-性质" class="headerlink" title="8.1 IMDb：验证 doubly robust 性质"></a>8.1 IMDb：验证 doubly robust 性质</h3><p>IMDb 实验是一个可控的合成偏好场景。作者使用情感分类器构造 ground-truth preference model，然后比较四种情况：</p>

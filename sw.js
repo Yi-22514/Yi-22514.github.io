@@ -10,7 +10,7 @@ const { core, routing, strategies, expiration } = workbox;
 const { CacheFirst, NetworkFirst, NetworkOnly } = strategies;
 const { ExpirationPlugin } = expiration;
 
-const cacheSuffixVersion = '_20260424_2';
+const cacheSuffixVersion = '_20260616_1';
 
 core.setCacheNameDetails({
     prefix: 'bycg',

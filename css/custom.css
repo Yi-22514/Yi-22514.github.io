@@ -593,6 +593,33 @@ html.dark .trm-blog-card .trm-card-descr {
     }
 }
 
+/* Post banner fallback: keep article headers readable while cover images are loading or unavailable. */
+.trm-banner {
+    background:
+        radial-gradient(circle at 22% 18%, rgba(116, 235, 213, 0.24), transparent 34%),
+        radial-gradient(circle at 82% 22%, rgba(255, 143, 163, 0.18), transparent 32%),
+        linear-gradient(135deg, #101827, #27315f 48%, #45275c) !important;
+}
+
+.trm-banner .trm-banner-cover {
+    background:
+        radial-gradient(circle at 22% 18%, rgba(116, 235, 213, 0.18), transparent 34%),
+        linear-gradient(135deg, #101827, #27315f 48%, #45275c);
+}
+
+.trm-banner .trm-banner-content.trm-overlay {
+    background:
+        linear-gradient(180deg, rgba(9, 14, 27, 0.22), rgba(9, 14, 27, 0.36)),
+        radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.16), transparent 36%);
+}
+
+.trm-banner .trm-banner-text h1,
+.trm-banner .trm-banner-text .trm-label,
+.trm-banner .trm-banner-text .trm-breadcrumbs,
+.trm-banner .trm-scroll-hint-frame {
+    text-shadow: 0 10px 28px rgba(0, 0, 0, 0.38);
+}
+
 @media (max-height: 760px) and (min-width: 992px) {
     .trm-sidebar .trm-main-card {
         padding: 18px 30px 18px !important;
