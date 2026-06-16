@@ -13,7 +13,7 @@ favicon:
   show_text: (/≧▽≦/）哈哈！骗你的！
   hide_text: (●—●)喔哟，崩溃啦！
 cdn:
-  css: /css/custom.css
+  css: /css/custom.css?v=202606161455
 
 assets:
   third_party_provider: https://npm.elemecdn.com
