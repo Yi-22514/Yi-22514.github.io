@@ -50,15 +50,11 @@ banner:
 
 如果把 prompt 记为 $X$，两个回答记为 $Y^{(1)}$ 和 $Y^{(2)}$，偏好标签记为：
 
-$$
-Z = I(Y^{(1)} \succ Y^{(2)})
-$$
+$$Z = I(Y^{(1)} \succ Y^{(2)})$$
 
 那么 RLHF 的训练数据可以写成：
 
-$$
-D = \{(X_i, Y_i^{(1)}, Y_i^{(2)}, Z_i)\}_{i=1}^{n}
-$$
+$$D = \{(X\_i, Y\_i^{(1)}, Y\_i^{(2)}, Z\_i)\}\_{i=1}^{n}$$
 
 其中 $Z=1$ 表示第一个回答更受偏好，$Z=0$ 表示第二个回答更受偏好。
 
@@ -72,10 +68,7 @@ $$
 
 PPO-based RLHF 通常先训练 reward model，再优化：
 
-$$
-\mathbb{E}_{X \sim D, y \sim \pi(\cdot|X)}[\hat r(y, X)]
-- \beta D_{KL}[\pi(\cdot|X) \| \pi_{ref}(\cdot|X)]
-$$
+$$\mathbb{E}\_{X \sim D, y \sim \pi(\cdot|X)}[\hat r(y, X)] - \beta D\_{KL}[\pi(\cdot|X) \| \pi\_{ref}(\cdot|X)]$$
 
 这里 $\hat r$ 是估计出来的奖励模型，$\pi_{ref}$ 是参考策略，$\beta$ 控制当前策略不要偏离参考策略太远。
 
@@ -85,10 +78,7 @@ $$
 
 很多 RLHF 和 DPO 方法默认使用 Bradley-Terry 模型。它假设存在一个潜在奖励函数 $r^*$，并且回答 $Y^{(1)}$ 优于 $Y^{(2)}$ 的概率为：
 
-$$
-g^*(X, Y^{(1)}, Y^{(2)})
-= \sigma(r^*(Y^{(1)}, X) - r^*(Y^{(2)}, X))
-$$
+$$g^\*(X, Y^{(1)}, Y^{(2)}) = \sigma(r^\*(Y^{(1)}, X) - r^\*(Y^{(2)}, X))$$
 
 直觉上，BT 模型认为每个回答都有一个标量分数，两个回答的偏好概率只由分数差决定。
 
@@ -105,11 +95,7 @@ $$
 
 DPO 的关键思想是利用 KL 正则下最优策略的闭式形式，把奖励写成：
 
-$$
-\hat r(y, x)
-= \beta \log \frac{\hat \pi(y|x)}{\pi_{ref}(y|x)}
-- C(x)
-$$
+$$\hat r(y, x) = \beta \log \frac{\hat \pi(y|x)}{\pi\_{ref}(y|x)} - C(x)$$
 
 这样就可以绕开显式 reward model，直接用偏好数据优化策略。DPO 的优点是简单、稳定、成本低，所以近年来非常流行。
 
@@ -183,12 +169,7 @@ DRPO 的作者把这个思想搬到了 RLHF 中：
 
 给定一个目标策略 $\pi$，作者定义它相对于参考策略 $\pi_{ref}$ 的总偏好为：
 
-$$
-p^*(\pi)
-= P(\pi \succ \pi_{ref})
-= \mathbb{E}_{y \sim \pi(\cdot|X), y' \sim \pi_{ref}(\cdot|X)}
-g^*(X, y, y')
-$$
+$$p^\*(\pi) = P(\pi \succ \pi\_{ref}) = \mathbb{E}\_{y \sim \pi(\cdot|X), y^{\prime} \sim \pi\_{ref}(\cdot|X)} g^\*(X, y, y^{\prime})$$
 
 这表示：从目标策略采样一个回答，从参考策略采样一个回答，目标策略回答被偏好的概率。
 
@@ -196,20 +177,11 @@ $$
 
 因此，偏好优化可以理解为：
 
-$$
-\max_{\pi \in \Pi} p^*(\pi)
-$$
+$$\max\_{\pi \in \Pi} p^\*(\pi)$$
 
 当然，为了避免策略跑得太远，实际训练还会加 KL 正则：
 
-$$
-\max_{\pi \in \Pi}
-\left\{
-\hat p_{DR}(\pi)
-- \beta \mathbb{E}_{X \sim D}
-D_{KL}[\pi(\cdot|X) \| \hat \pi_{ref}(\cdot|X)]
-\right\}
-$$
+$$\max\_{\pi \in \Pi} \Bigl[ \hat p\_{DR}(\pi) - \beta \mathbb{E}\_{X \sim D} D\_{KL}[\pi(\cdot|X) \| \hat \pi\_{ref}(\cdot|X)] \Bigr]$$
 
 这就是 DRPO 的总体优化形式。
 
@@ -221,21 +193,11 @@ $$
 
 Direct Method 的思路最简单：我先训练一个偏好模型 $\hat g$，让它预测：
 
-$$
-\hat g(X, y, y') \approx P(y \succ y'|X)
-$$
+$$\hat g(X, y, y^{\prime}) \approx P(y \succ y^{\prime}|X)$$
 
 然后直接用它估计目标策略回答相对参考回答的胜率：
 
-$$
-\hat p_{DM}(\pi)
-= \frac{1}{2}
-\mathbb{E}_{X \sim D, y \sim \pi(\cdot|X)}
-[
-\hat g(X, y, Y^{(1)})
-+ \hat g(X, y, Y^{(2)})
-]
-$$
+$$\hat p\_{DM}(\pi) = \frac{1}{2} \mathbb{E}\_{X \sim D, y \sim \pi(\cdot|X)} [ \hat g(X, y, Y^{(1)}) + \hat g(X, y, Y^{(2)}) ]$$
 
 这个方法的优点是方差相对低，缺点也明显：如果 $\hat g$ 错了，估计就偏。
 
@@ -245,34 +207,15 @@ Importance Sampling 不依赖偏好模型，而是利用离线数据中真实观
 
 因为离线数据中的回答来自参考策略 $\pi_{ref}$，但我们想评估目标策略 $\pi$，所以要用概率比修正分布差异：
 
-$$
-w(y, x) = \frac{\pi(y|x)}{\pi_{ref}(y|x)}
-$$
+$$w(y, x) = \frac{\pi(y|x)}{\pi\_{ref}(y|x)}$$
 
 作者证明：
 
-$$
-p^*(\pi)
-= \frac{1}{2}
-\mathbb{E}
-[
-w(Y^{(1)}, X)Z
-+ w(Y^{(2)}, X)(1-Z)
-]
-$$
+$$p^\*(\pi) = \frac{1}{2} \mathbb{E} [ w(Y^{(1)}, X)Z + w(Y^{(2)}, X)(1-Z) ]$$
 
 对应的估计器为：
 
-$$
-\hat p_{IS}(\pi)
-= \frac{1}{2}
-\mathbb{E}_{D}
-\left[
-\frac{\pi(Y^{(1)}|X)}{\hat \pi_{ref}(Y^{(1)}|X)}Z
-+
-\frac{\pi(Y^{(2)}|X)}{\hat \pi_{ref}(Y^{(2)}|X)}(1-Z)
-\right]
-$$
+$$\hat p\_{IS}(\pi) = \frac{1}{2} \mathbb{E}\_{D} \left[ \frac{\pi(Y^{(1)}|X)}{\hat \pi\_{ref}(Y^{(1)}|X)}Z + \frac{\pi(Y^{(2)}|X)}{\hat \pi\_{ref}(Y^{(2)}|X)}(1-Z) \right]$$
 
 这个方法的优点是只要 reference policy 准，就可以修正离线分布。缺点是概率比可能非常大，导致高方差；如果 $\hat \pi_{ref}$ 错了，估计也会偏。
 
@@ -282,46 +225,21 @@ DR 的关键是把 DM 和 IS 组合起来。
 
 论文构造的估计函数可以理解为：
 
-$$
-\psi
-= \text{DM 预测项}
-+ \text{IS ratio} \times \text{偏好残差项}
-$$
+$$\psi = \text{DM 预测项} + \text{IS ratio} \times \text{偏好残差项}$$
 
 更具体地说，它包含两部分。
 
 第一部分是 DM：
 
-$$
-\frac{1}{2}
-\sum_{a=1}^{2}
-\mathbb{E}_{y \sim \pi(\cdot|X)}
-[
-\hat g(X, y, Y^{(a)})
-]
-$$
+$$\frac{1}{2} \sum\_{a=1}^{2} \mathbb{E}\_{y \sim \pi(\cdot|X)} [ \hat g(X, y, Y^{(a)}) ]$$
 
 第二部分是 augmentation term：
 
-$$
-\frac{1}{2}
-\sum_{a=1}^{2}
-(-1)^{a-1}
-\frac{\pi(Y^{(a)}|X)}{\hat \pi_{ref}(Y^{(a)}|X)}
-[
-Z - \hat g(X, Y^{(1)}, Y^{(2)})
-]
-$$
+$$\frac{1}{2} \sum\_{a=1}^{2} (-1)^{a-1} \frac{\pi(Y^{(a)}|X)}{\hat \pi\_{ref}(Y^{(a)}|X)} [ Z - \hat g(X, Y^{(1)}, Y^{(2)}) ]$$
 
 最终：
 
-$$
-\hat p_{DR}(\pi)
-= \mathbb{E}_{D}
-[
-\psi(X, Y^{(1)}, Y^{(2)}, Z; \pi, \hat \pi_{ref}, \hat g)
-]
-$$
+$$\hat p\_{DR}(\pi) = \mathbb{E}\_{D} [ \psi(X, Y^{(1)}, Y^{(2)}, Z; \pi, \hat \pi\_{ref}, \hat g) ]$$
 
 这个公式看起来复杂，但直觉很清楚：
 
@@ -339,17 +257,7 @@ $$
 
 论文中的 MSE 结论可以概括为：
 
-$$
-MSE(\hat p_{DR})
-= SEB
-+ O\left(\frac{1}{n}\|\hat g - g^*\|\right)
-+ O\left(\frac{1}{n}\|\frac{\hat \pi_{ref}}{\pi_{ref}} - 1\|\right)
-+ O\left(
-\|\frac{\hat \pi_{ref}}{\pi_{ref}} - 1\|^2
-\cdot
-\|\hat g - g^*\|^2
-\right)
-$$
+$$MSE(\hat p\_{DR}) = SEB + O\left(\frac{1}{n}\|\hat g - g^\*\|\right) + O\left(\frac{1}{n}\|\frac{\hat \pi\_{ref}}{\pi\_{ref}} - 1\|\right) + O\left( \|\frac{\hat \pi\_{ref}}{\pi\_{ref}} - 1\|^2 \cdot \|\hat g - g^\*\|^2 \right)$$
 
 最重要的是最后一项：偏差项依赖的是两个误差的乘积。
 
@@ -363,35 +271,15 @@ $$
 
 作者进一步证明，在 BT 模型成立时，DRPO 的 suboptimality gap 形式为：
 
-$$
-O\left(
-\beta
-+ \sqrt{\frac{v}{n}}
-+ \frac{v}{n}
-+ \|\frac{\hat \pi_{ref}}{\pi_{ref}} - 1\|
-\|\hat r - r^*\|
-\right)
-$$
+$$O\left( \beta + \sqrt{\frac{v}{n}} + \frac{v}{n} + \|\frac{\hat \pi\_{ref}}{\pi\_{ref}} - 1\| \|\hat r - r^\*\| \right)$$
 
 而 PPO 更像：
 
-$$
-O\left(
-\beta
-+ \sqrt{\frac{v}{n}}
-+ \frac{v}{n}
-+ \|\hat r - r^*\|
-\right)
-$$
+$$O\left( \beta + \sqrt{\frac{v}{n}} + \frac{v}{n} + \|\hat r - r^\*\| \right)$$
 
 DPO 更像：
 
-$$
-O\left(
-n^{-1/2}\log n
-+ \|\frac{\hat \pi_{ref}}{\pi_{ref}} - 1\|
-\right)
-$$
+$$O\left( n^{-1/2}\log n + \|\frac{\hat \pi\_{ref}}{\pi\_{ref}} - 1\| \right)$$
 
 也就是说，PPO 主要怕 reward model 错，DPO 主要怕 reference policy 错，而 DRPO 同时利用两者，单边错设时仍然可以稳住。
 
@@ -399,13 +287,7 @@ $$
 
 理论上的 DRPO 目标是：
 
-$$
-J(\pi_\theta; \hat \pi_{ref}, \hat g, D)
-= \hat p_{DR}(\pi)
-- \beta
-\mathbb{E}_{X \sim D}
-D_{KL}[\pi(\cdot|X) \| \hat \pi_{ref}(\cdot|X)]
-$$
+$$J(\pi\_\theta; \hat \pi\_{ref}, \hat g, D) = \hat p\_{DR}(\pi) - \beta \mathbb{E}\_{X \sim D} D\_{KL}[\pi(\cdot|X) \| \hat \pi\_{ref}(\cdot|X)]$$
 
 实际实现中有几个重要技巧。
 
@@ -413,15 +295,11 @@ $$
 
 原始偏好数据是：
 
-$$
-(X, Y^{(1)}, Y^{(2)}, Z)
-$$
+$$(X, Y^{(1)}, Y^{(2)}, Z)$$
 
 作者会加入交换后的样本：
 
-$$
-(X, Y^{(2)}, Y^{(1)}, 1-Z)
-$$
+$$(X, Y^{(2)}, Y^{(1)}, 1-Z)$$
 
 这样可以利用 pairwise comparison 的对称性，让每个样本同时贡献正反两个方向的信息，也能简化 loss 的写法。
 
@@ -429,9 +307,7 @@ $$
 
 DM 项里需要：
 
-$$
-y \sim \pi_\theta(\cdot|X)
-$$
+$$y \sim \pi\_\theta(\cdot|X)$$
 
 所以训练时会从当前策略为每个 prompt 采样若干回答 $Y^*$，再用偏好模型 $\hat g$ 比较 $Y^*$ 和离线数据中的回答。
 
@@ -441,19 +317,11 @@ $$
 
 重要性采样比率：
 
-$$
-\frac{\pi_\theta(Y|X)}{\hat \pi_{ref}(Y|X)}
-$$
+$$\frac{\pi\_\theta(Y|X)}{\hat \pi\_{ref}(Y|X)}$$
 
 可能非常大，尤其当目标策略和参考策略差异很大时。为了控制方差，作者对 ratio 做 clipping：
 
-$$
-clip\left(
-\frac{\pi_\theta(Y|X)}{\hat \pi_{ref}(Y|X)},
-1-\epsilon_1,
-1+\epsilon_2
-\right)
-$$
+$$clip\left( \frac{\pi\_\theta(Y|X)}{\hat \pi\_{ref}(Y|X)}, 1-\epsilon\_1, 1+\epsilon\_2 \right)$$
 
 这和 PPO 中 clipping 的动机有点像，都是为了避免单个样本的梯度影响过大。
 
@@ -463,15 +331,7 @@ $$
 
 最终的 loss 可以概括成：
 
-$$
-L_{DRPO}
-= -\frac{1}{2}
-\left[
-\text{偏好模型引导项}
-+ \text{stop-gradient 的残差纠偏项}
-\right]
-+ \beta \text{KL项}
-$$
+$$L\_{DRPO} = -\frac{1}{2} \left[ \text{偏好模型引导项} + \text{stop-gradient 的残差纠偏项} \right] + \beta \text{KL项}$$
 
 优化时最小化这个 loss，就等价于最大化 DRPO 目标。
 
