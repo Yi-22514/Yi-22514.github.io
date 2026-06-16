@@ -620,6 +620,14 @@ html.dark .trm-blog-card .trm-card-descr {
     text-shadow: 0 10px 28px rgba(0, 0, 0, 0.38);
 }
 
+/* The theme switch animation is a full-screen layer. Hide it to avoid rare stuck blank screens. */
+.trm-mode-swich-animation-frame {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
 @media (max-height: 760px) and (min-width: 992px) {
     .trm-sidebar .trm-main-card {
         padding: 18px 30px 18px !important;
