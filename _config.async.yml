@@ -73,9 +73,6 @@ top_bars:
   - title: 分类
     url: /categories/
     noswup: true
-  - title: 🦁 动物园
-    url: /living-zoo/
-    noswup: true
 
 banner:
   index:

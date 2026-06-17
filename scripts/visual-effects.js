@@ -155,9 +155,7 @@ hexo.extend.injector.register('body_end', `
           '[role="button"]',
           '.article-card',
           '.trm-blog-card',
-          '.trm-btn',
-          '.animal-pick-btn',
-          '.zoo-btn'
+          '.trm-btn'
         ].join(',');
 
         const pointer = {
