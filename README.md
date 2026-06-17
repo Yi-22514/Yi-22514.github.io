@@ -7,7 +7,7 @@
 - 站点类型：个人博客 / 在线学习笔记
 - 作者信息：`Yi`
 - 主要内容方向：Hexo 与 GitHub Pages 建站、Docker、LLaMA/大模型、本地部署、LLM 学习总结
-- 特色页面：`source/zoo/index.md` 提供一个自定义的互动动物园页面
+- 特色页面：`source/living-zoo/` 提供一个独立的 Matter.js 互动动物园页面，`source/zoo/index.md` 保留为旧版主题内嵌动物园页面
 - 部署目标：GitHub Pages 仓库 `git@github.com:Yi-22514/Yi-22514.github.io.git`，分支 `master`
 
 ## 技术栈
@@ -38,7 +38,8 @@
 │   ├── css/custom.css       # 全站自定义样式
 │   ├── img/                 # 文章配图、封面图、侧边栏资源
 │   ├── sw.js                # Service Worker
-│   └── zoo/index.md         # 自定义互动动物园页面
+│   ├── living-zoo/          # 独立互动动物园页面：HTML/CSS/Matter.js 逻辑
+│   └── zoo/index.md         # 旧版主题内嵌互动动物园页面
 ├── public/                  # Hexo 生成后的静态站点产物
 └── .deploy_git/             # hexo deploy 使用的部署缓存目录
 ```
@@ -62,7 +63,7 @@ Hexo 主配置文件，当前重点配置包括：
 - `deploy.repo: git@github.com:Yi-22514/Yi-22514.github.io.git`
 - `deploy.branch: master`
 
-注意：当前 `url` 还是 `http://example.com`，正式部署时建议改成实际站点地址，例如 GitHub Pages 地址或自定义域名。
+当前 `url` 已设置为 `https://yi-22514.github.io`。如果以后改用自定义域名，需要同步更新这里。
 
 ### `_config.async.yml`
 
@@ -140,7 +141,9 @@ banner:
 
 ### 互动动物园页面
 
-`source/zoo/index.md` 是一个自定义页面，包含内联 CSS 和 JavaScript。它实现了：
+当前导航入口指向 `source/living-zoo/`，这是一个独立页面，包含 HTML、CSS、Matter.js 物理引擎逻辑和 UI 胶水代码。旧版 `source/zoo/index.md` 仍保留为主题内嵌页面。
+
+旧版 `source/zoo/index.md` 实现了：
 
 - 动物选择与添加
 - 食物投喂
@@ -229,9 +232,10 @@ npm run deploy
 
 - `themes/` 目录目前基本为空，因为主题通过 npm 包 `hexo-theme-async` 提供。
 - `source/css/custom.css` 和 `scripts/*.js` 是当前站点个性化程度最高的地方，改主题或升级主题后优先检查这里。
-- `source/zoo/index.md` 是完整的自定义页面，样式和逻辑都写在同一个 Markdown 文件里，修改时注意不要破坏 front matter。
+- `source/living-zoo/` 是当前导航使用的独立动物园页面，已通过 `skip_render` 原样复制，修改路径时需要同步检查 `_config.yml` 和 `_config.async.yml`。
+- `source/zoo/index.md` 是旧版自定义页面，样式和逻辑都写在同一个 Markdown 文件里，修改时注意不要破坏 front matter。
 - `.deploy_git/` 是 Hexo 部署缓存目录，不等同于源码仓库。
-- 当前工作区没有可见的 `.git/` 元数据；如果需要源码版本管理，请确认是否在正确的 Git 仓库目录中。
+- 当前工作区是 Git 仓库，源码分支为 `main`。
 - `.gitignore` 已忽略 `node_modules/`、`public/`、`.deploy*/`、`db.json` 和日志文件。
 
 ## 当前构建状态

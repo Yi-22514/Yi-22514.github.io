@@ -3,50 +3,59 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Living Zoo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./styles.css">
+    <meta name="theme-color" content="#7dd3fc">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+    <title>Living Ecosystem Zoo</title>
+
+    <!-- These paths match this Hexo project: source/living-zoo/* -> /living-zoo/* -->
+    <link rel="stylesheet" href="/living-zoo/styles.css">
+
+    <!-- Matter.js must load before zoo.js. -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"
+      integrity="sha384-ZRKYEXtLBVeqs9z1WxyeKutCqnkqolS/r1EUWuoUpG4ZKbnRAIXnHhHdnNuiB6CL"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
+    <script defer src="/living-zoo/zoo.js"></script>
+    <script defer src="/living-zoo/main.js"></script>
   </head>
   <body>
-    <main id="zoo-container" class="zoo-container" data-weather="clear">
-      <canvas id="world-canvas" aria-label="Living Zoo interactive world"></canvas>
-      <div id="atmosphere-overlay" aria-hidden="true"></div>
+    <main id="zoo-container" class="zoo-shell" aria-label="Living Ecosystem Zoo">
+      <canvas id="zoo-canvas" class="zoo-canvas" aria-label="Interactive zoo simulation"></canvas>
 
-      <section class="world-title" aria-label="Living Zoo title">
-        <p class="eyebrow">Interactive Canvas</p>
-        <h1>Living Zoo</h1>
-        <p id="world-status" class="world-status">Tap the world to invite more friends.</p>
+      <section class="zoo-hero" aria-labelledby="zoo-title">
+        <p class="zoo-kicker">Living Ecosystem</p>
+        <h1 id="zoo-title">Living Zoo</h1>
+        <p id="zoo-status" class="zoo-status">Tap the habitat to drop food and watch the animals react.</p>
       </section>
 
-      <aside id="ui-panel" class="ui-panel" aria-label="Living Zoo controls">
-        <div class="panel-meta">
+      <aside id="ui-panel" class="zoo-panel" aria-label="Zoo controls">
+        <div class="panel-summary">
           <span class="panel-orb" aria-hidden="true"></span>
           <div>
-            <p class="panel-kicker">World Controls</p>
-            <p class="panel-state" id="panel-state">Sunny Day</p>
+            <p class="panel-label">Habitat State</p>
+            <p id="panel-state" class="panel-state">Sunny Day</p>
           </div>
         </div>
 
         <div class="panel-actions">
-          <button class="control-button weather-button" type="button" data-action="weather" aria-pressed="false">
-            <i data-lucide="cloud-rain" aria-hidden="true"></i>
+          <button id="weather-btn" class="glass-button" type="button" aria-pressed="false">
+            <span class="button-icon" aria-hidden="true">☔</span>
             <span>Weather</span>
           </button>
-          <button class="control-button day-button" type="button" data-action="day-night" aria-pressed="false">
-            <i data-lucide="moon-star" aria-hidden="true"></i>
-            <span>Day/Night</span>
+
+          <button id="night-btn" class="glass-button" type="button" aria-pressed="false">
+            <span class="button-icon" aria-hidden="true">🌙</span>
+            <span>Night</span>
           </button>
-          <button class="control-button clear-button" type="button" data-action="clear">
-            <i data-lucide="sparkles" aria-hidden="true"></i>
+
+          <button id="clear-btn" class="glass-button danger" type="button">
+            <span class="button-icon" aria-hidden="true">✨</span>
             <span>Clear</span>
           </button>
         </div>
       </aside>
     </main>
-
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script src="./app.js"></script>
   </body>
 </html>

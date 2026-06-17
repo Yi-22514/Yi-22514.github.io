@@ -311,7 +311,14 @@ hexo.extend.injector.register('body_end', `
         requestAnimationFrame(animateCursor);
       }
 
+      function initDynamicAge() {
+        const age = document.getElementById('dynamic-age');
+        if (!age) return;
+        age.textContent = String(new Date().getFullYear() - 2004);
+      }
+
       function initEffects() {
+        initDynamicAge();
         initDynamicSky();
         initScrollReveal();
         initCursor();

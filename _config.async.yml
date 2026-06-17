@@ -17,10 +17,14 @@ cdn:
 
 assets:
   third_party_provider: https://npm.elemecdn.com
+  plugin:
+    fancybox:
+      css: /vendor/fancybox/fancybox.css
+      js: /vendor/fancybox/fancybox.umd.js
   icons:
-    type: symbol
-    css:
-    js: //at.alicdn.com/t/font_383361_cfn4m13f4v.js
+    type: font
+    css: css/plugins/font-awesome.min.css
+    js:
 sidebar:
   typed_text_prefix: 
   typed_text:
@@ -39,7 +43,7 @@ sidebar:
     - key: 地址
       val: 中国
     - key: 年龄
-      val: "<span id='dynamic-age'>20</span><script>document.getElementById('dynamic-age').innerText = new Date().getFullYear() - 2004;</script>"
+      val: "<span id='dynamic-age'>20</span>"
     - key: QQ
       val: 1536519760
 

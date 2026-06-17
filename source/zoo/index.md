@@ -402,7 +402,7 @@ const ZOO = (function() {
   ANIMAL_DEFS.forEach((def, i) => {
     const btn = document.createElement('button');
     btn.className = 'animal-pick-btn';
-    btn.innerHTML = def.emoji;
+    btn.textContent = def.emoji;
     btn.title = '放入: ' + def.name;
     btn.onclick = () => addAnimal(def);
     picker.appendChild(btn);
