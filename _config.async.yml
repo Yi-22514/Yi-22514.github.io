@@ -89,6 +89,10 @@ banner:
 		speed: 80
 
 
+  archive:
+    type: video
+    bgurl: https://img-baofun.zhhainiao.com/pcwallpaper_ugc/preview/f37cc1d5f101596a13af18696cb9e6ee_preview.mp4
+
 cover:
   default: 
     - /img/covers/mountains.png
