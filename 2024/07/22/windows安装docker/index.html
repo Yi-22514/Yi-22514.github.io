@@ -11,18 +11,25 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="安装Docker">
 <meta property="og:url" content="https://yi-22514.github.io/2024/07/22/windows%E5%AE%89%E8%A3%85docker/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Yi 的学习与研究笔记">
 <meta property="og:description" content="​	Docker 是一种开源的容器化平台，旨在简化应用程序的开发、部署和运行过程。它提供了一种轻量级、可移植和自包含的容器化环境，使开发人员能够在不同的计算机上以一致的方式构建、打包和分发应用程序。 一、Docker介绍以下是 Docker 的几个核心概念： （1）容器（Container）：容器是 Docker 的基本部署单元。它是一个轻量级的、独立的运行时环境，包含应用程序及其相关依赖。容器利">
 <meta property="og:locale">
-<meta property="og:image" content="https://yi-22514.github.io/img/404.jpg">
-<meta property="og:image" content="https://yi-22514.github.io/img/404.jpg">
-<meta property="og:image" content="https://yi-22514.github.io/img/404.jpg">
-<meta property="og:image" content="https://yi-22514.github.io/img/404.jpg">
+<meta property="og:image" content="https://yi-22514.github.io/img/covers/abstract_blue.png">
+<meta property="og:image" content="https://yi-22514.github.io/img/covers/abstract_blue.png">
+<meta property="og:image" content="https://yi-22514.github.io/img/covers/abstract_blue.png">
+<meta property="og:image" content="https://yi-22514.github.io/img/covers/abstract_blue.png">
 <meta property="article:published_time" content="2024-07-22T08:19:34.502Z">
 <meta property="article:modified_time" content="2024-08-19T08:05:42.360Z">
 <meta property="article:author" content="Yi">
+<meta property="article:tag" content="LLM">
+<meta property="article:tag" content="AIGC">
+<meta property="article:tag" content="论文阅读">
+<meta property="article:tag" content="项目实践">
+<meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yi-22514.github.io/img/404.jpg">
+<meta name="twitter:image" content="https://yi-22514.github.io/img/covers/abstract_blue.png">
+
+    <meta name="keywords" content="LLM,AIGC,论文阅读,项目实践,学习笔记">
 
 
 <title >安装Docker</title>
@@ -67,7 +74,7 @@
 
 
 <!-- Variable -->
-<script>window.ASYNC_CONFIG = {"hostname":"yi-22514.github.io","author":"Yi","root":"/","typed_text":["《终南别业》","中岁颇好道，晚家南山陲。","兴来每独往，胜事空自知。","行到水穷处，坐看云起时。","偶然值林叟，谈笑无还期。"],"theme_version":"2.2.2","theme":{"switch":true,"default":"auto"},"favicon":{"logo":"log.svg","icon16":"log.svg","icon32":"log.svg","apple_touch_icon":"log.svg","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","show_text":"(/≧▽≦/）哈哈！骗你的！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://npm.elemecdn.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"07/13/2024 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner","avatar":true,"delayRange":5000,"speed":80},"covers":["/img/covers/mountains.png","/img/covers/abstract_blue.png","/img/covers/autumn_lake.png","/img/covers/sakura.png","/img/covers/starry_night.png","/img/covers/ocean_sunset.png","/img/covers/bamboo_forest.png","/img/covers/snow_village.png"]};</script>
+<script>window.ASYNC_CONFIG = {"hostname":"yi-22514.github.io","author":"Yi","root":"/","typed_text":["LLM 学习与研究记录","论文阅读与知识整理","项目实践与工具配置"],"theme_version":"2.2.2","theme":{"switch":true,"default":"auto"},"favicon":{"logo":"/log.svg","icon16":"/log.svg","icon32":"/log.svg","apple_touch_icon":"/log.svg","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"/failure.ico","show_text":"欢迎回来 ·","hide_text":"稍后再见"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://npm.elemecdn.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":false,"el":".trm-banner"},"covers":["/img/covers/mountains.png","/img/covers/abstract_blue.png","/img/covers/autumn_lake.png","/img/covers/sakura.png","/img/covers/starry_night.png","/img/covers/ocean_sunset.png","/img/covers/bamboo_forest.png","/img/covers/snow_village.png"],"notice_outdate":{"enable":true,"style":"flat","limit_day":365,"position":"top"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"trigger":"auto","top_n_per_article":3,"unescape":false,"preload":false,"path":"search.xml"}};</script>
 <script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-08-19 16:05:42"};</script>
 
 <!-- Theme mode css -->
@@ -83,7 +90,7 @@
 
 
     
-<link rel="stylesheet" href="/css/custom.css?v=202606161455.css">
+<link rel="stylesheet" href="/css/custom.css">
 
     
 
@@ -142,7 +149,7 @@
     
     
         <div class="trm-logo-text">
-            we are all look up to same <span>sky</span>
+            Yi ·<span>研究笔记</span>
         </div>
     
 </a>
@@ -192,6 +199,12 @@
     <!-- mode switcher place end -->
 
 			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
 		</div>
 		<div class="trm-menu-btn">
 			<span></span>
@@ -207,7 +220,7 @@
     <div class="trm-banner">
     
     <!-- banner cover -->
-    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="https://paooo.com/media/2023/09/1695020208-1695020208-image-jpg-webp.webp">
+    <img style="object-position:center;object-fit:cover;" alt="banner" class="trm-banner-cover" src="https://paooo.com/media/2023/09/1695020208-1695020208-image-jpg-webp.webp">
     <!-- banner cover end -->
     
 
@@ -265,7 +278,7 @@
     <div class="col-sm-4">
         <div class="trm-card trm-label trm-label-light text-center">
             <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
-            07/22
+            2024-07-22
         </div>
     </div>
     <div class="col-sm-4">
@@ -288,23 +301,23 @@
 <p><strong>（1）容器（Container）：</strong>容器是 Docker 的基本部署单元。它是一个轻量级的、独立的运行时环境，包含应用程序及其相关依赖。容器利用 Linux 内核的命名空间和控制组技术，实现了隔离性和资源管理，使得应用程序在不同的容器中运行不会相互影响。<br><strong>（2）镜像（Image）：</strong>镜像是用于创建容器的模板。它包含了一个完整的文件系统，其中包括应用程序运行所需的所有文件、依赖和配置信息。镜像是不可变的，通过 Docker 镜像可以创建多个相同的容器实例。<br>镜像仓库（Image Registry）：镜像仓库是用于存储和分发 Docker 镜像的地方。最常用的公共镜像仓库是 <strong>（3）</strong></p>
 <p><strong>（3）Docker Hub：</strong>上面有大量的官方和社区共享的镜像。此外，还可以搭建私有的镜像仓库，用于存放自己的镜像。<br><strong>（4）Dockerfile：</strong>Dockerfile 是一种文本文件，用于定义 Docker 镜像的构建过程。它包含了一系列的指令，用于指定基础镜像、安装软件、拷贝文件、配置环境等。通过 Dockerfile，可以自动化地构建镜像，确保镜像的一致性和可重复性。<br>    Docker 的优势在于它的轻量性、可移植性和灵活性。通过使用 Docker，开发人员可以更轻松地创建一个可靠的开发环境、快速部署应用程序、实现弹性扩展和服务编排等。同时，它也提供了生态系统丰富的工具和服务，例如容器编排工具 Docker Compose 和容器编排平台 Kubernetes，使得容器化应用的管理更加便捷和高效。</p>
 <h1 id="二、任务栏搜索：启用或关闭Windows功能"><a href="#二、任务栏搜索：启用或关闭Windows功能" class="headerlink" title="二、任务栏搜索：启用或关闭Windows功能"></a>二、任务栏搜索：启用或关闭Windows功能</h1><p>​	需要勾选图中倒数2、3个</p>
-<p><img src="/img/installDocker/1.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/img/installDocker/1.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/covers/abstract_blue.png"'></p>
 <h1 id="三、下载WSL"><a href="#三、下载WSL" class="headerlink" title="三、下载WSL"></a>三、下载WSL</h1><p>设置默认版本是2</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --set-default-version 2</span><br></pre></td></tr></table></figure>
 
-<p><img src="/img/installDocker/2.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/img/installDocker/2.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/covers/abstract_blue.png"'></p>
 <p>安装wsl：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --update --web-download</span><br></pre></td></tr></table></figure>
 
 <p>国内网络建议在最后加上：–web-download，避免网络问题。如果能够科学上网，就可不加了。</p>
 <h1 id="四、安装Docker"><a href="#四、安装Docker" class="headerlink" title="四、安装Docker"></a>四、安装Docker</h1><p>可以去官网上下载：<a target="_blank" rel="noopener" href="https://www.docker.com/get-started/">Docker官网</a></p>
-<p><img src="/img/installDocker/6.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/img/installDocker/6.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/covers/abstract_blue.png"'></p>
 <p>下载后会有一个.exe安装文件。Docker默认是安装在C盘的，如果需要指定安装位置，就在命令行输入：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start /w &quot;&quot; &quot;Docker Desktop Installer.exe&quot; install --installation-dir=D:\Docker</span><br></pre></td></tr></table></figure>
 
 <p>把最后的安装路径换成自己想安装的位置即可。</p>
 <h1 id="五、配置镜像源加速"><a href="#五、配置镜像源加速" class="headerlink" title="五、配置镜像源加速"></a>五、配置镜像源加速</h1><p>打开Docker Desktop，点击上方工具栏的设置，选择左侧的 Doocker Engine选项，将内容替换。</p>
-<p><img src="/img/installDocker/4.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/img/installDocker/4.jpg" alt="图"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/covers/abstract_blue.png"'></p>
 <p>全部替换为：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;builder&quot;: &#123;</span><br><span class="line">    &quot;gc&quot;: &#123;</span><br><span class="line">      &quot;defaultKeepStorage&quot;: &quot;20GB&quot;,</span><br><span class="line">      &quot;enabled&quot;: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;experimental&quot;: false,</span><br><span class="line">  &quot;registry-mirrors&quot;: [</span><br><span class="line">    &quot;https://docker.m.daocloud.io&quot;,</span><br><span class="line">    &quot;https://docker.1panel.live&quot;,</span><br><span class="line">    &quot;https://hub.rat.dev&quot;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -325,31 +338,20 @@
     </div>
     
         <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/07/22/Llama%E6%9C%AC%E5%9C%B0%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2/" class="trm-cover-frame trm-anima-link">
+    <div class="trm-older-publications-card trm-scroll-animation trm-active-el">
+        <div class="trm-older-publication">
             
-            
-                <div class="trm-cover-img" data-random-img></div>
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/Llama/">
-                    Llama
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/07/22/Llama%E6%9C%AC%E5%9C%B0%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2/" class="trm-anima-link">
-                    Llama3本地简易部署
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <a class="trm-op-top trm-anima-link" href="/2024/07/22/Llama%E6%9C%AC%E5%9C%B0%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2/">
+                <span class="trm-op-cover">
+                    <img alt="cover" class="no-fancybox" src="/img/covers/mountains.png">
+                </span>
+                <h6 class="trm-op-title">Llama3本地简易部署</h6>
+            </a>
+            <div class="trm-divider trm-mb-15 trm-mt-20"></div>
             <ul class="trm-card-data trm-label">
-                <li>24/07/22</li>
+                <li>2024-07-22</li>
                 <li>18:25</li>
-                
-                
+                <li>Llama</li>
             </ul>
         </div>
     </div>
@@ -357,31 +359,20 @@
     
     
         <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/07/18/Hexo%20+%20github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/" class="trm-cover-frame trm-anima-link">
+    <div class="trm-older-publications-card trm-scroll-animation trm-active-el">
+        <div class="trm-older-publication">
             
-            
-                <div class="trm-cover-img" data-random-img></div>
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
-                    搭建博客
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/07/18/Hexo%20+%20github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/" class="trm-anima-link">
-                    Hexo + Github 搭建个人博客
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <a class="trm-op-top trm-anima-link" href="/2024/07/18/Hexo%20+%20github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/">
+                <span class="trm-op-cover">
+                    <img alt="cover" class="no-fancybox" src="/img/covers/mountains.png">
+                </span>
+                <h6 class="trm-op-title">Hexo + Github 搭建个人博客</h6>
+            </a>
+            <div class="trm-divider trm-mb-15 trm-mt-20"></div>
             <ul class="trm-card-data trm-label">
-                <li>24/07/18</li>
+                <li>2024-07-18</li>
                 <li>09:19</li>
-                
-                
+                <li>搭建博客</li>
             </ul>
         </div>
     </div>
@@ -404,10 +395,12 @@
 
       
 
-    
-        <div class="trm-footer-item blog-run-long"></div>
      
 
+    
+        <div class="trm-footer-item">
+            持续记录，保持思考。
+        </div>
      
 </footer>
                     <!-- footer end -->
@@ -441,6 +434,43 @@
   <!-- app wrapper end -->
 
   
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
   <!-- Plugin -->
 
 
@@ -457,6 +487,11 @@
     
 
     
+        
+<script src="/vendor/search/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.2"></script>
+    
 
     <!-- 数学公式 -->
     
@@ -468,8 +503,6 @@
         
     
 
-		
-			<script src="/js/plugins/danmu.js?v=2.2.2"></script>
 		
 
 
@@ -602,12 +635,10 @@
       function initScrollReveal() {
         const selector = [
           '.reveal-on-scroll',
-          '.trm-scroll-animation',
           '.trm-blog-card',
-          '.trm-card',
           '.trm-blog-categories',
-          '.trm-footer-card',
-          '.trm-post-content > *'
+          '.trm-timeline-item',
+          '.trm-footer-card'
         ].join(',');
 
         const elements = Array.from(document.querySelectorAll(selector));
@@ -811,11 +842,42 @@
         age.textContent = String(new Date().getFullYear() - 2004);
       }
 
+      function initPageContext() {
+        const page = window.PAGE_CONFIG || {};
+        document.body.classList.toggle('yi-home', Boolean(page.isHome));
+        document.body.classList.toggle('yi-post', Boolean(page.isPost));
+      }
+
+      function initSystemThemeSync() {
+        const media = window.matchMedia('(prefers-color-scheme: dark)');
+
+        function sync() {
+          if (localStorage.getItem('theme-mode')) return;
+
+          const dark = media.matches;
+          document.documentElement.classList.toggle('dark', dark);
+
+          const switcher = document.getElementById('trm-swich');
+          if (switcher) switcher.checked = dark;
+
+          if (window.asyncFun && typeof window.asyncFun.setThemeColor === 'function') {
+            window.asyncFun.setThemeColor();
+          }
+        }
+
+        sync();
+        if (typeof media.addEventListener === 'function') {
+          media.addEventListener('change', sync);
+        } else if (typeof media.addListener === 'function') {
+          media.addListener(sync);
+        }
+      }
+
       function initEffects() {
+        initPageContext();
+        initSystemThemeSync();
         initDynamicAge();
-        initDynamicSky();
         initScrollReveal();
-        initCursor();
       }
 
       if (document.readyState === 'loading') {
