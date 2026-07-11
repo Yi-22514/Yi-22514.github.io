@@ -11,7 +11,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Transformer架构个人学习总结">
 <meta property="og:url" content="https://yi-22514.github.io/2026/06/16/Transformer%E6%9E%B6%E6%9E%84%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/index.html">
-<meta property="og:site_name" content="Yi 的学习与研究笔记">
+<meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Transformer架构个人学习总结最近学习了 Datawhale 的 Happy-LLM 第二章《Transformer 架构》，这篇文章算是我对 Transformer 的一次阶段性整理。以前看到 Transformer，总觉得它和“大模型”几乎是绑定出现的词，但真正顺着 Attention、Encoder-Decoder、位置编码这些组件往下看，才发现它并不是一个神秘黑盒，而是一套围绕“如">
 <meta property="og:locale">
 <meta property="article:published_time" content="2026-06-15T16:00:05.000Z">
@@ -21,8 +21,6 @@
 <meta property="article:tag" content="Attention">
 <meta property="article:tag" content="LLM">
 <meta name="twitter:card" content="summary">
-
-    <meta name="keywords" content="LLM,AIGC,论文阅读,项目实践,学习笔记">
 
 
 <title >Transformer架构个人学习总结</title>
@@ -69,7 +67,7 @@
 
 
 <!-- Variable -->
-<script>window.ASYNC_CONFIG = {"hostname":"yi-22514.github.io","author":"Yi","root":"/","typed_text":["LLM 学习与研究记录","论文阅读与知识整理","项目实践与工具配置"],"theme_version":"2.2.2","theme":{"switch":true,"default":"auto"},"favicon":{"logo":"/log.svg","icon16":"/log.svg","icon32":"/log.svg","apple_touch_icon":"/log.svg","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"/failure.ico","show_text":"欢迎回来 ·","hide_text":"稍后再见"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://npm.elemecdn.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":false,"el":".trm-banner"},"covers":["/img/covers/mountains.png","/img/covers/abstract_blue.png","/img/covers/autumn_lake.png","/img/covers/sakura.png","/img/covers/starry_night.png","/img/covers/ocean_sunset.png","/img/covers/bamboo_forest.png","/img/covers/snow_village.png"],"notice_outdate":{"enable":true,"style":"flat","limit_day":365,"position":"top"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"trigger":"auto","top_n_per_article":3,"unescape":false,"preload":false,"path":"search.xml"}};</script>
+<script>window.ASYNC_CONFIG = {"hostname":"yi-22514.github.io","author":"Yi","root":"/","typed_text":["《终南别业》","中岁颇好道，晚家南山陲。","兴来每独往，胜事空自知。","行到水穷处，坐看云起时。","偶然值林叟，谈笑无还期。"],"theme_version":"2.2.2","theme":{"switch":true,"default":"auto"},"favicon":{"logo":"log.svg","icon16":"log.svg","icon32":"log.svg","apple_touch_icon":"log.svg","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","show_text":"(/≧▽≦/）哈哈！骗你的！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://npm.elemecdn.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"07/13/2024 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner","avatar":true,"delayRange":5000,"speed":80},"covers":["/img/covers/mountains.png","/img/covers/abstract_blue.png","/img/covers/autumn_lake.png","/img/covers/sakura.png","/img/covers/starry_night.png","/img/covers/ocean_sunset.png","/img/covers/bamboo_forest.png","/img/covers/snow_village.png"]};</script>
 <script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2026-06-16 00:06:45"};</script>
 
 <!-- Theme mode css -->
@@ -85,7 +83,7 @@
 
 
     
-<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/custom.css?v=202606161455.css">
 
     
 
@@ -144,7 +142,7 @@
     
     
         <div class="trm-logo-text">
-            Yi ·<span>研究笔记</span>
+            we are all look up to same <span>sky</span>
         </div>
     
 </a>
@@ -194,12 +192,6 @@
     <!-- mode switcher place end -->
 
 			
-    
-    <div id="trm-search-btn" class="trm-search-btn">
-        <i class="iconfont fas fa-search"></i>
-    </div>
-     
-
 		</div>
 		<div class="trm-menu-btn">
 			<span></span>
@@ -215,7 +207,7 @@
     <div class="trm-banner">
     
     <!-- banner cover -->
-    <img style="object-position:center;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/covers/starry_night.png">
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/covers/starry_night.png">
     <!-- banner cover end -->
     
 
@@ -273,7 +265,7 @@
     <div class="col-sm-4">
         <div class="trm-card trm-label trm-label-light text-center">
             <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
-            2026-06-16
+            06/16
         </div>
     </div>
     <div class="col-sm-4">
@@ -400,20 +392,31 @@
     </div>
     
         <div class="col-lg-6">
-    <div class="trm-older-publications-card trm-scroll-animation trm-active-el">
-        <div class="trm-older-publication">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2026/06/16/%E9%A2%84%E8%AE%AD%E7%BB%83%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="trm-cover-frame trm-anima-link">
             
-            <a class="trm-op-top trm-anima-link" href="/2026/06/16/%E9%A2%84%E8%AE%AD%E7%BB%83%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">
-                <span class="trm-op-cover">
-                    <img alt="cover" class="no-fancybox" src="/img/covers/mountains.png">
-                </span>
-                <h6 class="trm-op-title">预训练语言模型个人学习总结</h6>
-            </a>
-            <div class="trm-divider trm-mb-15 trm-mt-20"></div>
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/LLM/">
+                    LLM
+                </a>
+            </div>
+            <h5>
+                <a href="/2026/06/16/%E9%A2%84%E8%AE%AD%E7%BB%83%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="trm-anima-link">
+                    预训练语言模型个人学习总结
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
             <ul class="trm-card-data trm-label">
-                <li>2026-06-16</li>
+                <li>26/06/16</li>
                 <li>00:12</li>
-                <li>LLM</li>
+                
+                
             </ul>
         </div>
     </div>
@@ -421,20 +424,31 @@
     
     
         <div class="col-lg-6">
-    <div class="trm-older-publications-card trm-scroll-animation trm-active-el">
-        <div class="trm-older-publication">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2024/07/22/Llama%E6%9C%AC%E5%9C%B0%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2/" class="trm-cover-frame trm-anima-link">
             
-            <a class="trm-op-top trm-anima-link" href="/2024/07/22/Llama%E6%9C%AC%E5%9C%B0%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2/">
-                <span class="trm-op-cover">
-                    <img alt="cover" class="no-fancybox" src="/img/covers/mountains.png">
-                </span>
-                <h6 class="trm-op-title">Llama3本地简易部署</h6>
-            </a>
-            <div class="trm-divider trm-mb-15 trm-mt-20"></div>
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/Llama/">
+                    Llama
+                </a>
+            </div>
+            <h5>
+                <a href="/2024/07/22/Llama%E6%9C%AC%E5%9C%B0%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2/" class="trm-anima-link">
+                    Llama3本地简易部署
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
             <ul class="trm-card-data trm-label">
-                <li>2024-07-22</li>
+                <li>24/07/22</li>
                 <li>18:25</li>
-                <li>Llama</li>
+                
+                
             </ul>
         </div>
     </div>
@@ -457,12 +471,10 @@
 
       
 
+    
+        <div class="trm-footer-item blog-run-long"></div>
      
 
-    
-        <div class="trm-footer-item">
-            持续记录，保持思考。
-        </div>
      
 </footer>
                     <!-- footer end -->
@@ -476,24 +488,8 @@
 
             
 
-    <div id="post-toc" class="trm-post-toc">
-      <div class="trm-post-toc-header">
-        目录导航
-				<span id="post-toc-top">
-					置顶
-				</span>
-      </div>
-      <div class="trm-post-toc-content">
-        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="一、为什么需要 Transformer"><a rel="nofollow" class="trm-toc-link" href="#一、为什么需要-Transformer"><span class="trm-toc-text">一、为什么需要 Transformer</span></a></li><li class="trm-toc-item trm-toc-level-2" title="二、Attention 的核心：Q、K、V"><a rel="nofollow" class="trm-toc-link" href="#二、Attention-的核心：Q、K、V"><span class="trm-toc-text">二、Attention 的核心：Q、K、V</span></a></li><li class="trm-toc-item trm-toc-level-2" title="三、自注意力：一句话内部的互相理解"><a rel="nofollow" class="trm-toc-link" href="#三、自注意力：一句话内部的互相理解"><span class="trm-toc-text">三、自注意力：一句话内部的互相理解</span></a></li><li class="trm-toc-item trm-toc-level-2" title="四、Mask Self-Attention：不能偷看答案"><a rel="nofollow" class="trm-toc-link" href="#四、Mask-Self-Attention：不能偷看答案"><span class="trm-toc-text">四、Mask Self-Attention：不能偷看答案</span></a></li><li class="trm-toc-item trm-toc-level-2" title="五、多头注意力：从多个角度看同一句话"><a rel="nofollow" class="trm-toc-link" href="#五、多头注意力：从多个角度看同一句话"><span class="trm-toc-text">五、多头注意力：从多个角度看同一句话</span></a></li><li class="trm-toc-item trm-toc-level-2" title="六、Encoder 和 Decoder 的分工"><a rel="nofollow" class="trm-toc-link" href="#六、Encoder-和-Decoder-的分工"><span class="trm-toc-text">六、Encoder 和 Decoder 的分工</span></a></li><li class="trm-toc-item trm-toc-level-2" title="七、前馈神经网络、LayerNorm 和残差连接"><a rel="nofollow" class="trm-toc-link" href="#七、前馈神经网络、LayerNorm-和残差连接"><span class="trm-toc-text">七、前馈神经网络、LayerNorm 和残差连接</span></a></li><li class="trm-toc-item trm-toc-level-2" title="八、位置编码：给并行计算补上顺序感"><a rel="nofollow" class="trm-toc-link" href="#八、位置编码：给并行计算补上顺序感"><span class="trm-toc-text">八、位置编码：给并行计算补上顺序感</span></a></li><li class="trm-toc-item trm-toc-level-2" title="九、完整 Transformer 的流程"><a rel="nofollow" class="trm-toc-link" href="#九、完整-Transformer-的流程"><span class="trm-toc-text">九、完整 Transformer 的流程</span></a></li><li class="trm-toc-item trm-toc-level-2" title="十、我的阶段性理解"><a rel="nofollow" class="trm-toc-link" href="#十、我的阶段性理解"><span class="trm-toc-text">十、我的阶段性理解</span></a></li><li class="trm-toc-item trm-toc-level-2" title="参考资料"><a rel="nofollow" class="trm-toc-link" href="#参考资料"><span class="trm-toc-text">参考资料</span></a></li></ol>
-      </div>
-    </div>
-
             
 <div class="trm-fixed-container">
-    
-        <div class="trm-fixed-btn post-toc-btn" data-title="目录">
-            <i class="iconfont fas fa-th-list"></i>
-        </div>
     
     
         <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
@@ -512,43 +508,6 @@
   <!-- app wrapper end -->
 
   
-    <div class="trm-search-popup">
-        <div class="trm-search-wrapper">
-            <div class="form trm-search-form">
-                <div class="trm-search-input-icon">
-                    <i class="iconfont fas fa-search"></i>
-                </div>
-                <input class="trm-search-input" type="text" placeholder="搜索文章...">
-                <div class="trm-search-btn-close">
-                    <i class="iconfont fas fa-times"></i>
-                </div>
-            </div>
-            <div class="trm-search-result-container">
-                <div class="trm-search-empty">
-                    请输入关键词进行搜索
-                </div>
-            </div>
-            <div class="trm-search-footer">
-                <div class="trm-search-stats"></div>
-                <ul class="trm-search-commands">
-                    <li>
-                        <kbd class="command-palette-commands-key">
-                            <svg width="15" height="15" aria-label="Escape key" role="img">
-                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="1.2">
-                                    <path
-                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
-                                    </path>
-                                </g>
-                            </svg>
-                        </kbd>
-                        <span class="command-palette-Label">to close</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
   <!-- Plugin -->
 
 
@@ -564,11 +523,6 @@
         <script src="/js/plugins/typing.js?v=2.2.2"></script>
     
 
-    
-        
-<script src="https://npm.elemecdn.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
-
-        <script src="/js/plugins/local_search.js?v=2.2.2"></script>
     
 
     <!-- 数学公式 -->
@@ -604,6 +558,8 @@
         
     
 
+		
+			<script src="/js/plugins/danmu.js?v=2.2.2"></script>
 		
 
 
