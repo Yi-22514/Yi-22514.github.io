@@ -527,7 +527,7 @@
 
     
         
-<script src="/vendor/search/search.js"></script>
+<script src="https://npm.elemecdn.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
 
         <script src="/js/plugins/local_search.js?v=2.2.2"></script>
     
@@ -674,10 +674,12 @@
       function initScrollReveal() {
         const selector = [
           '.reveal-on-scroll',
+          '.trm-scroll-animation',
           '.trm-blog-card',
+          '.trm-card',
           '.trm-blog-categories',
-          '.trm-timeline-item',
-          '.trm-footer-card'
+          '.trm-footer-card',
+          '.trm-post-content > *'
         ].join(',');
 
         const elements = Array.from(document.querySelectorAll(selector));
@@ -881,42 +883,11 @@
         age.textContent = String(new Date().getFullYear() - 2004);
       }
 
-      function initPageContext() {
-        const page = window.PAGE_CONFIG || {};
-        document.body.classList.toggle('yi-home', Boolean(page.isHome));
-        document.body.classList.toggle('yi-post', Boolean(page.isPost));
-      }
-
-      function initSystemThemeSync() {
-        const media = window.matchMedia('(prefers-color-scheme: dark)');
-
-        function sync() {
-          if (localStorage.getItem('theme-mode')) return;
-
-          const dark = media.matches;
-          document.documentElement.classList.toggle('dark', dark);
-
-          const switcher = document.getElementById('trm-swich');
-          if (switcher) switcher.checked = dark;
-
-          if (window.asyncFun && typeof window.asyncFun.setThemeColor === 'function') {
-            window.asyncFun.setThemeColor();
-          }
-        }
-
-        sync();
-        if (typeof media.addEventListener === 'function') {
-          media.addEventListener('change', sync);
-        } else if (typeof media.addListener === 'function') {
-          media.addListener(sync);
-        }
-      }
-
       function initEffects() {
-        initPageContext();
-        initSystemThemeSync();
         initDynamicAge();
+        initDynamicSky();
         initScrollReveal();
+        initCursor();
       }
 
       if (document.readyState === 'loading') {

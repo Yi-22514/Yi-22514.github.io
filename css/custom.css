@@ -831,12 +831,10 @@ select:focus-visible,
 
 /* Navigation */
 .trm-top-bar {
-    z-index: 1000 !important;
     min-height: 68px;
     border-bottom: 1px solid var(--yi-border-soft);
     box-shadow: none;
     background: var(--theme-bg-color-80);
-    background-color: var(--yi-card) !important;
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
 }
@@ -945,10 +943,6 @@ html.dark .trm-logo-text span {
     line-height: 1.2;
     letter-spacing: -0.035em;
     text-shadow: 0 2px 18px rgba(0, 0, 0, 0.24);
-    white-space: normal;
-    overflow: visible;
-    text-overflow: clip;
-    overflow-wrap: anywhere;
 }
 
 .trm-banner .trm-banner-text > .trm-label {
@@ -968,15 +962,6 @@ html.dark .trm-logo-text span {
 .yi-home .trm-banner .trm-breadcrumbs,
 .trm-scroll-hint-frame {
     display: none;
-}
-
-.yi-post .trm-banner .trm-banner-text > .trm-label {
-    font-size: 0;
-}
-
-.yi-post .trm-banner .trm-banner-text > .trm-label::after {
-    content: "学习笔记 · KNOWLEDGE NOTE";
-    font-size: 12px;
 }
 
 /* Main layout and the personal card */
@@ -1270,22 +1255,6 @@ html.dark .trm-blog-card .trm-card-descr {
     margin: 0;
 }
 
-.trm-blog-card .trm-card-data li:nth-child(3)::before {
-    content: "约 ";
-}
-
-.trm-blog-card .trm-card-data li:nth-child(3)::after {
-    content: " 字";
-}
-
-.trm-blog-card .trm-card-data li:nth-child(4)::before {
-    content: "阅读 ";
-}
-
-.trm-blog-card .trm-card-data li:nth-child(4)::after {
-    content: " 分钟";
-}
-
 /* Shared cards, post metadata and pagination */
 .trm-card,
 .trm-post-info .trm-card,
@@ -1320,16 +1289,6 @@ html.dark .trm-blog-card .trm-card-descr {
 .trm-page-content.col-lg-12 > .trm-post-info {
     max-width: 920px;
     margin-inline: auto;
-}
-
-.trm-page-content,
-.trm-page-content > .trm-content,
-.trm-page-content .trm-card,
-#article-container,
-#article-container > * {
-    min-width: 0;
-    max-width: 100%;
-    box-sizing: border-box;
 }
 
 .trm-pagination {
@@ -1642,10 +1601,6 @@ html.dark .trm-blog-card .trm-card-descr {
     color: var(--yi-accent);
 }
 
-.trm-timeline .trm-card-data li:last-child::after {
-    content: " 字";
-}
-
 /* Search dialog */
 .trm-search-popup {
     padding: 24px;
@@ -1769,16 +1724,10 @@ html.dark .trm-blog-card .trm-card-descr {
 
 @media (max-width: 991px) {
     .trm-top-bar {
-        height: 64px;
         min-height: 64px;
     }
 
-    .trm-top-bar .container .trm-left-side .trm-logo-frame {
-        height: 64px;
-    }
-
-    .trm-top-bar .container .trm-right-side {
-        top: 64px;
+    .trm-right-side {
         background: var(--yi-card);
     }
 
@@ -1823,36 +1772,6 @@ html.dark .trm-blog-card .trm-card-descr {
         display: none;
     }
 
-    .yi-home .trm-page-content > .trm-content > .row.hidden-sm {
-        display: flex !important;
-    }
-
-    .yi-home .trm-page-content > .trm-content > .row.hidden-sm::before {
-        content: "主要分类";
-        flex: 0 0 100%;
-        max-width: 100%;
-        margin: 0 20px 16px;
-        color: var(--yi-ink);
-        font-family: var(--yi-display-font);
-        font-size: 24px;
-        font-weight: 500;
-    }
-
-    .yi-home .trm-page-content > .trm-content > .row.hidden-sm > [class*="col-"] {
-        flex: 0 0 50%;
-        max-width: 50%;
-        padding-inline: 10px;
-    }
-
-    .yi-home .trm-page-content > .trm-content > .row.hidden-sm .trm-blog-categories {
-        min-height: 132px;
-        padding: 18px 14px;
-    }
-
-    .yi-home .trm-page-content > .trm-content > .row.hidden-sm .trm-blog-categories h6 {
-        font-size: 20px;
-    }
-
     .trm-banner,
     .yi-home .trm-banner {
         height: 290px;
@@ -1872,9 +1791,6 @@ html.dark .trm-blog-card .trm-card-descr {
         margin-bottom: 14px !important;
         font-size: clamp(30px, 9vw, 38px);
         line-height: 1.28;
-        white-space: normal !important;
-        overflow: visible !important;
-        text-overflow: clip !important;
     }
 
     .trm-banner .trm-banner-text > .trm-label {
@@ -1911,20 +1827,8 @@ html.dark .trm-blog-card .trm-card-descr {
     }
 
     #article-container {
-        width: 100%;
         font-size: 16.5px;
         line-height: 1.82;
-    }
-
-    #article-container h1,
-    #article-container h2,
-    #article-container h3,
-    #article-container h4,
-    #article-container p,
-    #article-container li {
-        white-space: normal;
-        overflow-wrap: anywhere;
-        word-break: normal;
     }
 
     #article-container h1 {
